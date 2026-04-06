@@ -1,0 +1,542 @@
+Yardım Derneğiyiz Kurban Kesim Faaliyeti yapıyoruz.
+Buna uygun web sitesi oluştur
+
+Kurban Bayramı 1.Günü Canlı kesim bu web sayfası üzerinden yapacağız. Bu özellik bayramın 1.günü aktifleştireceğiz ama öncesinde demo yapmamız gerekecek. bunu nasıl aktifleştireceğimize sen karar ver. sağ üst köşede kullanıcı login yapıp orada canlı kesim olabilir şimdilik bilemedim sen karar ver.
+
+forge_kurban_bot
+Use this token to access the HTTP API:
+8678104217:AAEnSbUk2J3mumNbO8_8wVUi7McLqmaP0fQ
+
+
+Telegram bot ile kurban kesimini yönetmek istiyorum bu site ile interaktif olacak. Kurban kestiren hissedarlar bu site üzerinde 1.günü canlı kesimi görecekler. Hangi Kesim Sıra Nolu kurban kesiliyor. Bizde kurbanlar sırayla kesilyor. Her kurbanın bir kesim sıra nosu var, bayram namazından sonra kurbanlar yaklaşık 2 dk ara ile kesiliyor. bu site üzerinde kurban kesim paneli olsun orada hangi numaralı kurbanın kesildği bilgisi olsun. bir kulllanıcı elinde telefon telegramm üzerinden komut girsin komutlar neler olsun ? komutları botfather ekle
+Örneğin
+/bekliyor 10      - Kesim Bekliyor olsun  10.Nolu Kurban Kesim Bekleniyor
+/kesildi 10     -Kesiliyor  10 Nolu Kurban Kesiliyor.
+/tamam 10  - Kesim tamamlandı   10 Nolu Kurban Kesildi.
+/iptal 10   - Kesim iptal   10 Nolu Kurban Kesim İptal Edildi.
+ve bu şekilde ekranda canlı kesim altında yada üzerinde bu mesajlar telegram bottan girilen bilgiye göre güncellensin.
+
+bir de kesim videoları şeklinde bir panel olsun
+telegramdan gönderilen kesim vidyoları orada listelensin. telegramdan gönderilen mesajlar ile gönderilen vidyo için link oluşturulsun örneğin
+/video 10  ile 10 nolu kurbanın kesim vidyosunu kullanıcı göndersin bu mesajda 10 nolu kurbanının kesim vidyosu için link oluşturulsun.
+burada tümünü listeleyeme gerek yok input alanına örneğin 10 yazıldığında 10 nolu kurbanın kesim vidyosu gösterilsin.
+üstüne aynı vidyo gönderilirse üzerine yazssın tek video olacak
+
+bir de mesaj duyuru alanı olsun
+/duyuru ile buradan gönderilen mesajlar canlı kesim panelinde üstte görünsün. tek mesaj olacak. üstüne ezecek. 
+
+
+alt tarafta yada kenarlarda kayan yazılar bilgilendirmeler olabilir
+/bilgi den gönderilen mesajlar olabilir. bunlar her gönderilen eklenecek
+/bilgi list   listelensin numaraları olsun 
+/bilgi sil 1  1.sıradaki bilgi mesajı silinsin
+
+
+birde hissedarlar kurban kesim yerinde telefondan kesim panelinden kurban kesimini canlı olarak izliyorlar. Kesim sırasını duyuruları ve bilgileri görebiliyorlar.
+birde şöyle bir şey olsa sayfa altında sıkça sorulan sorular burada altta otomatik kayan yazı olarak sırayla geçse hemde bilgilenmiş olurlar olurmu ? eliyle sonraki sonraki diye de bakabilirler 
+
+logo: ozbilen-logo-png  // tüm site teması bu logo kullanılacak site renk teması bu logo ile uyumlu olacak
+
+Resmi Adımız:
+Çetinler Besi  // site her sayfasında bu isim olmalı görsel olarak büyük olarak resmi adımız bu 
+Özbilen Kurban Organizasyonu  // gayri resmi adımız da bu bu her iki isim her sayfada görsel ve yazı olarak bulunmalı
+
+Slogan:
+Kurbanınız bizimle emin ellerde...
+Kurban ibadetinizi güvenle yerine getirin...
+
+
+Samandıra Kurban olarak, İslami kurallara uygun ve hijyenik koşullarda kurban kesim ve satış hizmeti sunmaktayız. Sağlıklı, kaliteli ve güvenilir hizmet anlayışıyla müşterilerimize en iyi deneyimi sağlamak için buradayız.
+
+tek sayfa hızlı yüklenen görsel şölen olacak bir site olacak. çok hızlı yüklenen responsive bir site olmalı. standarttladan farklı etkilyeci bir site yapabilirsin.
+
+/home/ben/projects/ozb/samandira-kurban/  burada görseller ve logo var
+
+Büyükbaş Hayvan Görseller için bu siteleri kullanabilirsin. bu siteler dışında hayvan görseli kullanman yasak.
+https://www.yenisehirkurban.com/
+https://sancakkurban.com.tr/
+https://kurbansultanbeyli.com/
+https://kurbankvs.com/
+
+Ofis Adres:  Adil Mah, Gökdere sk No: 1 Sultanbeyli
+
+Telefon: 0532 248 34 20 0507 750 85 19
+
+Kesim Adres: Çetinler Besi  Kadıllı Gebze 
+
+www.samandirakurban.com
+
+
+
+
+
+İslami Usullere Uygun Kesim: 
+Hayvanlarınız, İslami usullere göre kesilerek, hem dini hassasiyetlerinize uygun hem de sağlık standartlarına uygun bir şekilde işlenir. Kesim sırasında, veteriner hekim kontrolü altında, hijyenik koşullarda ve etik değerlere saygılı bir şekilde tüm işlemler gerçekleştirilir.Kurbanınızı size vekâleten ibadet hassasiyeti ile tüm fıkıh kurallarına riayet ederek hocalarımız eşliğinde kesiyoruz.
+
+
+İhtiyaç Sahiplerine Ulaştırma:
+Kurban etleri Kuran kurslarında eğitim gören talebelerimize ve ihtiyaç sahibi vatandaşlarımıza ulaştırılmaktadır.
+
+Güvenilir ve Hijyenik Ortam:
+Kesimhane tesisimiz tam hijyenik koşullarda, gıda güvenliği standartlarına uygun şekilde çalışmaktadır.
+Yüksek teknolojiye sahip 10.000 m2 kapalı alanlı bir tesiste, uzman bir ekiple çalışıyoruz.
+
+Profesyonel Kasaplar:
+Profesyonel kasap kadrosu ile ayni gün teslim.
+
+Hassas Hisse Paylama:
+Hassas, elektronik, 7 gözlü tartılar ile eşit hisseleme.
+
+
+Frigolu Araçlar:
+Soğuk Hava Frigolu Araçlarla soğuk zincir bozulmadan teslim.
+
+
+Kurbanınızı Yerinde Görün:
+Kurbanınızı bayramdan bir kaç gün önceden yerinde görme imkanı.
+
+
+İbadet Niyetiyle Kesim:
+Kurban hizmeti sürecinde sizlere en iyi şekilde hizmet sunmak için çalışıyoruz. Müşterilerimizin bütçelerine uygun kurbanlıkları seçerek, İslami usullere uygun bir şekilde kesim gerçekleştiriyoruz.
+
+ Bu süreci titizlikle yönetiyor ve kurban etlerini hijyenik bir şekilde paketleyip size teslim ediyoruz. Kalite, hijyen ve ibadet hassasiyeti her adımda önceliğimizdir. Sizlerin huzurlu bir şekilde kurban ibadetinizi gerçekleştirmenizi sağlamak bizim için en büyük mutluluktur.
+
+
+
+
+Büyükbaş Hisse Gruplarımız:
+1.Grup 30.000 TL - 36.000 TL
+2.Grup 36.000 TL - 42.000 TL
+3.Grup 42.000 TL ve üzeri
+
+Küçükbaş Hisse Gruplarımız:
+1.Grup 18.000 TL - 22.000 TL
+2.Grup 22.000 TL - 27.000 TL
+3.Grup 27.000 TL ve üzeri
+
+Bağış Kurban Bedeli: 14.000 TL
+
+
+Nasıl Çalışıyoruz? :
+
+Başvuru ve Kayıt:
+Web sitemizden, WhatsApp veya telefon yoluyla başvurunuzu alıyoruz. Mutlaka gün içerisinde sizlerle irtibat kurup detaylı bilgileri görüşüyoruz.
+
+Kurbanlık Seçimi:
+İslami şartlara uygun, sağlıklı ve veteriner kontrolünden geçmiş büyükbaş ve küçükbaş kurbanlıkları özenle seçiyoruz, seçtiğiniz gruba sizi kaydediyoruz.
+
+
+Hissedarların Belirlenmesi:
+Büyükbaş kurbanlar için 7 kişilik hissedar grupları oluşturuyoruz, kesim öncesinde mutlaka tüm hissedarlardan vekalet alıyoruz.
+
+Vekalat Alımı:
+Kayıt sırasında vekaletiniz sesli veya yazılı olarak alınır. Kesim anında ise kasap ve şahitler huzurunda isminiz zikredilerek kesim gerçekleştirilir.
+
+
+Kesim Günü Bilgilendirme:
+Tüm kurbanlar bayramın 1.günü kesilir ve teslim edilir. Sizlere kesim saati önceden bildirilir. Dilerseniz kesimhanede bulunabilirsiniz, dilerseniz teslimat yapılır.
+
+
+Kesim ve Parçalama:
+Kurbanlar, islami usullere uygun ve hijyenik ortamda profesyonel kasaplar tarafından kesilir ve her bölümü hakkaniyetle 7 kollu terazilerde tartılarak parçalara ayrılır.
+
+Paketleme:
+Tüm Hissedarlara Eşit Şekilde Kasalar Halinde Verilir.
+
+Teslimat:
+Kesim mahalinden veya teslim noktalarımızdan alabilirsiniz.
+
+
+
+Hakkımızda:
+İstanbul Samandıra' da 25 yıllık hizmetin tecrübesiyle sizlere ehlinin elinden kurban organizasyonu sunuyoruz. Her yıl yüzlerce müslüman, kurban ibadetinde bizi tercih ediyor. Anadolu'dan seçerek satın aldığımız kurbanlıklarımızdan dilediğinize hissedar ediyoruz. Vekaletinizi aldıktan sonra bayramın 1.günü sizlere verdiğimiz saatte kurbanınızı kesiyoruz. Dilerseniz tüm süreci kesim mahallimizden takip edebiliyor, dilerseniz kurbanınızı 2 paket halinde teslim noktalarımızdan alabiliyorsunuz.
+
+Biz Kimiz:
+Samandıra Kurban olarak, milli ve manevi değerlerimize bağlı, yarım asırlık tecrübemizle milletimiz ve memleketimiz yararına hizmet etme gayesiyle kurulmuş bir organizasyonuz. Stratejik ve global düşünen, karar alma yeteneğine sahip, güvenilir ve öncü bir kurban organizasyonuyuz. Samandıra Kurban olarak, İslami usullere uygun bir şekilde ibadet niyetiyle ve tüm insanlığa hizmet gayesiyle hizmet veriyoruz.
+
+Hizmetlerimiz, en yeni ve en güncel teknolojik ekipmanlarla donatılmış modern tesislerimizde profesyonel ekiplerimiz tarafından sunulmaktadır. Kalite yönetim sistemlerine riayet eden bir yaklaşımla çalışır, müşteri memnuniyetini en ön planda tutarız.
+
+Samandıra Kurban olarak, kurbanlarınızı kesim sonrası adresinize teslim ediyoruz. Adrese teslim hizmeti sunarak, sizlere daha fazla kolaylık sağlamayı amaçlıyoruz. İbadetinizi yerine getirirken hijyenik koşullara dikkat eder ve süreci güvenli bir şekilde tamamlarız. Müşterilerimizin memnuniyetini ve güvenini kazanmak için çalışıyoruz.
+
+Neden Biz: 
+İslami Usullere göre kurbanlık vasfını haiz, Anadolu’nun bereketli toprakları ve yaylalarında %100 yerli besi olarak yetişen kurbanlıklarımızı, veteriner kontrollerini yaparak uzmanlarımız tarafından özenle seçip anlaşmalı modern tesislerimize ulaştırıyoruz.
+Sistemden bütçenize uygun olan kurbanlığınızı veya hisse grubunu seçip, vekâletinizi vermeniz yeterli. Kesimden paketlemeye kadar süreçleri sizin adınıza gerçekleştiriyor ve sizleri haberdar ediyoruz.
+Kurbanlarınızı İslami Usullere uygun, hijyenik koşullarda anlaşmalı modern tesislerimizde tecrübeli kasaplarımız tarafından kesiyor ve parçalıyoruz.
+Kesim sonrası tecrübeli kasaplarımız tarafından parçalanan karkas etleri, hisse adedinize göre kemikli/kemiksiz eşit olarak tartarak paketliyoruz. Gerekli bilgileri online olarak tarafınıza ulaştırıyoruz.
+Kurbanlıklarınızı islami usullere uygun olarak kestikten sonra dilerseniz teslim noktalarımızdan kendiniz teslim alabilirsiniz.
+
+
+Tarihçemiz:
+2003 yılında Samandıra'da başladığımız yolculuğumuzda, bugün bölgenin en güvenilir ve tercih edilen kurban kesim merkezlerinden birisi haline geldik. Yılların verdiği tecrübe ve müşteri memnuniyeti odaklı çalışma prensibimizle, her geçen yıl daha fazla müslümanın kurban ibadetini yerine getirmesine vesile oluyoruz.
+
+
+İslami Usuller:
+Firmamız "et değil, ibadet" düsturuyla hareket eder. Tüm çalışanlarımız kurban ibadetinin dini boyutuna vakıftır. Kurbanlıklarımızın seçilmesinde, kesilmesinde ve pay edilmesinde dini usullere tam riayet edilir.
+
+Kalite ve Güven:
+Kesimhanemiz, modern ekipmanlar ve hijyenik koşullarla donatılmıştır. Tüm kesim işlemleri, veteriner kontrolünde gerçekleştirilmekte ve etlerin sağlıklı koşullarda işlenmesi sağlanmaktadır. Müşterilerimize sunduğumuz hizmetin kalitesinden ve güvenilirliğinden emin olmalarını sağlıyoruz.
+
+
+Müşteri Memnuniyeti:
+Müşterilerimizin memnuniyeti bizim için en önemli önceliktir. Başvurudan teslimata kadar tüm süreçte şeffaf ve güvenilir bir hizmet sunuyoruz. Müşterilerimizin istekleri doğrultusunda özel hizmetler de sunarak, tam bir memnuniyet sağlamayı hedefliyoruz.
+
+
+
+Değerlerimiz:
+Güvenilirlik:
+25 yıllık tecrübemizle müşterilerimize güvenilir hizmet sunuyoruz.
+
+Müşteri Odaklılık:
+Müşterilerimizin ihtiyaçlarını en iyi şekilde karşılamak için çalışıyoruz.
+
+Kalite:
+En yüksek kalite standartlarında hizmet vermeyi taahhüt ediyoruz.
+
+
+
+Sıkça Sorulan Sorular: 
+
+Satın aldığım paket kurban teslimatı ne zaman yapılacak?
+Kurban bayramının 1. Günü kurbanınızı teslim alabilirsiniz.
+
+Niçin fiyat aralığı veriyorsunuz, sabit fiyat veremiyorsunuz?
+Hiçbir kurban diğeri ile aynı kiloda olmadığı için her bir kurbanı ayrı ayrı tartıyor, size sadece tartımı yapılan sizin kurbanınızın 1/7 hisse fiyatını yansıtıyoruz.
+
+
+Kurbanımın net fiyatı ne zaman belli olur?
+Kurbanınızın fiyatı tartım neticesinde çıkan kilograma göre belli olur. Kurbanlıklarınızı ortalama bayramdan 2 hafta önce tartıp net fiyat bilgisini sizlere iletiyoruz.
+
+Ciğer, kalp ve diğer sakatatlar da kolimde gelecek mi?
+Deri, kelle ve sakatatlar nasıl işlem görüyor? Pandemi süreci ve genel riskler dikkate alınarak çok hızlı bozulma yapısına sahip olan ciğer, kalp ve diğer sakatatların gıda güvenliği kuralları gereği bir risk oluşturmaması adına, sizin adınıza makbuz karşılığında hayır kurumlarına bağışlıyoruz.
+
+Evime teslimatı yapılan etler kendi kurban hissemin eti midir? Hiçbir kurbanı diğerine karıştırmadan tüm sistemi nasıl yönetebiliyorsunuz?
+26 yıllık tecrübemizle yetiştirilme, sevkiyat, kesime alım, karkas çeyrekleme, parçalama, kasalama, hisseleme, paketleme, kolileme aşamalarında son sistem teknoloji kullanıyor ayrı ayrı küpe numarası ve kimlik kartı  kullanıyoruz. Her bir safhada ayrıca kayıtlama yapıyoruz.
+
+
+Kesim yapılırken kesim mahalline kurbanımın yanına gelebilir miyim?
+Kesim sırasında kesim mahalline gelmeniz mümkündür. Ancak, pandemi süreci ve sağlık kuralları gereği, sağlık ve güvenlik tedbirleri kapsamında, biz tüm işlemleri hijyenik koşullarda gerçekleştireceğiz ve kurbanınızı evinize teslim edeceğiz. Tercih tamamen size aittir.
+
+Kurban eti nasıl saklanmalıdır?
+Protein açısından son derece zengin bir besin olan kurban eti, teslim alındıktan sonra mümkün olan en kısa sürede buzdolabına (0-4 C) yerleştirilmeli ve sakatatlar buzdolabında kırmızı etlerden ayrı muhafaza edilmelidir. Taze olarak tüketilecekse buzdolabında (0 -4 C) kırmızı et 4 gün, sakatat 2 gün muhafaza edilebilir. Etleri uzun süre saklamak isteyen tüketicilerimiz, derin dondurucularda (-18 C) en fazla 6 ay süre ile muhafaza edebilir.
+
+Donmuş kırmızı etin çözdürme işlemi buzdolabında (0-4 C) sağlanmalıdır. Çözülme sonrasında beklemeden tüketilmeli ve tekrar dondurulmamalıdır.
+
+
+Samandıra Kurban'dan hisseli kurban nasıl alınır? 
+Hisseli büyükbaş veya küçükbaş kurban almak için web sitemizden başvuru yapabilir, Whatsapp üzerinden ulaşabilirsiniz. Bütçenize göre dilediğiniz gruptaki kurbana dahil olabilirsiniz.
+
+
+Ödeme nasıl yapılır?
+Banka havalesi ve nakit ödeme seçenekleri mevcuttur.
+
+Vekalet Nasıl Alınır ?
+Kayıt aşamasında vekalet formu tarafınıza iletilir.
+
+
+Kurban kesimi nerede ve nasıl yapılıyor?
+Kurban kesiminin tamamı bayramın 1. günü Gebze Kadıllla'daki modern ve hijyenik kesimhane tesisimizde, islami şartlara uygun olarak profesyonel kasaplar tarafından yapılmaktadır.
+
+• Kurbanınız size verilen saatte kesilir, teslimatı bekletilmeden yapılır.
+• Kurban kesim işlemi, veteriner kontrolünden geçmiş sağlıklı kurbanlıklar ile İslami fıkhî şartlara uygun şekilde gerçekleştirilir.
+• Kesim öncesinde, kurbanı kesecek olan kasaba 7 hissedarın isimleri sesli olarak okunur ve vekâletler verilir.
+• Kasap, vekâleti kabul ettikten sonra tekbirler getirilir ve Besmele-i Şerife ile birlikte kesim işlemi yapılır.
+• Kurban kesimi ibadet bilinciyle, Allah rızası için vekâleten gerçekleştirilir.
+• Kesim işlemi bittikten sonra tarafınıza bilgilendirme SMS'i gönderilir.
+• Kesim süreci video kaydına alınır ve talep edilmesi halinde bu video tarafınıza iletilir.
+• Büyükbaş ve küçükbaş kurbanlar Sancak Kurban ekibi tarafından bizzat kesilmekte, tüm süreç en baştan sona kadar titizlikle takip edilmektedir.
+
+Kurban Kesimi Nasıl Yapılıyor?
+Kurban kesim işlemi, veteriner kontrolünden geçmiş sağlıklı kurbanlıklar ile İslami fıkhî şartlara uygun şekilde gerçekleştirilir. Kesim öncesinde, kurbanı kesecek olan kasaba 7 hissedarın isimleri sesli olarak okunur ve vekâletler verilir. Kasap, vekâleti kabul ettikten sonra tekbirler getirilir ve Besmele-i Şerife ile birlikte kesim işlemi yapılır.
+
+Kurban kesimi ibadet bilinciyle, Allah rızası için vekâleten gerçekleştirilir. Kesim işlemi bittikten sonra tarafınıza bilgilendirme SMS’i gönderilir. Aynı zamanda kesim süreci video kaydına alınır ve talep edilmesi halinde (zaruri durumlarda) bu video tarafınıza iletilir.
+
+Büyükbaş ve küçükbaş kurbanlar Kurbankvs ekibi tarafından bizzat kesilmekte, tüm süreç en baştan sona kadar titizlikle takip edilmektedir.
+
+
+Kurban teslimatı nasıl gerçekleşiyor?
+Kurbanınız, kesim ve parçalama işlemlerinin ardından et paketi ve kemikli et paketi olarak 2 paket haline getirilir. Teslimat noktalarımızdan teslim alabilirsiniz. Adresinize teslim talepleriniz için iletişime geçebilirsiniz.
+
+
+Kurban bağışı yapabilir miyim?
+Evet, Sancak Kurban üzerinden güvenle kurban bağışı yapabilir, bağışınızı ihtiyaç sahiplerine ulaştırmamızı sağlayabilirsiniz. Ücret:14.000₺
+
+
+Kurban fiyatları neye göre belirleniyor?
+Kurban fiyatları, hayvanın cinsi (büyükbaş/küçükbaş), ağırlığı ve piyasa koşullarına göre belirlenmektedir. Güncel fiyatlar için bizimle iletişime geçebilirsiniz.
+
+Kurbanımın islami usullere uygun kesildiğinden nasıl emin olabilirim?
+Tüm kurbanlıklarımız, yaşları ve fiziksel özellikleri kontrol edilerek satın alınır. Profesyonel kasaplarımız tarafından abdestli tekbirler eşliğinde kesilir. Dilerseniz kesim videosu sizlere gönderilir.
+
+Samandıra dışında teslimat yapıyor musunuz?
+İstanbul genelinde teslimat yapıyoruz. Samandıra dışındaki teslimat noktaları için lütfen bizimle iletişime geçin.
+
+
+Neden Net Kilo Garantisi Verilmiyor?
+Her hayvanın ağırlığı ve et-kemik oranı farklıdır. Bu nedenle sabit kilo garantisi verilmesi fıkhî açıdan uygun değildir. Ancak her kurban içerisindeki hisseler eşit ağırlıktadır.
+
+Teslim edilen etler kendi hisseme mi ait? Hiçbir kurbanı diğerine karıştırmadan tüm sistemi nasıl yönetebiliyorsunuz?
+25 yıllık kurban tecrübemizle yetiştirme, sevkiyat, kesim, karkas çeyrekleme, parçalama, hisseleme, paketleme, kolileme aşamalarında son sistem teknoloji kullanıyor ayrı ayrı küpe numarası ve kimlik kartlı etiketler kullanıyoruz. Her bir safhayı ayrıca kayıt altına alıyoruz. Hiçbir aksaklığa mahal vermemek adına risk analizi yapıyor, tedbiren tüm aşamalarda sadece vazifesi kontrol olan görevlilerimize de süreci takip ettiriyor, işimizi sağlama alıyoruz. Tecrübemiz ve sistemimiz sayesinde hiçbir kurbanı diğerine karıştırmıyor, hissenizin %100 sizin adınıza alınan ve kesilen kurbanın hissesi olduğunun garantisini veriyoruz.
+
+Kurbanımın Diğer Ortakları Belli Midir?
+Kurbankvs, her büyükbaş kurban için 7 kişilik hisse tamamlanmadan kesim yapmaz. Son kalan hisseler Peygamber Efendimiz’in (S.A.V.) niyetine tamamlanır ve etleri ihtiyaç sahiplerine ulaştırılır.
+Kesimden önce tüm hissedarlar belirlenir, helallik alınır. İsimler Kişisel Verilerin Korunması Kanunu’na uygun şekilde saklanır. Kurban kesimi sırasında isimler okunur, vekâlet verilir, tekbirler eşliğinde kesim yapılır. Sonrasında size SMS ile bilgi verilir.
+
+1 Büyükbaş Kurban 7 Kurban Hissesi; Fakat Ben 1 Hisse Almak İstiyorum, Ne Yapmalıyım?
+Siz, sadece 1 hisse alarak kayıt olabilirsiniz.
+Kurbankvs olarak sizin adınıza aynı kurbana ortak olacak diğer 6 hissedarı buluyor, tüm süreci İslami kurallara uygun şekilde yürütüyoruz. Ortakların hepsinden gerekli fıkhî onaylar alınır, helallik süreci eksiksiz şekilde tamamlanır ve kurbanınız kesilmeye hazır hale getirilir.
+Bu sayede siz sadece kendi hissenizi alarak güvenle ibadetinizi gerçekleştirebilir, sürecin tamamını bize bırakabilirsiniz.
+
+Ciğer, Kalp ve Diğer Sakatatlar (Deri,Kelle) Gönderiliyor mu?  
+Hijyen ve genel riskler göz önünde bulundurularak, çabuk bozulma özelliğine sahip ciğer, kalp ve diğer sakatatlar; gıda güvenliği kuralları gereği, risk oluşturmamaları adına sizin adınıza makbuz karşılığında hayır kurumlarına bağışlanmaktadır.
+
+Size Nasıl Güvenebilirim? Neden Kurban Kvs'de Kurban Kestirmeliyim?
+Kurbanınızı 30 yılı aşkın tecrübemizle kesiyor, 8 yıllık detaylı kasap paketi tecrübemizle kurban paketlerinizi hazırlıyor ve sizlere ulaştırıyoruz. Kurbanınızı size vekâleten ibadet hassasiyeti ile tüm fıkıh kurallarına riayet ederek kesiyoruz.
+Yüksek teknolojiye sahip tesislerde, uzman bir ekiple çalışıyoruz.
+Geçmiş senelerde bizi tercih eden kurban sahiplerinin geri bildirimleri, memnuniyetleri bizi daha da heyecanlandırıyor, üzerimizdeki manevi ve maddi mesuliyeti bizlere bir kez daha hatırlatıyor, işimizi daha iyi nasıl yapabiliriz sorusuna kaynak oluşturuyoruz.
+Kurbanın tüm süreçlerinde sizlerle iletişim ve paylaşım halinde olmayı hedefliyoruz.
+Kurbanınız kesilirken videosunu çekiyoruz. Bayramın 2. günü akşamına kadar kurbanın kesildiğine dair bilgilendirme mesajını cep telefonunuza gönderiyoruz.
+Her noktasıyla mübarek olan “Kurban” kelimesini ve bu kelimenin altını dolduracak manevi ve maddi tüm süreçleri önemsiyor ve bunu ibadet bilinciyle manevi duygularla yapıyoruz.
+Güveninizle kurban ibadetinizi üst düzey standartlarda her yıl artan kalite ile yapmaya devam edeceğiz.
+Bizleri youtube ve instagram sayfalarımızdan araştırıp takip edebilirsiniz.
+
+
+
+Fıkhi Sorular:
+
+Kurbanlık Hayvanda Aranan Şartlar Nelerdir? Hisse Nedir?
+İslami usullere göre kurban edilebilmesi için hayvanın bazı temel şartları taşıması gerekmektedir:
+Büyükbaş hayvanlar (sığır, manda): En az 2 yaşını doldurmuş olmalıdır. Bir büyükbaş hayvan, en fazla 7 kişi tarafından ortaklaşa kurban edilebilir. Bu durumda her bir kişi, hayvanın 7'de 1’lik hissesine sahip olur.
+Küçükbaş hayvanlar (koyun, keçi): En az 1 yaşını doldurmuş olmalıdır ve yalnızca bir kişi adına kurban edilebilir.
+"Hisse", büyükbaş bir kurbanlık hayvanın yedi eşit parçaya bölünmesiyle oluşan her bir payı ifade eder. Bu pay, kurban ibadetinin bir kişi adına geçerli olabilmesi için gerekli miktarı temsil eder.
+
+Hissedarlarla Ortak Kurban Kesiminde Gerekli Fıkhî Şartlar Nelerdir?
+Kurbanın fıkhen kabulü için aşağıdaki şartların gerçekleşmesi gerekmektedir:
+Tüm hissedarların müslüman olması,
+Sırf Allah rızası için ibadet niyetiyle kurban kesme niyetinde olması (içlerinden hiçbirisinin et, uygun fiyat, ödeme kolaylığı, işlem rahatlığı vesaire gibi farklı niyetler taşımaması),
+Hisselerinin hissedarlar arasında eşit miktarda dağıtılması (Reddül muhtar, Vahdeti, Dürer)
+Kurban KVS olarak bizi tercih eden tüm hissedarların bu şartları taşıdıklarına dair onaylarını alıyor, bu şartları kabul etmeyenlerin kurban kayıtlarını kabul etmiyoruz. Hisselerin eşit dağılımı için 7 kefeli hassas tartım yapan teraziler kullanıyor, hakkaniyet ve eşit dağıtıma dikkat ediyoruz.
+
+Kurban İbadetinin Kabul Olunması İçin Kurbanımızın Diğer Ortaklarında Bulunması Gereken Şartları Nasıl Takip Ediyorsunuz?
+Kayıt esnasında gerekli olan tüm şartlar kayıt kabul şartı olarak sorulmakta, kurban kaydı bu esasların kabul edilmesi halinde oluşturulmaktadır. Bu süreçleri kabul etmeyenlerin kayıtları alınmamakta, kurban hissedarı olarak kabul edilmemektedir.
+
+
+İbadet niyeti olmadan kesilen bir hayvan kurban sayılır mı?
+Hayır, sayılmaz. Kurban bir ibadettir ve her ibadette olduğu gibi niyet şarttır. Sadece et niyetiyle veya adet üzere kesilen bir hayvan kurban kurban yerine geçmez. Kurban olabilmesi için, keserken "Allah rızası için kurban kesiyorum" diyerek niyet edilmelidir.
+
+
+Kurbana Dair Meseleler:
+
+Kurban Nedir ?
+Zaruri ve asli ihtiyaçlarını karşılayıp borçlarından sonra nisab miktarı mala sahip olan her Müslümana, senede bir defa kurban bayramı günleri içinde kurban kesmek vaciptir.
+
+Kimler Kurban Kesmelidir ?
+Kurban nisabı: Asli ve zaruriihtiyaçlarından başka fitre vacip olacak kadar malı-parası olan, hür mukim (yolcu olmayan) erkek ve kadın her Müslümana kurban kesmek vaciptir.
+
+Her Aileye Bir Kurban Kesmek Yeterli Olur mu?
+Ülkemizde kesilen hayvan sayısı toplam nüfusun %10’una tekabül ediyor. Bu da gösteriyor ki her ailenin bir kurban kesmesi gibi yeterli bir anlayış var. Cumalara aileden biri gitmesinin yeterli olmadığı ya da hac farizasını yerine getiren dedenin, torunu üzerindeki farziyeti kaldırmayacağı gibi, şartları tutan ailelerin sadece bir kurbanla iktifa etmeleri Allah-u Teala’ya yakınlaşma niyetiyle kesilen kurbanda yeterli olmaz. Kurban kesmenin şartları kendisinde bulunan ailenin bütün fertlerinin kurban kesmesi icap eder.
+
+Kurban Derisi Satılabilir mi?
+Kurbanın derisini; Resulullah’a uyup, Allah rızası için sadaka olarak vermek daha faziletlidir. Zira deri kurbanın bir parçasıdır. Resulullah Efendimiz (s. a. v): “Kurbanın derisini satanın kurban (sevab)ı yoktur.” buyurmuşlardır. İmam Ebu Yusuf Hazretleri bu Hadis-i şerif ile delil getirerek “Kurbanın derisi -vakfedilen şeyler gibidir- asla satmak caiz olmaz” buyurmuşlardır. Deriyi, emeği mukabilinde kurban kesen kimseye vermek de caiz değildir.
+
+
+Hangi Hayvandan Kurban Olmaz?
+Kurban; koyun, keçi, sığır, manda ve deveden olur. Hayvanın sağlıklı, azaları tam ve besili olması ibadetin sıhhati için şarttır. Kendisinde sekiz kusurdan biri bulunan hayvan kurban olmaz. İki gözü kör olan. Tek gözü olmayan. Kulak veya kuyruğunun tamamı veya ekserisi kesilmiş veya kopmuş olan. Dişlerinin ekserisi olmayan. Boynuzlarının birisi veya ikisi kökünden kırılmış olan. Memesi kesilmiş veya meme uçları kopmuş olan. İlikleri kurumuş olan (Çok zayıf olan.) Kesilecek yere gidemeyecek kadar topal olan. Yaş Tayini Kurban edilecek sığırın en az iki yaşını doldurmuş olması gerekmektedir. İki yaşını doldurduğunun işareti ön iki kesici dişinin düşmüş olmasıdır. Buna halk tabiri ile ‘kapak atmak’ denir.
+
+Ortak Kesilen Kurban Nasıl Taksim Edilir?
+Kurban ortak kesildiğinde etini tahminen taksim caiz olmaz, tartarak taksim etmek icap eder. Bir kimse kendisi, ailesi ve büyük çocukları için kurban etmek niyetiyle bir sığır alsa etini taksim eylemek şart olmaz.
+
+
+Kurban Eti Nasıl Taksim Edilir?
+Kurban etinin üçe taksimi müstehaptır. Üçte biri sadaka olarak verilir. Üçte biriyle akraba ve dostlarına hediye veya ziyafet verilir. Üçte birini de -nafakaları üzerine olan ailesine ve evladına yedirir. (Bedayi’) Kurban etinin bir kısmını hediye etmek veya tamamını bağışlamak caizdir.
+
+İletişim: 
+
+Bize Yazın:
+Sancak Kurban İletişim Formu:
+Adı Soyadı:
+Telefon Numarası:
+Konu:
+Mesaj:
+
+WhatsApp Canlı Destek
+
+Konum Adres:
+
+Gebze Kadıllı Çetinler Besi // google map adresi ekle buraya
+
+
+
+Blog:  // blog statik olsun
+Kurban Bayramında Teşrik Tekbirleri
+
+İbrahim aleyhisselâm, oğlu Hazret-i İsmail’i kurban olarak kesmek üzereyken Cebrâîl aleyhisselâm; “Allâhü ekber, Allâhü ekber” dedi. İbrahim aleyhisselâm bu tekbîri işitince, “Lâ ilâhe illallâhü vallâhü ekber” buyurdu. İsmail aleyhisselâm da “Allâhü ekber ve lillâhi’l-hamd” buyurdu.
+Teşrîk tekbîri, teşrîk günlerinde alınan tekbîr demektir ve mükellef olan her Müslümana vaciptir. Bakara Sûresi’nin “Sayılı günlerde Allâh’ı zikrediniz…” meâlindeki 203. âyet-i kerîmesi, teşrîk tekbîrine işaret etmektedir.
+Zilhicce ayının dokuzuncu günü, Arefe’dir.
+Arefe günü sabah namazından başlayarak beş gün; Zilhicce’nin 13’üncü, yani bayramın dördüncü günü ikindi namazı dâhil -yirmi üç vakitte- her farz namazın arkasından “Allâhü ekber, Allâhü ekber, lâ ilâhe illallâhü vallâhü ekber, Allâhü ekber ve lillâhi’l-hamd.” diye tekbîr getirilir.
+Farzı kılıp sol tarafa selam verildikten sonra ara vermeden, yerinden kalkmadan, mescidden çıkmadan ve dünya kelâmı konuşmadan tekbîr getirmek lâzımdır. Teşrîk tekbîrini; münferid (namazını yalnız kılan), imam, cemaat, mukîm, müsâfir, kadın-erkek herkes okur.
+
+
+
+Kurban Namazı Nasıl Kılınıyor? Kurban Namazına Nasıl Niyet Edilir?
+Kurban sahibi kurbanını kestikten veya başka birisine kestirdikten sonra “Kurbanınızı kestiğinizde elinizdeki bıçağı bırakın. Sonra iki rek’at namaz kılın. Müslümanlardan hangi kimse bu iki rek’at namazı kılar da Allahü Teâlâ hazretlerinden bir şey isterse Allahü Teâlâ hazretleri elbette o kimseye istediği şeyi verir.” hadîs-i şerîfine uyarak iki rek’at namaz kılmak müstehaptır. Bu namazdan sonra:
+	• ⁠“Allâhümme hâze’l-kebşu, (ev hâze’l-bakaru, ev hâze’l-ma‘zü) minke ve leke ve ileyke. Fetekabbel minnî bilutfike ve keramike kemâ tekabbelte min İbrâhîme Halîlike ve İsmâîle Zebîhıke ve Muhammedin Habîbike bifazlike ve cûdike ve keramike yâ ekrame’l-ekramîn” duâsını okuyup dinî ve dünyevî hâcetler istenir. (Ziyâ-i Ma’nevî)
+	• ⁠Namazın birinci rek’atinde Fatiha’dan sonra “İnnâ a’taynâ..”, ikinci rek’atinde “Kul hüvellahü ehad…” sûresi okunur. (Duâ ve İbâdetler, Fazilet Neşriyat)
+	• ⁠Koç ise duaya “Allâhümme hâze’l-kebşu…”, sığır ise “Allâhümme hâze’l-bakaru..”, keçi ise “Allâhümme hâze’l-ma‘ zü..” diye başlar.
+	• ⁠Yâ Rabbi, bu koyun (veya sığır veya keçi) sendendir ve senin rızân için sanadır. Lütfunla ve kereminle Halîlin İbrâhim (a.s.) ve zebîhin (kurbanın) İsmâîl (a.s.)’dan ve Habîbin Muhammed (s.a.v.)’den kabul ettiğin gibi kabul et. Fazlın, lütfun ve kereminle ey Ekrame’l-ekramîn.
+
+
+Kurban Kesmenin Dini Kaynakları Nelerdir?
+
+Kurban kesmekle alakalı, Kuran-ı Kerim’de, Hadis-i Şeriflerde hangi ifadeler yer almaktadır, hangi islami kaynakta kurbanla ilgili ne tür bilgiler vardır? İslami kaynaklarda geçen Kuran ile alakalı deliller kurban kesmenin hükmünü oraya koymaktadır.
+Kurban, Kur’an-ı Kerim, Sünnet ve icmâ ile sabit bir ibadettir. Kurbanın meşru bir ibadet olduğuna dair Kur’an-ı Kerim’de deliller mevcuttur. Hz. İbrahim’in oğlu Hz. İsmail’in yerine bir kurbanın, Allah tarafından kendilerine fidye (kurban) olarak verildiği açıkça bildirilmektedir (Sâffât, 37/107).
+KURBAN NEDEN KESİLİR?
+Kısaca ifade etmek gerekirse; Hz. İbrahim’in Hz. Sâre’den çocuğu olmayınca Allah’a bir çocuğu olması için dua etmiştir. Oldukça da yaşlanmış olmasına rağmen Hz İbrahim’in Hz. Hacer’den bir oğlu dünyaya gelir. Rüyasında 3 gece art arda oğlunu kurban ettiğini görür. Üç gece rüya görünce doğru bir rüya olduğunu yani Allah’ın emri olduğunu anlar. Allah’ın emri olunca hazırlıklarını yapar. Hz. İbrahim oğlu Hz İsmail’i Allah’ın emriyle bir imtihan gereği kurban etmek için Mina’ya götürür. Şeytan onları kandırmak ve Allah’ın bu emrini yerine getirtmemek için uğraşsa da çabası boşa çıkar. Hz.İsmail yedi kere şeytanı taşlar. Sonra Hz. İbrahim Hz.İsmail’i kurban etmek ister ancak bıçak kesmez taşa vurur taşı keser. O esnada Cebrail AS Cenabı Hakk’ın bir hediyesi olarak bir koç getirir. Gelirken Cebrail AS “Allahü Ekber Allahü Ekber “der. İbrahim AS “ La İlahe İllallahü Allahü Ekber” der Hz İsmail de “Allahü Ekber Ve Lillahil Hamd” der. Böylece tekbir tamamlanmış olur. Tekbir üçünün söylediklerinin birleşmesinden meydana gelmiştir.
+
+Bu hadise hem haccın temellerini hem de Kurbanın temellerini atan muhteşem bir hadise ve eşsiz bir imtihanın sonucu olarak Kuran-ı Kerim’de de mevlamız tarafından anlatılmıştır. Hac Mina’ya gidilmesi, şeytan taşlanması, kurban kesilmesi ile tamamlanan zahmetli ama bir o kadar da manevi hazzı olan bir ibadettir.
+Kurban ve haccın eşsiz birlikteliğinin ifadesi olarak en büyük İslami kaynak Kuran-ı Kerim’dir.
+Kurbanın meşruiyetine işaret eden başka âyetler de vardır: “Kendilerine rızık olarak verdiği kurbanlık hayvanlar üzerine belirli günlerde Allah’ın adını ansınlar. Artık onlardan siz de yiyin, yoksula fakire de yedirin.” (Hac, 22/28), “Her ümmet için, Allah’ın kendilerine rızık olarak verdiği hayvanlar üzerine ismini ansınlar diye kurban kesmeyi meşru kıldık.” (Hac, 22/34), “Kurbanlık büyükbaş hayvanları da sizin için Allah’ın dininin nişanelerinden kıldık. Sizin için onlarda hayır vardır. Onlar saf saf sıralanmış dururken kurban edeceğinizde üzerlerine Allah’ın adını anın. Yanları üzerlerine düşüp canları çıkınca onlardan yiyin, istemeyen fakire de istemek zorunda kalan fakire de yedirin. Şükredesiniz diye onları böylece sizin hizmetinize verdik.
+Onların etleri ve kanları asla Allah’a ulaşmaz. Allah’a ulaşacak olan ancak, sizin O’nun için yaptığınız, gösterişten uzak amel ve ibadettir.” (Hac, 22/36-37)
+Bu âyetlerde zikredilen hayvan kesiminin, et ihtiyaç temini için olmadığı, bunların ibadet amaçlı birer uygulama oldukları gayet açıktır. Et ve kanların Allah’a ulaşamayacağının, asıl olanın ihlâs ve takva olduğunun bizzat âyetin metninde yer alması bunu açıkça ortaya koymaktadır.
+Allah-ü Teala burada kurbanı vacip kılarak hem kurban keseni maddi manevi faydalandırmakta hem de eti dağıtacağı fakirleri gözetmektedir.
+Kurban sahibinin kurbanı ile olan bağlılığı, kurbanı benimsemesi, sahiplenmesi (Hz.İbrahim ile Hz. İsmail arasındaki sevgi misali) kurbana olan şefkati ve arkasından bayram günlerinde kurbanını kesmesi kurban ibadetinin sevabını tam olarak almasını ve Hz. İbrahim’in imtihanının sevabını almasına vesile olur.
+Sevdiğini ve kıymetli olanı kurban edebilmek kurban ibadetinin inceliğidir. Nasıl ki malın sadakası (zekatı) verilirken en sevap olan en kıymetli ve en sevdiğinden olanı vermekse kurbanda da daha sevap olan en pahalı ve en büyük kurbanı kesmek daha sevaptır.
+KURBAN NE ZAMANDAN BERİ VARDIR VE KESİLMEKTEDİR?
+Ayrıca hicretin ikinci yılından itibaren bugüne kadar müslümanların kurban kesmeleri, bu konuda görüş birliği olduğunu da göstermektedir (İbn Kudâme, el-Muğnî, XIII, 360).
+Hz. Peygamber Efendimiz (s.a.v.) de, kurbanı bir ibadet olarak kabul etmiş ve bizzat kendisi de kurban kesmiştir. Hz. Peygamberin (s.a.v) meşru kılınmasından itibaren vefat edinceye kadar her yıl kurban kestiği bilinmektedir (Tirmizî, Edâhî, 11; bkz. Buhârî, Hac, 117, 119; Müslim, Edâhî, 17).
+Sahih hadis kaynaklarında yer alan rivayetlerde, Hz. Peygamber Efendimiz(s.a.v.), kurban bayramında Allah katında en sevimli ibadetin kurban kesmek olduğunu, kurbanın kesilir kesilmez Allah katında makbul olacağını ve kurban edilen hayvanın boynuzu, tırnağı da dâhil olmak üzere her şeyinin kişinin hayır hanesine yazılacağını ifade edip; bu ibadetin Allah rızası için yapılmasını tavsiye etmiştir (Tirmizî, Edâhî, 1; İbn Mâce, Edâhî, 3).
+Diğer bir Hadis-i Şerifte de Peygamber Efendimiz (SAV) şöyle buyurmuştur: “Bir kimse, kurban kesmeye kudreti olur da kurban kesmezse o kimse elbette bizim mescidimize (yani bize) yaklaşmasın.” demektir.
+Diğer hadis-i şerifte, “Şefâatımıza nâil olmaz.” buyurulmuştur.
+Kuran-ı Kerim’de Ayet-i Kerime’lerde, Hadisi Şerifte ve diğer İslami kaynaklarda kurban ve kurban kesmekle alakalı bahsedilen yukarıdaki delillerle kurban kesmenin gerekliliği ve ehemmiyeti belirtilmiştir.
+Allah insan vücudunu haram kılmış o yüzden kurban kesilmesi vacip kılınmıştır. Kurban keserken yapılan duada da kurban kesmedeki inceliğin ve kurban kesmenin anlamı açıkça ifade edilmektedir: “Ya Rabbi, niyet eyledim rızâyı şerîfin için kurban kesmeye. Benim şu vücudum çok kabahatler, çok günahlar işledi. Bu vücudu sana kurban etmem lazım. Lakin sen bunu haram kıldın. Bu günahkâr, bu âciz vücuduma bedel olmak üzere senin rızâyı şerîfin ve emr-i şerîfin üzere lutfettiğin bu kurbanı kesiyorum.”
+
+
+
+
+Kurban Kesmekle Yükümlü Olmak İçin Nisap Miktarı Ne Kadardır?
+
+Nisap miktarı denildiği zaman akla ilk gelen şey zekat ve sadaka-ı fıtr vermektir. Ramazan-ı Şerif geldiğinde en çok merak edilen konuların başında zekat ve zekat vermek için nisap miktarının ne kadar olduğu hususudur. Zekat senelik mali bir ibadettir. İslamın 5 şartından birisidir. Zengin Müslümanların Allah rızası için her sene mallarından kırkta birini Kuranı Kerimde belirtilen sekiz sınıftan birine vermelerinden ibarettir. Zekat verecek olan zengin kimsenin malının üzerinden bir yıl geçmesi zekat vermesi için gereklidir.
+Zekâtın verileceği yerler Tevbe Suresinin 60. Ayet-i Kerimesinde açıklanmıştır. Şöyle ki; Nisaba malik olmayanlar yani fakirler, Hiçbir şeyi olmayanlar yani miskinler, zekat toplama memurları, müllefe-i kulüb ( kalpleri İslam’a ısındırılmak istenen kişiler), kölelikten kurtulacaklar, borcunun karşılığı malı olmayan borçlular, Allah yolunda olanlar ve yolda kalmış harçlığı olmayanlar. Zekat bu sekiz yerden herhangi birine verilebilir. Ancak verilmesi en faziletli olanlar hiçbir şeyi olmayan miskinler ve Allah yolundakilerdir.
+Sadaka-ı Fıtr ise Ramazan ayında verilmesi vacip olan sadakadır. Nisaba malik olan her Müslümanın vermesi vaciptir. Zekattaki gibi kişinin malının üzerinden bir yıl geçmesi şartı sadaka-ı fıtr da yoktur. Herhangi bir zaman nisap miktarına sahip olursa üzerine vacip olur.
+Burada iki husus ön plana çıkmaktadır. Nisap miktarı ve zenginlik islama göre ne demektir?
+
+NİSAP NE DEMEKTİR?
+Nisap miktarı, zekatın vacip olması için İslam dininin koyduğu bir ölçüdür. Kişinin asıl ihtiyaçlarından ve borcundan başka 20 miskal (80,18gram) altın veya bunun değerinde para ve ticaret malına sahip olmasıdır. Paranın her 40 lirada 1 lirası zekat olarak verilir. Canlı hayvanların zekatı: koyunda; kırkta bir, devede; 5 devede 1 koyun, sığırda; otuzda bir danadır. Madenler de zekata tabidir.
+Zengin de parası olan ya da az çok parası malı mülkü olan herkes demek değildir. İslama göre zengin olmanın da ölçüsü vardır. İslam’a göre zengin demek nisap miktarı mala sahip olan kimselerdir.
+Sözlükte “varlıklı olma, fakir ve muhtaç olmama” anlamındaki zenginlik kelimesinin Arapça’da birden çok karşılığı bulunmakla birlikte daha ziyade gınâ kelimesi kullanılır. Fıkıhta zenginlik “aslî ihtiyaçlardan fazla mala sahip olma” mânasında kullanılır. Zenginlikle ilişkili bir başka kelime olan servet ihtiyaçtan çok daha fazla miktarda mal sahipliğini, yesâr ise kişinin malî açıdan rahatlığını, sıkıntı içinde bulunmaması durumunu ifade eder. “Gny” kökünden türeyen kelimeler çeşitli fiil ve isim kalıplarıyla Kur’an’da yetmiş üç yerde geçer; aynı kökten gelen ganî Allah’ın isimlerinden biri olarak on sekiz defa zikredilir ve “hiç kimseye, hiçbir şeye ihtiyacı olmayan” mânasına gelir. Mutlak zengin olan, hiçbir şeye ihtiyacı bulunmayan yalnızca O’dur. Hz. Peygamber’in, “Allahım! Hak mâbud sensin, senden başka tanrı yoktur. Ganî-i mutlak sensin, biz ise sana muhtacız, bize yağmur gönder” cümleleriyle başlayan bir yağmur duası (Ebû Dâvûd, “İstisḳāʾ”, 2) ilâhî zenginliğin yaratıklar için rahmet kaynağı olduğunu belirtir. Allah’tan başkasına izâfe edilen bütün zenginlikler, hem muhtaç bir varlık olan insanın bir ihtiyacının giderilmesine yaradığından nisbî ve mecazidir, hem de dünya hayatında imtihan edilmek üzere sınırlı bir süreyle emanet edilmiş, sınırlı miktarda bir mala sahip olmaktan kaynaklanan geçici bir niteliktir. İnsan için maddî zenginlikten daha önemli olan mânevî zenginlik ise hırstan ve tamahtan uzak kalıp sahip olduğuyla yetinme erdemini anlatır. Resûl-i Ekrem’in, “Zenginlik fazla servete sahip olmak değildir; asıl zenginlik gönlün ihtiyaç duygusundan uzak kalabilmesidir” hadisi de (Buhârî, “Riḳāḳ”, 15; Müslim, “Zekât”, 120) buna işaret eder.
+İSLAMDA ZENGİNLİK
+Burada da anlatıldığı gibi Dünyadaki zenginlik, zenginlerin malı emanet maldır. Allahın emanetidir ve bir imtihan olarak verilmiştir. Allah’ın zenginlerden beklediği o malı olmayanlara dağıtması ve kendi yolunda harcamasıdır.
+Zenginliğin ölçüsü dinimizde zenginin yapacağı bazı ibadetlerin de şartlarını oluşturur. Zekat, sadaka, kurban ibadeti zengin Müslümanlar tarafından yapılması gereken ibadetlerdir.
+Zekat ve sadaka da olduğu gibi kurban ibadeti de dinimizde zengin kimseler tarafından kurban edilecek hayvanların kurban bayramı günlerinde kurban edilmesiyle yerine getirilir. Kurban kesmek vaciptir. Sadaka-ı Fıtrda olduğu gibi malın üzerinden bir yıl geçmesi kurbanda da aynı şekilde gerekli değildir.
+ZENGİN OLMAYANLAR KURBAN KESMELİ Mİ?
+İslam alimleri zengin olan ya da olmayan her bir birey için eğer borcu bir yıl içerisinde ödenebilecekse kurban kesilmesini şiddetle tavsiye etmişlerdir.
+Yani kurban kesmek her ne kadar zenginlere vacip olsa da kurban kesmenin herkes üzerine maddi ve manevi menfaati büyüktür. Bu açıkça ifade edilmiş ve açıklanmıştır.
+Peygamber Efendimiz (s.a.v.) de, kurbanı bir ibadet olarak kabul etmiş ve bizzat kendisi de kurban kesmiştir. Peygamber Efendimizin (s.a.v.) meşru kılınmasından itibaren vefat edinceye kadar her yıl kurban kestiği bilinmektedir (Tirmizî, Edâhî, 11; bkz. Buhârî, Hac, 117, 119; Müslim, Edâhî, 17).
+Sahih hadis kaynaklarında yer alan rivayetlerde, Peygamber Efendimiz (s.a.v.), kurban bayramında Allah katında en sevimli ibadetin kurban kesmek olduğunu, kurbanın kesilir kesilmez Allah katında makbul olacağını ve kurban edilen hayvanın boynuzu, tırnağı da dâhil olmak üzere her şeyinin kişinin hayır hanesine yazılacağını ifade edip; bu ibadetin Allah rızası için yapılmasını tavsiye etmiştir (Tirmizî, Edâhî, 1; İbn Mâce, Edâhî, 3).
+Ayrıca hicretin ikinci yılından itibaren bugüne kadar müslümanların kurban kesmeleri, bu konuda görüş birliği olduğunu da göstermektedir (İbn Kudâme, el-Muğnî, XIII, 360).
+
+
+
+Kurban Keserken Dikkat Edilmesi Gereken Önemli Noktalar:
+Kurban keserken nelere dikkat edilmelidir:
+	• Besmelenin akabinde hiçbir şey ile ilgilenmeyip kurbanı hemen boğazlamak şarttır. Hatta, besmeleden sonra bıçağı bilerse (bes­meleyi) tekrar etmek lazımdır. (Bezzâziye)
+	• “Bismillâhi Allâhü Ekber” dedikten sonra kurban yerinden kalkıverse tekrar yatırılıp ke­serken yeniden besmele çekilir. (Hülâsa)
+	• Besmeleden sonra elindeki bıçağı bırakıp başka bir bıçak alsa (besmeleyi) tekrar etmek gerekmez. Lakin bir kurban üzerine besmele okuduktan sonra onu bırakıp diğerini kesecek­se besmeleyi tekrarlamak gerekir. (Hindiyye)
+	• Kurbanı iki kişi kesse, ikisinin de besmele okuması gerekir.
+	• Bir kimse birkaç kurbanı birbiri ardınca boğazlasa her birinde besmeleyi tekrarlaması gerekir.
+	• Kurbanın vücudundan yenmesi tahrîmen mekruh (harama yakın derecede uygun görülmeyen) olan organları; Yumurtaları, Bezeleri, Mesanesi, Ödü, Kesilen hayvanın vücudundan akan kanı, Erke­ğin tenasül uzvu, Dişinin tenasül uzvudur. (Dürrü’l-Muhtâr ve hâşiyesi)
+	• Bıçağı, kurbanı yatırdıktan sonra bilemek mekrûhtur. (Dürrü’l-Muhtâr)
+	• Kurbanı keskin olmayan bıçak ile kesmek,
+	• Keskin olmayan bıçağı kurbanın boğazına birkaç defa sürmek
+	• Kurbanı kesilecek yere bacağın­dan sürüyerek çekmek
+	• Kurbanı incitmek
+	• Canı çık­madan derisini yüzmeye başlamak
+	• Başını birden kesip yüzmek
+	• Kıbleye çevirmemek
+	• Hamile olan hayvanı kesmek mekruhtur.
+
+HANGİ HAYVANLAR KURBAN EDİLİR?
+	• Kurban edilebilen hayvanlar; koyun, keçi, sığır(dana, tosun, inek) , câmûs (manda) ve devedir. Koyun ve keçi bir yaşında, sığır ve câmûs iki yaşında, deve beş yaşında kurban olunur. Lâkin kuzu büyük olup bir senelik koyundan fark olunamazsa altı ayı tamam edince kurban olur. (Vahdetî)
+	• Kurban vahşi (yabani) olmamalıdır.
+	• Koyun ve keçi hisse kabul etmez. Bir ko­yun, bir keçi bir kimse için kurban olur.
+	• Bir sığır(dana, tosun, inek), bir câmûs, bir deve yedi kimse için kurban olur. Yani yedi kişi, ortak olarak bir sığırı veya deveyi kurban edebilirler. Ortak­lar tek, çift veya yediden az olabilir. (Hindiyye)
+	• Bir kimse iki koyun kurban kesebilir. Hazret-i Resûl-i Ekrem sallallâhü aleyhi ve sellem Efen­dimiz her sene iki koyun kurban ederdi. Vedâ haccında yüz deve kurban eylediler. (Hindiyye)
+	• Ortak olarak inek, öküz, tosun, deve veya câ­mûs kurban etmekte güzel olan, ortakla­rın kurbanı hepsinin birlikte almaları veyahut içlerinden birine vekâlet verip aldırmalarıdır. (Dürrü’l-Muhtâr)
+	• Bütün ortakların kurbanda ibâdete, se­vap ve fedâ-i nefse niyet etmeleri, hisseleri eşit ve hepsinin Müslüman olmaları şarttır. Ortakların hep­si kurbanı ibâdet niyetiyle kestiği halde, bazısı kazâ, nezir veya nâfi­le olarak kesmiş olsalar zarar vermez. (Red­dü’l-Muhtâr, Vahdetî, Dürer)
+	• Ortakların bazısı vâcib kurbanına diğer­leri sünnet, nâfile, nezir ve akîka kurbanına niyet etseler yahut ortakların bazısı ölü yahut çocuk veya bunamış olsa câiz olur. (Kâzîhân)
+KAPAK ATMAK NEDİR?
+Özellikle büyükbaş kurbanlarda 2 yaş sınırı olduğu için çok dikkat etmek gerekir. Dana, tosun ve ineğin 2 yaşını doldurduğunu anlamak için dişlerine bakmak gerekir. Halk arasında kapak atma denen husustur. İki ön süt dişlerinin yetişkin dişleriyle değişmiş olması dananın kapak attığı anlamına gelir.
+
+HANGİ KURBAN DAHA FAZİLETLİDİR?
+	• Eti çok ve bedeli yüksek olan kurban eti az ve bedeli düşük olan kurbana göre daha makbuldür.
+	• Kurban edilecek koyun veya keçinin eti, yedi ortağın kestiği büyük baş kurbanın bir hissesine eşit olursa, koyun yahut keçi kesmek daha faziletlidir.
+	• Aksi halde yedi hisseden bir hisseye ortak olmak daha faziletlidir.
+	• Koç koyundan, keçi tekeden, eti ve kıymeti çok olan az olandan daha makbuldür. Kurbanın yağlı, güzel ve büyük olması güzel ve makbuldür. (Münye ve Hindiyye)
+	• Koyunun gözleri, karnı, ayakları ve göğsü kara olanı makbuldür. (İbn-i Âbidîn) Resûl-i Ek­rem sallallâhü aleyhi ve sellem Efendimiz gözü kara, karnı kara, ayakları kara, diğer âzâları beyaz olan koç kurban eylediler. (Şerh-i Şir’a)
+	• Kurban edilecek bir inek ile öküzün kıy­metleri ve etleri müsâvi (eşit) olursa -eti güzel olduğundan- inek efdaldir. (Hindiyye)
+HANGİ HAYVANLAR KURBAN OLMAZ?
+	• Bir veya iki gözü kör hayvanları kurban et­mek câiz olmaz.
+	• Zayıflıktan ilikleri erimiş hayvanı kurban etmek câiz olmaz.
+	• Kesileceği yere gitmeye gücü yetmeyen, yâni hiç yürüyemeyen hayvanı kurban etmek câiz olmaz.
+	• Kulaklarından biri olmayan hayvanı kurban etmek câiz olmaz. (Kuhistânî, Reddü’l-Muhtâr)
+	• Burnu kesik hayvanı kurban etmek câiz ol­maz. (Şurunbulâlî)
+	• Sığır, koyun veya keçinin, bir memesi git­miş veya kurumuş ise câiz olmaz. Lâkin yavru­sunu emzirebiliyorsa câiz olur. (Hülâsa)
+	• Deli hayvan karnını doyuramazsa kurban etmek câiz olmaz. (Dürrü’l-Muhtâr)
+	• Dişsiz hayvanı kurban etmek câiz değildir. (Nimet-i İslâm)
+	• Eğer dişlerinin çoğu var ise kerâhetle câiz­dir. (İbn-i Âbidîn)
+	• Dişsiz hayvan dişli hayvan gibi yayılıp karnı­nı doyurur ise câiz olur. (Fetavâyı Hindiye)
+	• Ölmek üzere olan hayvanı kurban etmek câiz olmaz.
+	• Kulak ve kuyruğu çok kısalmış, gözünün görmesi çok azalmış hayvanı kurban etmek câiz olmaz.
+	• Kulağının biri dibinden kesilen yahut doğ­duğunda bir kulağı olmayan hayvanı kurban etmek câiz olmaz. (Hindiyye)
+	• Bir kimsenin Emânet olarak almış olduğu hayvanı kendisi için kurban etmesi câiz olmaz.
+	• Almaya vekil olduğu hayvanı kendisi için kesse câiz olmaz. Kocası, karısının veyâhut ka­rısı kocasının kurbanını izni olmayarak ken­disi için kesse câiz olmaz. Kıymetini vererek râzı etse de câiz olmaz. (Hülâsa, Hâdimî)
+KURBAN VE DİĞER HAYVANLARI KESMESİ HELÂL OLMAYAN KİMSELER
+	• Mecûsî’nin (ateşperestin) kestiği yenmez. (Dâmad)
+	• Mürtedin yani (maazallah) İslâm’dan çıkmış olan kimsenin kestiği yenmez. (Reddü’l-Muhtâr)
+	• Besmeleyi kasten terk edenin kestiği haram­dır. (İbn-i Âbidîn)
+	• Besmeleyi hata ile terk etmek zarar etmez. (Mültekâ)
+	• Besmele ile kesilenin helâl olacağını bil­meyenin besmeleyi terketmesi zarar vermez. (Red­dü’l-Muhtâr)
+KURBAN NAMAZI NASIL KILINIYOR? KURBAN KESİLDİKTEN SONRA KILINAN NAMAZA NASIL NİYET EDİLİR? KURBAN KESİLDİKTEN SONRA NASIL NAMAZ KILINIR?
+	• Kurban sahibi kurbanını kestikten veya baş­ka birine kestirdikten sonra “Kurbanınızı kestiğinizde elinizdeki bıçağı bırakın. Sonra iki rek’at namaz kılın. Müslümanlardan han­gi kimse bu iki rek’at namazı kılar da Allahü Teâlâ hazretlerinden bir şey isterse Allahü Teâlâ hazretleri elbette o kimseye istediği şeyi verir.” hadîs-i şerîfine uyarak iki rek’at namaz(*) kılmak müstehaptır. Bu namazdan sonra:
+	• “Allâhümme hâze’l-kebşu, (ev hâze’l-baka­ru, ev hâze’l-ma‘zü)(8) minke ve leke ve ileyke. Fete­kabbel minnî bilutfike ve keramike kemâ tekabbelte min İbrâhîme Halîlike ve İsmâîle Zebîhıke ve Muhammedin Habîbike bifazlike ve cûdike ve keramike yâ ekrame’l-ekramîn”(9) duâsını okuyup dinî ve dünyevî hâcetler istenir. (Ziyâ-i Ma’nevî)
+	• (7) Namazın birinci rek’atinde Fatiha’dan sonra “İnnâ a’taynâ..”, ikinci rek’atinde “Kul hüvellahü ehad…” sûresi okunur. (Duâ ve İbâdetler, Fazilet Neşriyat)
+	• Koç ise duaya “Allâhümme hâze’l-kebşu..”, sığır ise “Allâhümme hâze’l-bakaru..”, keçi ise “Allâhümme hâze’l-ma‘ zü..” diye başlar.
+	• (9) Yâ Rabbi, bu koyun (veya sığır veya keçi) sendendir ve senin rızân için sanadır. Lütfunla ve kereminle Halîlin İbrâhim (a.s.) ve zebîhin (kurbanın) İsmâîl (a.s.)’dan ve Habîbin Muhammed (s.a.v.)’den kabul ettiğin gibi kabul et. Fazlın, lütfun ve kereminle ey Ekrame’l-ekramîn.
+
+
+Kurban Bayramında Kurban Kesmek Farz mı?
+Kurban Bayramı yaklaşırken herkes; kurban kesmeli miyim? Kurban kesmenin İslam’da yeri nedir? Kurban kesmek farz mıdır, sünnet midir? gibi soruları merak etmektedir.
+Bu soruların cevabını vermek için, İslam dinine göre neler yapılması gerekir, neler yapılmaması gerekir, bunların delil ve hükümleri nedir, öncelikle bunları bilmek gerekmektedir.
+İslam dini akıllı ve baliğ olan(yetişkin) her erkek ve kadına yapması gereken şeyleri emretmiş yapmaması gereken şeyleri de yasaklamıştır. Bu emir ve yasaklar tekliftir. Müslümanlar mükelleftir. (Yani bu emir ve yasakları yapmakla emrolunmuştur ve bunlarla mükelleftir demektir.) Bu emir ve yasaklara İslam’da “efali mükellefiin” denir.
+(Efali Mükellefiin: Müslümanların yapması ve yapmaması gereken fiiller demektir.)
+İslam dininde Efali mükellefiin sekizdir: Farz, vacip, sünnet, müstehap, mübah, mekruh, müfsid,haramdır.
+Bunların ne demek olduğunu aşağıda ifade edelim. Bunları ifade ederken kurban ibadetinin islamdaki yerini de anlamış olacağız.
+Farz; kati delil ile, kesin delil ile (Ayet-i kerime, vahiy ile) sabit olan hükümlerdir. Farz ibadetler de bu hükme göre Allah’ın emirleridir ki kesin bir hükümle yapmak icap eden ibadetlerdir.
+Vacip, farz derecesinde kati delil ile sabit olmayan hükümlerdir. Vitr namazı ve bayram namazı gibi.
+Sünnet; Peygamber Efendimizin mübarek sözü, işi ve başkası yaptığında hoş gördüğü şeylerdir. Namazların sünnetleri gibi.
+Müstehap; Peygamberimizin bazen işledikleri şeyledir. Sadaka vermek
+Mübah; İşlenmesinde sevap olmayan, terkedilmesinde günah olmayan şeylerdir. Oturmak, kalkmak, yemek gibi.
+Mekruh; işlenmesi hoş görülmeyen ve amelin sevabını eksilten şeylerdir. Namazda etrafa bakmak gibi.
+Müfsid; başlanmış olan bir ibadeti bozan şeylerdir. Oruçlu iken bir şey yemek gibi.
+Haram; işlenmesi kati delille yasaklanmış olan şeylerdir. İçki içmek gibi.
+KURBAN İBADETİNİN GEREKLİLİĞİ
+İslam’da ilk sırayı farzlar, farz ibadetler almaktadır. Farz ibadetler kesinlikle yapılması icap eden ibadetlerdir. Yapılmadığı zaman günah işlenmiş olur.
+İslam’da ikinci sırayı da vacipler almaktadır. Vacip de farz derecesinde olmayan delillerle yapılması gereken ibadetlerdir.
+Vacipler de yapılması gereken, farz gibi ehemmiyetli ibadetlerdir. Fıkıh kitaplarında da vacip demek yapılması gereken olarak ifade edilir. Fıkıh alimlerinin çoğu da farz ile vacibi eşanlamlı kullanmışlardır. Bu bakımdan vacip yapılması gerekli ibadetlerdir.
+Kurban kesmek, İslam dininde çok kutsal bir ibadettir. Tefsir alimleri Kuran-ı Kerim’deki Kevser suresini şu şekilde tercüme ve tefsir etmişlerdir: “ Muhakkak biz sana Kevseri verdik(Cennetteki Kevser suyundan bahsediliyor). O halde Rabbin için namaz kıl ve kurban kes….”
+Hadis-i Şerif’te Peygamber Efendimiz SAV:
+“Bir kimse, kurban kesmeye kudreti (gücü yeterse) olur da kurban kesmezse o kimse elbette bizim mescidimize (yani bize) yaklaşmasın.” buyurmuştur. Diğer hadis-i şerifte, “Şefâatimize (kazanamaz) nâil olmaz.” buyurulmuştur.
+Yukarıda bahsi geçen deliller kurban kesmenin İslami kaynaklara (kuran, hadis) göre vacip olduğunu ortaya koymaktadır.
+Yine yukarıda bahsedilen hadisi şerifteki kurban ile alakalı Peygamber Efendimizin mübarek sözleri kurban ibadetinin ne kadar hassas ve önemli bir ibadet olduğunu ortaya koymaktadır.
+Kurban kesmenin hükmü Hanefi mezhebine göre Vaciptir.
+İslam dinine göre vacip farzdan sonra gelen ikinci sırada önemli ibadetlerdir.
+O halde kurban kesilmelidir.
+KURBAN İBADETİNİN KABULÜ İÇİN NE YAPMAK GEREKİR?
+İslamda Kurban ibadeti ancak kurban olmaya uygun hay­vanı kesmekle yerine getirilmiş olur.
+Vakti içinde (kurban bayramında) kurbanı kesmeyip kurbanın bedelini sadaka olarak (yani parasal karşılığını bir fakire veya bağış kurumuna) verseler kurban ibadetini yerine getirmiş olmazlar. (Vahdetî)
+Ancak kurban bayramında kurban kesilen vakitlerde vekaletle kendi adına kurban kesilme garantisi altında bağışlaması ile kurbanı kesmiş olur. Yani vacip olarak kurban ibadetini yerine getirmiş olur.
+Fıtır sadakası ve kurban vâcib olduktan sonra kişinin malları yok olsa, ömrü içinde o kurbanı kesmedikçe ve fıtır sadakasını vermedikçe kişi üzerinden bu iki borcu düşmez. Diğer bir deyişle Kurban Bayramında kurban kesmeye gücü yetecek bir kimsenin malı kurbanı kesemeden yok olsa, artık o kimse üzerine kurban kesmek vacip olmuştur. Ölmeden o kurbanı kesmek veya kurbanın bedelini sadaka olarak vermek vacip olur. Bu iki yoldan biri ile borcunu ödemedikçe o borçtan sorumludur.
+Kurban kesilip kanı akıtıldıktan sonra kurbana zarar gelse yok olsa, borç ödenmiş olur, tekrar kurban kesmek gerekmez. (Hindiyye)
+Özgür(esir,köle olmayan), yolcu olmayan(Evinin bulunduğu yerden 90 kilometreden daha uzun mesafede 15 günden daha az süreyle bulunan kimsedir.), mukim (yolcu olmayan kimse demektir.) ve kurban kesmesini gerektirecek kadar mala sahip olan Müslümanın küçük çocukları için kurban kesmesi müstehap­tır. Müstehap hoş ve güzel görülen fiillere denilir. İslami kaynaklara göre fetva buna göre­dir. İmam Hasan’ın Ebû Hanife’den rivayetine göre ise küçük çocuğu ve babası olmayan torun­ları için kurban kesmesi vâcibtir. İmam Kudûrî, İmam Hasan’ın bu rivayetini tercih etmiştir.
+İslamda Kurban maddi bir ibadet olduğundan zen­gin olan çocuğun da kurban kesmesi lazımdır. (Sâ­hib-i Hidâye)
+Özellikle malı olan (İslama göre malı olan demek asıl ihtiyaçlarından fazla olarak 80,18gr altını olan demektir) kimseler aile fertlerinin tamamı için ( eşi, çocukları, torunları vs.için) kurban kesmesi lazımdır denilmiştir. Hatta ölmüş yakınları ya da İslam büyükleri adına da kurban kesmesi güzeldir ve manevi menfaate vesile olur.
+Zengin olan ya da 1 yıl içerisinde borcunu ödeyecek durumu olan her bireyin kurban kesmesi gereklidir denilmiştir.

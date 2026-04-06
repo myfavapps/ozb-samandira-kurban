@@ -1,0 +1,335 @@
+/* Özbilen Kurban Organizasyonu - Ana Stil Dosyası */
+
+:root {
+    --primary-color: #2d5a27;
+    --primary-dark: #1e3d1a;
+    --primary-light: #4a7c42;
+    --accent-color: #c9a227;
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --white: #ffffff;
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    --radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: var(--white);
+    padding: 15px 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+}
+
+.brand-text h1 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.brand-text p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.nav {
+    display: flex;
+    gap: 25px;
+}
+
+.nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.3s;
+}
+
+.nav a:hover {
+    opacity: 0.8;
+}
+
+.announcement-bar {
+    background-color: var(--accent-color);
+    color: var(--primary-dark);
+    padding: 10px 0;
+    overflow: hidden;
+}
+
+.marquee {
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.main {
+    padding: 40px 0;
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.live-section {
+    background: var(--white);
+    padding: 40px 0;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.live-panel {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.status-display {
+    text-align: center;
+    padding: 30px;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+    border-radius: var(--radius);
+    color: var(--white);
+}
+
+.current-number {
+    margin-bottom: 20px;
+}
+
+.current-number .label {
+    display: block;
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.current-number .number {
+    display: block;
+    font-size: 5rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.2);
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+.last-updated {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.video-section {
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.video-search {
+    display: flex;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto 30px;
+}
+
+.video-search input {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: var(--radius);
+    font-size: 1rem;
+}
+
+.video-search input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.video-result {
+    text-align: center;
+    padding: 40px;
+    background: var(--bg-color);
+    border-radius: var(--radius);
+    min-height: 200px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.video-container iframe,
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.faq-section {
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.faq-item summary {
+    padding: 20px;
+    background: var(--bg-color);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.faq-item p {
+    padding: 20px;
+    background: var(--white);
+}
+
+.contact-section {
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-item {
+    text-align: center;
+    padding: 30px;
+    background: var(--bg-color);
+    border-radius: var(--radius);
+}
+
+.contact-item .icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.contact-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.contact-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.footer {
+    background: var(--primary-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 20px 0;
+}
+
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .current-number .number {
+        font-size: 3.5rem;
+    }
+    .video-search {
+        flex-direction: column;
+    }
+}
+
+.status-waiting { background: #f39c12 !important; }
+.status-in-progress { background: #3498db !important; }
+.status-completed { background: #27ae60 !important; }
+.status-cancelled { background: #e74c3c !important; }
