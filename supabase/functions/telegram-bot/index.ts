@@ -1,62 +1,107 @@
+// Supabase Edge Function: Telegram Bot Webhook Handler
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const supabaseUrl = Deno.env.get('SUPABASE_URL')!
-const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-const botToken = Deno.env.get('BOT_TOKEN')!
+const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!
+const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+const BOT_TOKEN = Deno.env.get('BOT_TOKEN')!
 
-const supabase = createClient(supabaseUrl, supabaseServiceKey)
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY)
 
 serve(async (req) => {
   try {
     const { message } = await req.json()
-    if (!message || !message.text) return new Response('OK')
+    
+    if (!message || !message.text) {
+      return new Response('OK')
+    }
 
-    const parts = message.text.split(' ')
-    const command = parts[0]
-    const arg = parts[1]
-
-    let reply = ''
+    const [command, ...args] = message.text.split(' ')
+    const chatId = message.chat.id
+    
+    let responseText = ''
 
     switch(command) {
       case '/kesilecek':
-        if (!arg) { reply = 'Kurban numarasi gerekli'; break }
-        await updateStatus('waiting', parseInt(arg))
-        reply = `Kurban #${arg} kesim bekliyor`
+        if (!args[0]) {
+          responseText = '❌ Kullanım: /kesilecek [numara]'
+        } else {
+          await updateStatus('waiting', parseInt(args[0]))
+          responseText = `✅ Kurban #${args[0]} kesim bekliyor olarak işaretlendi.`
+        }
         break
-
+        
       case '/kesiliyor':
-        if (!arg) { reply = 'Kurban numarasi gerekli'; break }
-        await updateStatus('in_progress', parseInt(arg))
-        reply = `Kurban #${arg} kesiliyor`
+        if (!args[0]) {
+          responseText = '❌ Kullanım: /kesiliyor [numara]'
+        } else {
+          await updateStatus('in_progress', parseInt(args[0]))
+          responseText = `🔪 Kurban #${args[0]} şu an kesiliyor.`
+        }
         break
-
+        
       case '/kesildi':
-        if (!arg) { reply = 'Kurban numarasi gerekli'; break }
-        await updateStatus('completed', parseInt(arg))
-        reply = `Kurban #${arg} kesimi tamamlandi`
+        if (!args[0]) {
+          responseText = '❌ Kullanım: /kesildi [numara]'
+        } else {
+          await updateStatus('completed', parseInt(args[0]))
+          responseText = `✅ Kurban #${args[0]} kesimi tamamlandı.`
+        }
         break
-
+        
       case '/iptal':
-        if (!arg) { reply = 'Kurban numarasi gerekli'; break }
-        await updateStatus('cancelled', parseInt(arg))
-        reply = `Kurban #${arg} iptal edildi`
+        if (!args[0]) {
+          responseText = '❌ Kullanım: /iptal [numara]'
+        } else {
+          await updateStatus('cancelled', parseInt(args[0]))
+          responseText = `❌ Kurban #${args[0]} iptal edildi.`
+        }
         break
-
+        
       case '/duyuru':
-        const msg = parts.slice(1).join(' ')
-        if (!msg) { reply = 'Duyuru mesaji gerekli'; break }
-        await updateAnnouncement(msg)
-        reply = `Duyuru guncellendi`
+        if (!args.length) {
+          responseText = '❌ Kullanım: /duyuru [mesaj]'
+        } else {
+          const messageText = args.join(' ')
+          await updateAnnouncement(messageText)
+          responseText = `📢 Duyuru güncellendi: ${messageText}`
+        }
         break
+        
+      case '/video':
+        // Video işleme - Cloudinary entegrasyonu gerekiyor
+        responseText = '📹 Video işleme için: Videoyu doğrudan gönderin veya /video [numara] [cloudinary_url]'
+        break
+        
+      case '/start':
+      case '/yardim':
+        responseText = `🐄 Samandıra Kurban Bot Komutları:
 
+/kesilecek [numara] - Kurban kesim bekliyor
+/kesiliyor [numara] - Kurban kesiliyor  
+/kesildi [numara] - Kurban kesimi tamamlandı
+/iptal [numara] - Kurban kesimi iptal edildi
+/duyuru [mesaj] - Duyuru güncelle
+/video [numara] - Video ekle
+/yardim - Bu mesajı göster`
+        break
+        
       default:
-        reply = 'Komutlar: /kesilecek, /kesiliyor, /kesildi, /iptal, /duyuru'
+        responseText = '❓ Bilinmeyen komut. /yardim yazarak komutları görebilirsiniz.'
     }
 
-    await sendMessage(message.chat.id, reply)
-    return new Response('OK')
+    // Send response via Telegram API
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: responseText
+      })
+    })
 
+    return new Response('OK')
+    
   } catch (error) {
     console.error('Error:', error)
     return new Response('Error', { status: 500 })
@@ -64,24 +109,17 @@ serve(async (req) => {
 })
 
 async function updateStatus(status: string, number: number) {
-  await supabase.from('slaughter_status').insert({
-    current_number: number,
-    status: status,
-    last_updated: new Date().toISOString()
-  })
+  await supabase
+    .from('slaughter_status')
+    .upsert({ 
+      current_number: number, 
+      status,
+      last_updated: new Date().toISOString()
+    })
 }
 
 async function updateAnnouncement(message: string) {
-  await supabase.from('announcements').insert({
-    message: message,
-    type: 'info'
-  })
-}
-
-async function sendMessage(chatId: number, text: string) {
-  await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text: text })
-  })
+  await supabase
+    .from('announcements')
+    .insert({ message, type: 'info' })
 }
