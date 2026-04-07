@@ -32,7 +32,7 @@ function renderTable() {
 
     tbody.innerHTML = kesimData.map(row => {
         const status = row.status || 'waiting';
-        const time = row.last_updated ? new Date(row.last_updated).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }) : '--:--';
+        const time = (status === 'waiting') ? '' : (row.last_updated ? new Date(row.last_updated).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }) : '');
         return `
             <tr class="row-${status}">
                 <td style="font-weight:700; font-size:1.1rem;">${row.kurban_number || row.current_number}</td>

@@ -70,9 +70,9 @@ function renderMasas() {
                                 return `
                                 <tr>
                                     <td style="font-weight:700;">${p.kurban_number}</td>
-                                    <td><input type="number" class="table-input" data-kurban="${p.kurban_number}" data-masa="${m}" data-field="hisse_count" value="${detail.hisse_count || ''}" min="0" onchange="saveMasaDetail(this)" onblur="saveMasaDetail(this)"></td>
-                                    <td><input type="number" class="table-input" data-kurban="${p.kurban_number}" data-masa="${m}" data-field="et_kg" value="${detail.et_kg || ''}" min="0" step="0.1" onchange="saveMasaDetail(this)" onblur="saveMasaDetail(this)"></td>
-                                    <td><input type="number" class="table-input" data-kurban="${p.kurban_number}" data-masa="${m}" data-field="kemik_kg" value="${detail.kemik_kg || ''}" min="0" step="0.1" onchange="saveMasaDetail(this)" onblur="saveMasaDetail(this)"></td>
+                                    <td><input type="text" inputmode="numeric" class="table-input" data-kurban="${p.kurban_number}" data-masa="${m}" data-field="hisse_count" value="${detail.hisse_count || ''}" placeholder="0" onchange="saveMasaDetail(this)" onblur="saveMasaDetail(this)"></td>
+                                    <td><input type="text" inputmode="decimal" class="table-input" data-kurban="${p.kurban_number}" data-masa="${m}" data-field="et_kg" value="${detail.et_kg || ''}" placeholder="0,0" onchange="saveMasaDetail(this)" onblur="saveMasaDetail(this)"></td>
+                                    <td><input type="text" inputmode="decimal" class="table-input" data-kurban="${p.kurban_number}" data-masa="${m}" data-field="kemik_kg" value="${detail.kemik_kg || ''}" placeholder="0,0" onchange="saveMasaDetail(this)" onblur="saveMasaDetail(this)"></td>
                                 </tr>`;
                             }).join('')}
                         </tbody>
@@ -99,7 +99,7 @@ function saveMasaDetail(el) {
         const inputs = row.querySelectorAll('.table-input');
         const data = { kurban_number: kurbanNumber, masa_number: masaNumber };
         inputs.forEach(inp => {
-            const val = inp.value.trim();
+            const val = inp.value.trim().replace(',', '.');
             data[inp.dataset.field] = val === '' ? null : parseFloat(val);
         });
 

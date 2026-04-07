@@ -3,6 +3,60 @@ let kesimChart = null;
 let parcalamaChart = null;
 let pollTimer = null;
 
+// Plugin: show total in center of doughnut
+const centerTextPlugin = {
+    id: 'centerText',
+    afterDraw(chart) {
+        const { ctx, chartArea: { width, height, top } } = chart;
+        const total = chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+        ctx.save();
+        ctx.font = 'bold 28px Inter';
+        ctx.fillStyle = '#2d3436';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(total, width / 2 + chart.chartArea.left, top + height / 2 - 8);
+        ctx.font = '12px Inter';
+        ctx.fillStyle = '#636e72';
+        ctx.fillText('Toplam', width / 2 + chart.chartArea.left, top + height / 2 + 16);
+        ctx.restore();
+    }
+};
+
+// Plugin: show count on each slice
+const dataLabelsPlugin = {
+    id: 'sliceLabels',
+    afterDraw(chart) {
+        const { ctx } = chart;
+        chart.data.datasets.forEach((dataset, di) => {
+            const meta = chart.getDatasetMeta(di);
+            meta.data.forEach((arc, i) => {
+                const val = dataset.data[i];
+                if (val === 0) return;
+                const { x, y } = arc.tooltipPosition();
+                ctx.save();
+                ctx.font = 'bold 14px Inter';
+                ctx.fillStyle = '#fff';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(val, x, y);
+                ctx.restore();
+            });
+        });
+    }
+};
+
+const chartPlugins = [centerTextPlugin, dataLabelsPlugin];
+
+const chartTooltip = {
+    callbacks: {
+        label: function(c) {
+            const t = c.dataset.data.reduce((a, b) => a + b, 0);
+            const p = t ? Math.round(c.raw / t * 100) : 0;
+            return ` ${c.label}: ${c.raw} (%${p})`;
+        }
+    }
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
     const user = requireRole('admin', 'kesim');
     if (!user) return;
@@ -39,7 +93,6 @@ async function loadDashboard() {
         document.getElementById('islenen').textContent = parcalama.completed;
         document.getElementById('masaSayisi').textContent = s.masa_count || '0';
 
-        // Kesim Chart
         renderKesimChart(kesim);
         renderParcalamaChart(parcalama, parcalamaWaiting > 0 ? parcalamaWaiting : 0);
 
@@ -78,8 +131,10 @@ function renderKesimChart(counts) {
                 maintainAspectRatio: true,
                 plugins: {
                     legend: { position: 'bottom', labels: { padding: 16, font: { size: 13, family: 'Inter' } } },
+                    tooltip: chartTooltip,
                 }
-            }
+            },
+            plugins: chartPlugins
         });
     }
 }
@@ -113,8 +168,10 @@ function renderParcalamaChart(counts, waiting) {
                 maintainAspectRatio: true,
                 plugins: {
                     legend: { position: 'bottom', labels: { padding: 16, font: { size: 13, family: 'Inter' } } },
+                    tooltip: chartTooltip,
                 }
-            }
+            },
+            plugins: chartPlugins
         });
     }
 }

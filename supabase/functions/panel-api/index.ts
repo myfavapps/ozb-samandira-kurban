@@ -271,20 +271,32 @@ async function handleAssignToMasa(data: Record<string, unknown>, user: Record<st
   const { kurban_number, masa_number } = data
   if (!kurban_number || !masa_number) throw new Error('400:kurban_number ve masa_number gerekli')
 
-  // Upsert into processing_status
-  const res = await fetch(`${REST_URL}/processing_status`, {
+  const body = {
+    kurban_number,
+    masa_number,
+    status: 'processing',
+    started_at: new Date().toISOString(),
+    completed_at: null,
+    updated_by: user.sub,
+  }
+
+  // Try update existing
+  const patchRes = await fetch(
+    `${REST_URL}/processing_status?kurban_number=eq.${kurban_number}`,
+    { method: 'PATCH', headers: { ...dbHeaders, 'Prefer': 'return=representation' }, body: JSON.stringify(body) }
+  )
+  if (patchRes.ok) {
+    const updated = await patchRes.json()
+    if (updated && updated.length > 0) return { success: true }
+  }
+
+  // Insert new
+  const postRes = await fetch(`${REST_URL}/processing_status`, {
     method: 'POST',
-    headers: { ...dbHeadersMinimal, 'Prefer': 'return=minimal,resolution=merge-duplicates' },
-    body: JSON.stringify({
-      kurban_number,
-      masa_number,
-      status: 'processing',
-      started_at: new Date().toISOString(),
-      completed_at: null,
-      updated_by: user.sub,
-    }),
+    headers: dbHeadersMinimal,
+    body: JSON.stringify(body),
   })
-  if (!res.ok) throw new Error('500:Masa ataması yapılamadı')
+  if (!postRes.ok) throw new Error('500:Masa ataması yapılamadı')
   return { success: true }
 }
 
@@ -309,20 +321,37 @@ async function handleUpdateMasaDetails(data: Record<string, unknown>, user: Reco
   const { kurban_number, masa_number, hisse_count, et_kg, kemik_kg } = data
   if (!kurban_number || !masa_number) throw new Error('400:kurban_number ve masa_number gerekli')
 
-  const res = await fetch(`${REST_URL}/masa_details`, {
+  const body = {
+    kurban_number,
+    masa_number,
+    hisse_count: hisse_count ?? null,
+    et_kg: et_kg ?? null,
+    kemik_kg: kemik_kg ?? null,
+    updated_at: new Date().toISOString(),
+    updated_by: user.sub,
+  }
+
+  // Try update existing row first
+  const patchRes = await fetch(
+    `${REST_URL}/masa_details?kurban_number=eq.${kurban_number}&masa_number=eq.${masa_number}`,
+    { method: 'PATCH', headers: { ...dbHeaders, 'Prefer': 'return=representation' }, body: JSON.stringify(body) }
+  )
+  if (patchRes.ok) {
+    const updated = await patchRes.json()
+    if (updated && updated.length > 0) return { success: true }
+  }
+
+  // Row doesn't exist, insert
+  const postRes = await fetch(`${REST_URL}/masa_details`, {
     method: 'POST',
-    headers: { ...dbHeadersMinimal, 'Prefer': 'return=minimal,resolution=merge-duplicates' },
-    body: JSON.stringify({
-      kurban_number,
-      masa_number,
-      hisse_count: hisse_count ?? null,
-      et_kg: et_kg ?? null,
-      kemik_kg: kemik_kg ?? null,
-      updated_at: new Date().toISOString(),
-      updated_by: user.sub,
-    }),
+    headers: dbHeadersMinimal,
+    body: JSON.stringify(body),
   })
-  if (!res.ok) throw new Error('500:Masa detayları kaydedilemedi')
+  if (!postRes.ok) {
+    const text = await postRes.text()
+    console.error('Masa insert error:', text)
+    throw new Error('500:Masa detayları kaydedilemedi')
+  }
   return { success: true }
 }
 
