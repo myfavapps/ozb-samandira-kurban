@@ -54,7 +54,7 @@ function renderTable() {
     const tbody = document.getElementById('parcalamaBody');
 
     if (processingData.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text-light);">Henuz parcalama islemi yok.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text-light);">Henuz parcalama islemi yok.</td></tr>';
         updateCounters();
         return;
     }
@@ -68,10 +68,15 @@ function renderTable() {
                 <td>${row.masa_number}. Masa</td>
                 <td>
                     ${row.status === 'processing'
-                        ? `<button class="btn btn-success btn-sm" onclick="completeProcessing(${row.kurban_number})">Islendi</button>`
+                        ? '<span style="color:#e65100;font-weight:600;">Isleniyor</span>'
                         : '<span style="color:#2e7d32;font-weight:600;">Islendi</span>'}
                 </td>
                 <td>${time}</td>
+                <td>
+                    ${row.status === 'processing'
+                        ? `<button class="btn btn-success btn-sm" onclick="completeProcessing(${row.kurban_number})">Islendi Yap</button>`
+                        : '-'}
+                </td>
             </tr>`;
     }).join('');
 
