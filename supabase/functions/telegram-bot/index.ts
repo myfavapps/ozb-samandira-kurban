@@ -1,12 +1,15 @@
-// Supabase Edge Function: Telegram Bot Webhook Handler
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 const BOT_TOKEN = Deno.env.get('BOT_TOKEN')!
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+const REST_URL = `${SUPABASE_URL}/rest/v1`
+const headers = {
+  'apikey': SUPABASE_SERVICE_KEY,
+  'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+  'Content-Type': 'application/json',
+  'Prefer': 'return=minimal',
+}
 
 serve(async (req) => {
   try {
@@ -68,11 +71,6 @@ serve(async (req) => {
         }
         break
         
-      case '/video':
-        // Video işleme - Cloudinary entegrasyonu gerekiyor
-        responseText = '📹 Video işleme için: Videoyu doğrudan gönderin veya /video [numara] [cloudinary_url]'
-        break
-        
       case '/start':
       case '/yardim':
         responseText = `🐄 Samandıra Kurban Bot Komutları:
@@ -82,7 +80,6 @@ serve(async (req) => {
 /kesildi [numara] - Kurban kesimi tamamlandı
 /iptal [numara] - Kurban kesimi iptal edildi
 /duyuru [mesaj] - Duyuru güncelle
-/video [numara] - Video ekle
 /yardim - Bu mesajı göster`
         break
         
@@ -90,7 +87,6 @@ serve(async (req) => {
         responseText = '❓ Bilinmeyen komut. /yardim yazarak komutları görebilirsiniz.'
     }
 
-    // Send response via Telegram API
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -109,17 +105,34 @@ serve(async (req) => {
 })
 
 async function updateStatus(status: string, number: number) {
-  await supabase
-    .from('slaughter_status')
-    .upsert({ 
-      current_number: number, 
+  // Delete all existing rows
+  const delRes = await fetch(`${REST_URL}/slaughter_status?id=gte.0`, {
+    method: 'DELETE',
+    headers,
+  })
+  if (!delRes.ok) console.error('Delete error:', delRes.status, await delRes.text())
+
+  // Insert new status
+  const insRes = await fetch(`${REST_URL}/slaughter_status`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      current_number: number,
       status,
-      last_updated: new Date().toISOString()
-    })
+      last_updated: new Date().toISOString(),
+    }),
+  })
+  if (!insRes.ok) console.error('Insert error:', insRes.status, await insRes.text())
 }
 
 async function updateAnnouncement(message: string) {
-  await supabase
-    .from('announcements')
-    .insert({ message, type: 'info' })
+  await fetch(`${REST_URL}/announcements?id=gte.0`, {
+    method: 'DELETE',
+    headers,
+  })
+  await fetch(`${REST_URL}/announcements`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ message, type: 'info' }),
+  })
 }
