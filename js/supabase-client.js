@@ -2,10 +2,10 @@
 const SUPABASE_URL = 'https://alwencxmlguuregmitbt.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_rgexFD8Bzg0jAMQhsj-yAw_NBRSp9oO';
 
-let supabase;
+var supabaseClient;
 
 try {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     console.log('Supabase client initialized');
 } catch (error) {
     console.error('Supabase initialization error:', error);
@@ -13,7 +13,7 @@ try {
 
 async function getCurrentStatus() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('slaughter_status')
             .select('*')
             .order('last_updated', { ascending: false })
@@ -29,7 +29,7 @@ async function getCurrentStatus() {
 
 async function getVideoByNumber(kurbanNumber) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('videos')
             .select('*')
             .eq('kurban_number', kurbanNumber)
@@ -44,7 +44,7 @@ async function getVideoByNumber(kurbanNumber) {
 
 async function getAnnouncements() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('announcements')
             .select('*')
             .order('created_at', { ascending: false })
@@ -58,7 +58,7 @@ async function getAnnouncements() {
 }
 
 function subscribeToStatus(callback) {
-    return supabase
+    return supabaseClient
         .channel('slaughter_status')
         .on('postgres_changes', 
             { event: '*', schema: 'public', table: 'slaughter_status' },
@@ -68,7 +68,7 @@ function subscribeToStatus(callback) {
 }
 
 function subscribeToAnnouncements(callback) {
-    return supabase
+    return supabaseClient
         .channel('announcements')
         .on('postgres_changes',
             { event: '*', schema: 'public', table: 'announcements' },
