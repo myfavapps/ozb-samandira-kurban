@@ -78,6 +78,23 @@ async function getAnnouncements() {
     }
 }
 
+async function getStreamStatus() {
+    try {
+        const { data, error } = await supabaseClient
+            .from('settings')
+            .select('key,value')
+            .eq('key', 'live_stream_active');
+        if (error) throw error;
+        if (data && data.length > 0) {
+            return { active: data[0].value === 'true' };
+        }
+        return { active: false };
+    } catch (error) {
+        console.error('Error fetching stream status:', error);
+        return { active: false };
+    }
+}
+
 function subscribeToStatus(callback) {
     return supabaseClient
         .channel('slaughter_status')

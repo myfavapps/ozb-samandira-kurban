@@ -165,7 +165,7 @@ async function handleLogin(data: Record<string, unknown>) {
 async function handleCreateUser(data: Record<string, unknown>, _user: Record<string, unknown>) {
   const { username, password, role, display_name } = data
   if (!username || !password || !role || !display_name) throw new Error('400:Tüm alanlar gerekli')
-  if (!['admin', 'kesim', 'parcalama'].includes(role as string)) throw new Error('400:Geçersiz rol')
+  if (!['admin', 'kesim', 'parcalama', 'canli_yayin'].includes(role as string)) throw new Error('400:Geçersiz rol')
 
   const salt = generateSalt()
   const password_hash = await hashPassword(password as string, salt)
@@ -355,6 +355,65 @@ async function handleUpdateMasaDetails(data: Record<string, unknown>, user: Reco
   return { success: true }
 }
 
+// ---- Live Stream handlers ----
+
+async function handleToggleStream(data: Record<string, unknown>) {
+  const { active } = data
+  if (typeof active !== 'boolean') throw new Error('400:active (boolean) gerekli')
+
+  await fetch(`${REST_URL}/settings?key=eq.live_stream_active`, {
+    method: 'PATCH',
+    headers: dbHeadersMinimal,
+    body: JSON.stringify({ value: String(active), updated_at: new Date().toISOString() }),
+  })
+  return { success: true, active }
+}
+
+// ---- Video handlers ----
+
+async function handleListVideos() {
+  const videos = await dbQuery('/videos?select=*&order=kurban_number.asc')
+  return { videos: videos || [] }
+}
+
+async function handleDeleteVideo(data: Record<string, unknown>) {
+  const { video_id } = data
+  if (!video_id) throw new Error('400:video_id gerekli')
+
+  await dbMutate(`/videos?id=eq.${video_id}`, 'DELETE')
+  return { success: true }
+}
+
+async function handleAddVideo(data: Record<string, unknown>) {
+  const { kurban_number, cloudinary_url } = data
+  if (!kurban_number || !cloudinary_url) throw new Error('400:kurban_number ve cloudinary_url gerekli')
+
+  const body = {
+    kurban_number,
+    cloudinary_url,
+    uploaded_at: new Date().toISOString(),
+  }
+
+  // Try update existing row first
+  const patchRes = await fetch(
+    `${REST_URL}/videos?kurban_number=eq.${kurban_number}`,
+    { method: 'PATCH', headers: { ...dbHeaders, 'Prefer': 'return=representation' }, body: JSON.stringify(body) }
+  )
+  if (patchRes.ok) {
+    const updated = await patchRes.json()
+    if (updated && updated.length > 0) return { success: true }
+  }
+
+  // Row doesn't exist, insert
+  const postRes = await fetch(`${REST_URL}/videos`, {
+    method: 'POST',
+    headers: dbHeadersMinimal,
+    body: JSON.stringify(body),
+  })
+  if (!postRes.ok) throw new Error('500:Video kaydedilemedi')
+  return { success: true }
+}
+
 // ---- Main handler ----
 
 serve(async (req) => {
@@ -437,6 +496,34 @@ serve(async (req) => {
         const user = await requireAuth(req)
         requireRole(user, 'admin', 'parcalama')
         result = await handleUpdateMasaDetails(data, user)
+        break
+      }
+
+      // Live Stream (admin + canli_yayin)
+      case 'toggle-stream': {
+        const user = await requireAuth(req)
+        requireRole(user, 'admin', 'canli_yayin')
+        result = await handleToggleStream(data)
+        break
+      }
+
+      // Videos (admin only)
+      case 'list-videos': {
+        const user = await requireAuth(req)
+        requireRole(user, 'admin')
+        result = await handleListVideos()
+        break
+      }
+      case 'delete-video': {
+        const user = await requireAuth(req)
+        requireRole(user, 'admin')
+        result = await handleDeleteVideo(data)
+        break
+      }
+      case 'add-video': {
+        const user = await requireAuth(req)
+        requireRole(user, 'admin')
+        result = await handleAddVideo(data)
         break
       }
 

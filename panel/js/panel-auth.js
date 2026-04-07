@@ -32,7 +32,7 @@ function requireRole(...roles) {
     if (!user) return null;
     if (!roles.includes(user.role)) {
         // Redirect to appropriate default page
-        const defaults = { admin: 'durum.html', kesim: 'kesim.html', parcalama: 'parcalama.html' };
+        const defaults = { admin: 'durum.html', kesim: 'kesim.html', parcalama: 'parcalama.html', canli_yayin: 'canli-yayin.html' };
         window.location.href = defaults[user.role] || 'login.html';
         return null;
     }
@@ -44,7 +44,7 @@ async function login(username, password) {
     localStorage.setItem('panel_token', result.token);
     localStorage.setItem('panel_user', JSON.stringify(result.user));
     // Redirect based on role
-    const defaults = { admin: 'durum.html', kesim: 'kesim.html', parcalama: 'parcalama.html' };
+    const defaults = { admin: 'durum.html', kesim: 'kesim.html', parcalama: 'parcalama.html', canli_yayin: 'canli-yayin.html' };
     window.location.href = defaults[result.user.role] || 'kesim.html';
 }
 

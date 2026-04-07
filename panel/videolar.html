@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videolar - Kurban Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="icon" href="../assets/images/logo.png">
+</head>
+<body>
+    <nav id="panel-nav"></nav>
+
+    <main class="panel-content">
+        <h1 class="panel-title">Video Yonetimi</h1>
+
+        <!-- Summary -->
+        <div class="summary-cards">
+            <div class="summary-card">
+                <div class="summary-number" id="totalCount">0</div>
+                <div class="summary-label">Toplam Video</div>
+            </div>
+        </div>
+
+        <!-- Video Table -->
+        <div class="panel-card">
+            <div class="panel-card-header">Video Listesi</div>
+            <div class="panel-table-wrapper">
+                <table class="panel-table">
+                    <thead>
+                        <tr>
+                            <th>Kurban No</th>
+                            <th>Video URL</th>
+                            <th>Yukleme Tarihi</th>
+                            <th>Islem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="videosBody">
+                        <tr><td colspan="4" class="loading">Yukleniyor</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Manual Add Form -->
+        <div class="panel-card" style="margin-top: 20px;">
+            <div class="panel-card-header">Manuel Video Ekle</div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end;">
+                <div class="form-group" style="flex: 0 0 120px;">
+                    <label for="addKurbanNo">Kurban No</label>
+                    <input type="number" id="addKurbanNo" min="1" placeholder="1">
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 250px;">
+                    <label for="addVideoUrl">Cloudinary URL</label>
+                    <input type="text" id="addVideoUrl" placeholder="https://res.cloudinary.com/...">
+                </div>
+                <button class="btn btn-primary" onclick="addVideo()" style="width: auto; height: 42px;">Ekle</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="js/panel-api.js"></script>
+    <script src="js/panel-auth.js"></script>
+    <script src="js/panel-nav.js"></script>
+    <script src="js/videolar.js"></script>
+</body>
+</html>

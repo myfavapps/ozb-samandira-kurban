@@ -8,6 +8,8 @@ function renderNav(currentPage) {
         { id: 'parcalama', label: 'Parcalama', href: 'parcalama.html', roles: ['admin', 'parcalama'] },
         { id: 'masalar', label: 'Masalar', href: 'masalar.html', roles: ['admin', 'parcalama'] },
         { id: 'durum', label: 'Durum', href: 'durum.html', roles: ['admin', 'kesim'] },
+        { id: 'canli-yayin', label: 'Canli Yayin', href: 'canli-yayin.html', roles: ['admin', 'canli_yayin'] },
+        { id: 'videolar', label: 'Videolar', href: 'videolar.html', roles: ['admin'] },
         { id: 'admin', label: 'Ayarlar', href: 'admin.html', roles: ['admin'] },
     ];
 

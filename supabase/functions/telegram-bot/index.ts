@@ -3,6 +3,9 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 const BOT_TOKEN = Deno.env.get('BOT_TOKEN')!
+const CLOUDINARY_CLOUD_NAME = Deno.env.get('CLOUDINARY_CLOUD_NAME') || ''
+const CLOUDINARY_API_KEY = Deno.env.get('CLOUDINARY_API_KEY') || ''
+const CLOUDINARY_API_SECRET = Deno.env.get('CLOUDINARY_API_SECRET') || ''
 const REST_URL = `${SUPABASE_URL}/rest/v1`
 const headers = {
   'apikey': SUPABASE_SERVICE_KEY,
@@ -15,12 +18,24 @@ serve(async (req) => {
   try {
     const { message } = await req.json()
     
-    if (!message || !message.text) {
+    if (!message) {
+      return new Response('OK')
+    }
+
+    const chatId = message.chat.id
+
+    // Handle video uploads with /video caption
+    if (message.video && message.caption && message.caption.trim().startsWith('/video')) {
+      const responseText = await handleVideoUpload(message)
+      await sendMessage(chatId, responseText)
+      return new Response('OK')
+    }
+
+    if (!message.text) {
       return new Response('OK')
     }
 
     const [command, ...args] = message.text.split(' ')
-    const chatId = message.chat.id
     
     let responseText = ''
 
@@ -103,6 +118,9 @@ serve(async (req) => {
 /isleniyor [kurban_no] [masa_no] - Parçalanıyor
 /islendi [kurban_no] [masa_no] - Parçalama tamam
 
+📹 Video:
+/video [numara] - Video dosyası ile birlikte gönderin
+
 📢 Diğer:
 /duyuru [mesaj] - Duyuru güncelle
 /yardim - Bu mesajı göster`
@@ -112,14 +130,7 @@ serve(async (req) => {
         responseText = '❓ Bilinmeyen komut. /yardim yazarak komutları görebilirsiniz.'
     }
 
-    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: responseText
-      })
-    })
+    await sendMessage(chatId, responseText)
 
     return new Response('OK')
     
@@ -200,4 +211,106 @@ async function updateAnnouncement(message: string) {
     headers,
     body: JSON.stringify({ message, type: 'info' }),
   })
+}
+
+async function sendMessage(chatId: number, text: string) {
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: chatId, text }),
+  })
+}
+
+// ---- Video upload to Cloudinary ----
+
+async function handleVideoUpload(message: Record<string, unknown>): Promise<string> {
+  try {
+    const caption = (message.caption as string).trim()
+    const parts = caption.split(/\s+/)
+    const kurbanNumber = parseInt(parts[1])
+    if (!kurbanNumber || kurbanNumber < 1) {
+      return '❌ Kullanım: /video [numara] (video dosyası ile birlikte gönderin)'
+    }
+
+    if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
+      return '❌ Cloudinary ayarları yapılmamış. Yönetici ile iletişime geçin.'
+    }
+
+    const video = message.video as Record<string, unknown>
+    const fileId = video.file_id as string
+
+    // 1. Get file path from Telegram
+    const fileRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${fileId}`)
+    if (!fileRes.ok) return '❌ Video dosyası alınamadı.'
+    const fileData = await fileRes.json()
+    const filePath = fileData.result?.file_path
+    if (!filePath) return '❌ Video dosya yolu bulunamadı.'
+
+    // 2. Download file from Telegram
+    const downloadUrl = `https://api.telegram.org/file/bot${BOT_TOKEN}/${filePath}`
+    const downloadRes = await fetch(downloadUrl)
+    if (!downloadRes.ok) return '❌ Video indirilemedi.'
+    const videoBlob = await downloadRes.blob()
+
+    // 3. Upload to Cloudinary (signed upload)
+    const timestamp = Math.floor(Date.now() / 1000)
+    const publicId = `kurban-${kurbanNumber}`
+    const paramsToSign = `overwrite=true&public_id=${publicId}&timestamp=${timestamp}${CLOUDINARY_API_SECRET}`
+    const signatureHash = await sha1(paramsToSign)
+
+    const formData = new FormData()
+    formData.append('file', videoBlob, `kurban-${kurbanNumber}.mp4`)
+    formData.append('public_id', publicId)
+    formData.append('overwrite', 'true')
+    formData.append('timestamp', String(timestamp))
+    formData.append('api_key', CLOUDINARY_API_KEY)
+    formData.append('signature', signatureHash)
+
+    const uploadRes = await fetch(
+      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/video/upload`,
+      { method: 'POST', body: formData }
+    )
+    if (!uploadRes.ok) {
+      const errText = await uploadRes.text()
+      console.error('Cloudinary upload error:', errText)
+      return '❌ Video Cloudinary\'ye yüklenemedi.'
+    }
+    const uploadData = await uploadRes.json()
+    const secureUrl = uploadData.secure_url
+
+    // 4. Save to DB (upsert: try update then insert)
+    const dbBody = {
+      kurban_number: kurbanNumber,
+      cloudinary_url: secureUrl,
+      uploaded_at: new Date().toISOString(),
+    }
+
+    const patchRes = await fetch(`${REST_URL}/videos?kurban_number=eq.${kurbanNumber}`, {
+      method: 'PATCH',
+      headers: { ...headers, 'Prefer': 'return=representation' },
+      body: JSON.stringify(dbBody),
+    })
+    if (patchRes.ok) {
+      const updated = await patchRes.json()
+      if (!updated || updated.length === 0) {
+        // Row doesn't exist, insert
+        await fetch(`${REST_URL}/videos`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(dbBody),
+        })
+      }
+    }
+
+    return `✅ Kurban #${kurbanNumber} videosu yüklendi!\n🔗 ${secureUrl}`
+  } catch (error) {
+    console.error('Video upload error:', error)
+    return '❌ Video yükleme sırasında hata oluştu.'
+  }
+}
+
+async function sha1(message: string): Promise<string> {
+  const data = new TextEncoder().encode(message)
+  const hash = await crypto.subtle.digest('SHA-1', data)
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('')
 }

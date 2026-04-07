@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
     <header class="header">
@@ -85,6 +86,20 @@
                             <span id="last-updated">--:--</span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="canli-yayin" class="live-stream-section" style="display: none;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">CANLI</span>
+                    <h2>Canl&#305; Yay&#305;n</h2>
+                    <p class="section-desc">Kesim alan&#305;ndaki canl&#305; g&#246;r&#252;nt&#252;</p>
+                </div>
+                <div class="stream-container">
+                    <video id="live-stream-video" controls playsinline></video>
+                    <button class="stream-fullscreen-btn" onclick="toggleStreamFullscreen()" title="Tam Ekran">&#x26F6;</button>
                 </div>
             </div>
         </section>

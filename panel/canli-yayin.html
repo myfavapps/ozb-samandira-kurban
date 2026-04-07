@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canli Yayin - Kurban Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="icon" href="../assets/images/logo.png">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <nav id="panel-nav"></nav>
+
+    <main class="panel-content">
+        <h1 class="panel-title">Canli Yayin Yonetimi</h1>
+
+        <!-- Status Card -->
+        <div class="panel-card" style="text-align: center; padding: 30px;">
+            <div id="streamStatus" style="display: inline-flex; align-items: center; gap: 12px; font-size: 1.3rem; font-weight: 700;">
+                <span id="statusDot" style="width: 18px; height: 18px; border-radius: 50%; background: #e74c3c; display: inline-block;"></span>
+                <span id="statusLabel">YAYIN KAPALI</span>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="btn btn-primary" id="toggleBtn" onclick="toggleStream()" style="min-width: 200px; font-size: 1rem; padding: 14px 32px;">
+                    Yayini Baslat
+                </button>
+            </div>
+        </div>
+
+        <!-- RTMP Info Card -->
+        <div class="panel-card">
+            <div class="panel-card-header">RTMP Yayin Bilgileri</div>
+            <div style="margin-bottom: 12px;">
+                <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-light);">Sunucu Adresi (Larix Broadcaster'a girin):</label>
+                <div style="background: #f0f0f0; padding: 10px 14px; border-radius: 8px; font-family: monospace; font-size: 0.9rem; margin-top: 4px; word-break: break-all;" id="rtmpUrl">
+                    rtmp://&lt;PUBLIC_IP&gt;:1935/live/stream
+                </div>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-light);">HLS Izleme Adresi:</label>
+                <div style="background: #f0f0f0; padding: 10px 14px; border-radius: 8px; font-family: monospace; font-size: 0.9rem; margin-top: 4px; word-break: break-all;">
+                    https://stream.samandirakurban.com/live/stream/index.m3u8
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Card -->
+        <div class="panel-card">
+            <div class="panel-card-header">Yayin Onizleme</div>
+            <div style="position: relative; padding-bottom: 56.25%; background: #1a1a2e; border-radius: 8px; overflow: hidden;">
+                <video id="previewVideo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" controls playsinline></video>
+                <div id="previewPlaceholder" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #666; font-size: 0.9rem; text-align: center;">
+                    Yayin basladiginda burada gorunecek
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions Card -->
+        <div class="panel-card">
+            <div class="panel-card-header">Talimatlar</div>
+            <ol style="padding-left: 20px; line-height: 1.8; color: var(--text-light);">
+                <li><strong>Larix Broadcaster</strong> uygulamasini telefonunuza indirin (iOS/Android, ucretsiz)</li>
+                <li>Uygulamada <strong>Connections</strong> bolumune gidin, yeni baglanti ekleyin</li>
+                <li>Yukaridaki <strong>RTMP sunucu adresini</strong> yapistirinp</li>
+                <li>Video kalitesini <strong>480p</strong> olarak ayarlayin (bant genisligi icin)</li>
+                <li>Telefondan yayina baslayin</li>
+                <li>Bu sayfadan <strong>"Yayini Baslat"</strong> butonuna basin</li>
+                <li>Ana sayfada canli yayin gorunecektir</li>
+            </ol>
+        </div>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="js/panel-api.js"></script>
+    <script src="js/panel-auth.js"></script>
+    <script src="js/panel-nav.js"></script>
+    <script src="js/canli-yayin.js"></script>
+</body>
+</html>
