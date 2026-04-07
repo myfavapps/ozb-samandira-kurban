@@ -7,29 +7,69 @@ const statusConfig = {
 
 let statusSubscription;
 let announcementSubscription;
+let pollInterval;
+let lastStatusJson = '';
+let lastAnnouncementJson = '';
 
 document.addEventListener('DOMContentLoaded', async () => {
     await loadInitialData();
     setupRealtimeSubscriptions();
+    startPolling();
 });
 
 async function loadInitialData() {
     const status = await getCurrentStatus();
-    if (status) updateStatusDisplay(status);
-    
+    if (status) {
+        updateStatusDisplay(status);
+        lastStatusJson = JSON.stringify(status);
+    }
+
     const announcements = await getAnnouncements();
     if (announcements && announcements.length > 0) {
         updateAnnouncement(announcements[0]);
+        lastAnnouncementJson = JSON.stringify(announcements[0]);
     }
 }
 
 function setupRealtimeSubscriptions() {
-    statusSubscription = subscribeToStatus((newStatus) => {
-        updateStatusDisplay(newStatus);
-    });
-    announcementSubscription = subscribeToAnnouncements((newAnnouncement) => {
-        updateAnnouncement(newAnnouncement);
-    });
+    try {
+        statusSubscription = subscribeToStatus((newStatus) => {
+            updateStatusDisplay(newStatus);
+            lastStatusJson = JSON.stringify(newStatus);
+        });
+        announcementSubscription = subscribeToAnnouncements((newAnnouncement) => {
+            updateAnnouncement(newAnnouncement);
+            lastAnnouncementJson = JSON.stringify(newAnnouncement);
+        });
+    } catch (e) {
+        console.warn('Realtime subscription failed, polling active:', e);
+    }
+}
+
+function startPolling() {
+    pollInterval = setInterval(async () => {
+        try {
+            const status = await getCurrentStatus();
+            if (status) {
+                const json = JSON.stringify(status);
+                if (json !== lastStatusJson) {
+                    updateStatusDisplay(status);
+                    lastStatusJson = json;
+                }
+            }
+
+            const announcements = await getAnnouncements();
+            if (announcements && announcements.length > 0) {
+                const json = JSON.stringify(announcements[0]);
+                if (json !== lastAnnouncementJson) {
+                    updateAnnouncement(announcements[0]);
+                    lastAnnouncementJson = json;
+                }
+            }
+        } catch (e) {
+            console.warn('Poll error:', e);
+        }
+    }, 5000);
 }
 
 function updateStatusDisplay(status) {
@@ -61,4 +101,5 @@ function updateAnnouncement(announcement) {
 window.addEventListener('beforeunload', () => {
     if (statusSubscription) statusSubscription.unsubscribe();
     if (announcementSubscription) announcementSubscription.unsubscribe();
+    if (pollInterval) clearInterval(pollInterval);
 });
