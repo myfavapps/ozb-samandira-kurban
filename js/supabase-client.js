@@ -13,14 +13,35 @@ try {
 
 async function getCurrentStatus() {
     try {
-        const { data, error } = await supabaseClient
+        // Multi-row: first try in_progress, then latest completed, then first waiting
+        let { data, error } = await supabaseClient
             .from('slaughter_status')
             .select('*')
+            .eq('status', 'in_progress')
             .order('last_updated', { ascending: false })
-            .limit(1)
-            .single();
+            .limit(1);
         if (error) throw error;
-        return data;
+        if (data && data.length > 0) return data[0];
+
+        ({ data, error } = await supabaseClient
+            .from('slaughter_status')
+            .select('*')
+            .eq('status', 'completed')
+            .order('last_updated', { ascending: false })
+            .limit(1));
+        if (error) throw error;
+        if (data && data.length > 0) return data[0];
+
+        ({ data, error } = await supabaseClient
+            .from('slaughter_status')
+            .select('*')
+            .eq('status', 'waiting')
+            .order('kurban_number', { ascending: true })
+            .limit(1));
+        if (error) throw error;
+        if (data && data.length > 0) return data[0];
+
+        return null;
     } catch (error) {
         console.error('Error fetching status:', error);
         return null;

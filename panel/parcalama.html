@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcalama Paneli - Kurban Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="icon" href="../assets/images/logo.png">
+</head>
+<body>
+    <nav id="panel-nav"></nav>
+
+    <main class="panel-content">
+        <h1 class="panel-title">Parcalama Paneli</h1>
+
+        <!-- Summary -->
+        <div class="summary-cards">
+            <div class="summary-card" style="border-top-color: #ff9800;">
+                <div class="number" id="countProcessing">0</div>
+                <div class="label">Isleniyor</div>
+            </div>
+            <div class="summary-card" style="border-top-color: #4caf50;">
+                <div class="number" id="countDone">0</div>
+                <div class="label">Islendi</div>
+            </div>
+            <div class="summary-card">
+                <div class="number" id="countParcalamaTotal">0</div>
+                <div class="label">Toplam</div>
+            </div>
+        </div>
+
+        <!-- Assign Form -->
+        <div class="inline-form">
+            <div class="form-group">
+                <label>Kurban (<span id="availableCount">0</span> hazir)</label>
+                <select id="assignKurban">
+                    <option value="">Kurban sec...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Masa</label>
+                <select id="assignMasa">
+                    <option value="">Masa sec...</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="assignToMasa()" style="width:auto;">Masaya Ata</button>
+        </div>
+
+        <!-- Table -->
+        <div class="panel-table-wrapper">
+            <table class="panel-table">
+                <thead>
+                    <tr>
+                        <th>Kurban No</th>
+                        <th>Masa No</th>
+                        <th>Durum</th>
+                        <th>Islem Saati</th>
+                    </tr>
+                </thead>
+                <tbody id="parcalamaBody">
+                    <tr><td colspan="4" class="loading">Yukleniyor</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="js/panel-api.js"></script>
+    <script src="js/panel-auth.js"></script>
+    <script src="js/panel-nav.js"></script>
+    <script src="js/parcalama.js"></script>
+</body>
+</html>

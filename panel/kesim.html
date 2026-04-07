@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kesim Paneli - Kurban Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="icon" href="../assets/images/logo.png">
+</head>
+<body>
+    <nav id="panel-nav"></nav>
+
+    <main class="panel-content">
+        <h1 class="panel-title">Kesim Paneli</h1>
+
+        <!-- Summary counters -->
+        <div class="summary-cards">
+            <div class="summary-card" style="border-top-color: #4caf50;">
+                <div class="number" id="countWaiting">0</div>
+                <div class="label">Kesilecek</div>
+            </div>
+            <div class="summary-card" style="border-top-color: #ff9800;">
+                <div class="number" id="countProgress">0</div>
+                <div class="label">Kesiliyor</div>
+            </div>
+            <div class="summary-card" style="border-top-color: #f44336;">
+                <div class="number" id="countCompleted">0</div>
+                <div class="label">Kesildi</div>
+            </div>
+            <div class="summary-card" style="border-top-color: #9e9e9e;">
+                <div class="number" id="countCancelled">0</div>
+                <div class="label">Iptal</div>
+            </div>
+            <div class="summary-card">
+                <div class="number" id="countTotal">0</div>
+                <div class="label">Toplam</div>
+            </div>
+        </div>
+
+        <!-- Kesim Table -->
+        <div class="panel-table-wrapper">
+            <table class="panel-table">
+                <thead>
+                    <tr>
+                        <th>Kurban No</th>
+                        <th>Durum</th>
+                        <th>Islem Saati</th>
+                    </tr>
+                </thead>
+                <tbody id="kesimBody">
+                    <tr><td colspan="3" class="loading">Yukleniyor</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="js/panel-api.js"></script>
+    <script src="js/panel-auth.js"></script>
+    <script src="js/panel-nav.js"></script>
+    <script src="js/kesim.js"></script>
+</body>
+</html>

@@ -2,3 +2,6 @@ project_id = "alwencxmlguuregmitbt"
 
 [functions.telegram-bot]
 verify_jwt = false
+
+[functions.panel-api]
+verify_jwt = false

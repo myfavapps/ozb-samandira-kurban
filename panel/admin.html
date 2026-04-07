@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayarlar - Kurban Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="icon" href="../assets/images/logo.png">
+</head>
+<body>
+    <nav id="panel-nav"></nav>
+
+    <main class="panel-content">
+        <h1 class="panel-title">Ayarlar</h1>
+
+        <div class="panel-tabs">
+            <button class="panel-tab active" data-tab="settings" onclick="showTab('settings')">Ayarlar</button>
+            <button class="panel-tab" data-tab="users" onclick="showTab('users')">Kullanicilar</button>
+        </div>
+
+        <!-- Settings Tab -->
+        <div class="tab-content active" id="tab-settings">
+            <div class="panel-card">
+                <div class="panel-card-header">Kurban & Masa Ayarlari</div>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px;">
+                    <div class="form-group" style="flex:1; min-width: 150px;">
+                        <label for="kurbanCount">Kurban Adedi</label>
+                        <input type="number" id="kurbanCount" min="0" max="500" value="0">
+                    </div>
+                    <div class="form-group" style="flex:1; min-width: 150px;">
+                        <label for="masaCount">Masa Adedi</label>
+                        <input type="number" id="masaCount" min="0" max="20" value="0">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" id="saveSettingsBtn" onclick="saveSettings()" style="width:auto;">Kaydet</button>
+                    <button class="btn btn-success" id="initKurbanBtn" onclick="initializeKurban()" style="width:auto;">Kurbanlari Olustur</button>
+                </div>
+                <p style="margin-top: 12px; font-size: 0.8rem; color: var(--text-light);">
+                    "Kurbanlari Olustur" butonu mevcut kesim verilerini sifirlar ve belirtilen adet kadar kurban olusturur.
+                </p>
+            </div>
+        </div>
+
+        <!-- Users Tab -->
+        <div class="tab-content" id="tab-users">
+            <div class="panel-card">
+                <div class="panel-card-header">Kullanici Listesi</div>
+                <div class="panel-table-wrapper">
+                    <table class="panel-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Kullanici Adi</th>
+                                <th>Gorunen Ad</th>
+                                <th>Rol</th>
+                                <th>Durum</th>
+                                <th>Islem</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersBody">
+                            <tr><td colspan="6" class="loading">Yukleniyor</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel-card" style="margin-top: 20px;">
+                <div class="panel-card-header">Yeni Kullanici Ekle</div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <div class="form-group" style="flex:1; min-width: 140px;">
+                        <label for="newUsername">Kullanici Adi</label>
+                        <input type="text" id="newUsername" placeholder="ornek: ahmet">
+                    </div>
+                    <div class="form-group" style="flex:1; min-width: 140px;">
+                        <label for="newPassword">Sifre</label>
+                        <input type="password" id="newPassword" placeholder="Sifre">
+                    </div>
+                    <div class="form-group" style="flex:1; min-width: 140px;">
+                        <label for="newDisplayName">Gorunen Ad</label>
+                        <input type="text" id="newDisplayName" placeholder="Ahmet Usta">
+                    </div>
+                    <div class="form-group" style="flex:1; min-width: 140px;">
+                        <label for="newRole">Rol</label>
+                        <select id="newRole">
+                            <option value="kesim">Kesim</option>
+                            <option value="parcalama">Parcalama</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="createUserBtn" onclick="createUser()" style="width: auto; margin-top: 12px;">Kullanici Ekle</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/panel-api.js"></script>
+    <script src="js/panel-auth.js"></script>
+    <script src="js/panel-nav.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

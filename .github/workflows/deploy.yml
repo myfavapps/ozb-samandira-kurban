@@ -54,3 +54,4 @@ jobs:
         run: |
           supabase link --project-ref $SUPABASE_PROJECT_ID
           supabase functions deploy telegram-bot --project-ref $SUPABASE_PROJECT_ID
+          supabase functions deploy panel-api --project-ref $SUPABASE_PROJECT_ID
