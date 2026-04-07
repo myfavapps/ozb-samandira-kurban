@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Özbilen Kurban Organizasyonu - Samandıra</title>
+    <title>Canlı Kurban Kesimi - Çetinler Besi / Özbilen Kurban Organizasyonu</title>
+    <meta name="description" content="Samandıra Kurban - İslami usullere uygun, hijyenik koşullarda kurban kesim ve satış hizmeti. Canlı kesim takibi, video sorgulama.">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -11,20 +12,32 @@
     <header class="header">
         <div class="container">
             <div class="logo-section">
-                <img src="assets/images/logo.png" alt="Özbilen Kurgan Organizasyonu" class="logo">
+                <img src="assets/images/logo.png" alt="Özbilen Kurban Organizasyonu" class="logo">
                 <div class="brand-text">
-                    <h1>Özbilen Kurban Organizasyonu</h1>
-                    <p>Samandıra / Çetinler Besi</p>
+                    <h1>Çetinler Besi</h1>
+                    <p>Özbilen Kurban Organizasyonu</p>
                 </div>
             </div>
             <nav class="nav">
                 <a href="#canli-kesim">Canlı Kesim</a>
-                <a href="#video-sorgula">Video Sorgula</a>
+                <a href="#hizmetler">Hizmetler</a>
+                <a href="#fiyatlar">Fiyatlar</a>
+                <a href="#video-sorgula">Video</a>
                 <a href="#sss">SSS</a>
                 <a href="#iletisim">İletişim</a>
             </nav>
+            <button class="nav-toggle" aria-label="Menü">&#9776;</button>
         </div>
     </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Kurbanınız Bizimle Emin Ellerde</h2>
+            <p class="hero-slogan">Kurban ibadetinizi güvenle yerine getirin</p>
+            <p class="hero-desc">Samandıra Kurban olarak, İslami kurallara uygun ve hijyenik koşullarda kurban kesim ve satış hizmeti sunmaktayız. Sağlıklı, kaliteli ve güvenilir hizmet anlayışıyla müşterilerimize en iyi deneyimi sağlamak için buradayız.</p>
+            <a href="#canli-kesim" class="btn btn-hero">Canlı Kesim Takibi</a>
+        </div>
+    </section>
 
     <section class="announcement-bar">
         <div class="marquee">
@@ -39,7 +52,7 @@
                 <div class="live-panel">
                     <div class="status-display">
                         <div class="current-number">
-                            <span class="label">Şu Anki Sıra</span>
+                            <span class="label">Kesim Sıra No</span>
                             <span id="current-number" class="number">--</span>
                         </div>
                         <div class="status-badge" id="status-badge">
@@ -50,6 +63,123 @@
                             <span>Son Güncelleme:</span>
                             <span id="last-updated">--:--</span>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="hizmetler" class="services-section">
+            <div class="container">
+                <h2>Hizmetlerimiz</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">&#9770;</div>
+                        <h3>İslami Usullere Uygun Kesim</h3>
+                        <p>Kurbanınızı ibadet hassasiyeti ile tüm fıkıh kurallarına riayet ederek, hocalarımız eşliğinde, veteriner hekim kontrolü altında kesiyoruz.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">&#127973;</div>
+                        <h3>Güvenilir ve Hijyenik Ortam</h3>
+                        <p>Yüksek teknolojiye sahip 10.000 m&#178; kapalı alanlı bir tesiste, gıda güvenliği standartlarına uygun şekilde çalışıyoruz.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">&#9878;</div>
+                        <h3>Hassas Hisse Paylama</h3>
+                        <p>Hassas, elektronik, 7 gözlü tartılar ile eşit hisseleme. Her hisse hakkaniyetle tartılarak ayrılır.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">&#128663;</div>
+                        <h3>Frigolu Araçlar</h3>
+                        <p>Soğuk hava frigolu araçlarla soğuk zincir bozulmadan teslim. Kesim sonrası etleriniz güvenle ulaştırılır.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">&#128721;</div>
+                        <h3>Profesyonel Kasaplar</h3>
+                        <p>Profesyonel kasap kadrosu ile aynı gün teslim. 25 yıllık tecrübe ile hizmetinizdeyiz.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">&#10084;</div>
+                        <h3>İhtiyaç Sahiplerine Ulaştırma</h3>
+                        <p>Kurban etleri Kuran kurslarında eğitim gören talebelerimize ve ihtiyaç sahibi vatandaşlarımıza ulaştırılmaktadır.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">&#128065;</div>
+                        <h3>Kurbanınızı Yerinde Görün</h3>
+                        <p>Kurbanınızı bayramdan birkaç gün önceden yerinde görme imkanı sunuyoruz.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">&#127909;</div>
+                        <h3>Kesim Videosu</h3>
+                        <p>Kesim süreci video kaydına alınır. Kurbanınızın kesildiğine dair video tarafınıza iletilir.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="fiyatlar" class="pricing-section">
+            <div class="container">
+                <h2>Hisse Gruplarımız</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>Büyükbaş Hisse</h3>
+                        <div class="pricing-group">
+                            <div class="price-row"><span>1. Grup</span><strong>30.000 - 36.000 TL</strong></div>
+                            <div class="price-row"><span>2. Grup</span><strong>36.000 - 42.000 TL</strong></div>
+                            <div class="price-row highlight"><span>3. Grup</span><strong>42.000 TL ve üzeri</strong></div>
+                        </div>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Küçükbaş Hisse</h3>
+                        <div class="pricing-group">
+                            <div class="price-row"><span>1. Grup</span><strong>18.000 - 22.000 TL</strong></div>
+                            <div class="price-row"><span>2. Grup</span><strong>22.000 - 27.000 TL</strong></div>
+                            <div class="price-row highlight"><span>3. Grup</span><strong>27.000 TL ve üzeri</strong></div>
+                        </div>
+                    </div>
+                    <div class="pricing-card donation">
+                        <h3>Bağış Kurban</h3>
+                        <div class="pricing-group">
+                            <div class="price-row"><span>Bağış Bedeli</span><strong>14.000 TL</strong></div>
+                        </div>
+                        <p class="donation-note">Bağışınız ihtiyaç sahiplerine ulaştırılır.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="nasil-calisiyoruz" class="process-section">
+            <div class="container">
+                <h2>Nasıl Çalışıyoruz?</h2>
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Başvuru ve Kayıt</h3>
+                        <p>Web sitemizden, WhatsApp veya telefon yoluyla başvurunuzu alıyoruz. Gün içerisinde sizlerle irtibat kurup detaylı bilgileri görüşüyoruz.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Kurbanlık Seçimi</h3>
+                        <p>İslami şartlara uygun, sağlıklı ve veteriner kontrolünden geçmiş büyükbaş ve küçükbaş kurbanlıkları özenle seçiyoruz.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Hissedarların Belirlenmesi</h3>
+                        <p>Büyükbaş kurbanlar için 7 kişilik hissedar grupları oluşturuyoruz. Kesim öncesinde tüm hissedarlardan vekalet alıyoruz.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Vekalet Alımı</h3>
+                        <p>Kayıt sırasında vekaletiniz sesli veya yazılı olarak alınır. Kesim anında kasap ve şahitler huzurunda isminiz zikredilerek kesim gerçekleştirilir.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <h3>Kesim ve Parçalama</h3>
+                        <p>Kurbanlar islami usullere uygun, hijyenik ortamda profesyonel kasaplar tarafından kesilir ve 7 kollu terazilerde tartılarak parçalanır.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">6</div>
+                        <h3>Paketleme ve Teslimat</h3>
+                        <p>Tüm hissedarlara eşit şekilde kasalar halinde verilir. Kesim mahalinden veya teslim noktalarımızdan alabilirsiniz.</p>
                     </div>
                 </div>
             </div>
@@ -68,17 +198,96 @@
             </div>
         </section>
 
+        <section id="hakkimizda" class="about-section">
+            <div class="container">
+                <h2>Hakkımızda</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>İstanbul Samandıra'da <strong>25 yıllık</strong> hizmetin tecrübesiyle sizlere ehlinin elinden kurban organizasyonu sunuyoruz. Her yıl yüzlerce müslüman, kurban ibadetinde bizi tercih ediyor.</p>
+                        <p>Anadolu'dan seçerek satın aldığımız kurbanlıklarımızdan dilediğinize hissedar ediyoruz. Vekaletinizi aldıktan sonra bayramın 1. günü sizlere verdiğimiz saatte kurbanınızı kesiyoruz.</p>
+                        <p>2003 yılında Samandıra'da başladığımız yolculuğumuzda, bugün bölgenin en güvenilir ve tercih edilen kurban kesim merkezlerinden birisi haline geldik.</p>
+                    </div>
+                    <div class="about-values">
+                        <div class="value-item">
+                            <h4>Güvenilirlik</h4>
+                            <p>25 yıllık tecrübemizle müşterilerimize güvenilir hizmet sunuyoruz.</p>
+                        </div>
+                        <div class="value-item">
+                            <h4>İslami Usuller</h4>
+                            <p>"Et değil, ibadet" düsturuyla hareket eder, dini usullere tam riayet ederiz.</p>
+                        </div>
+                        <div class="value-item">
+                            <h4>Kalite ve Hijyen</h4>
+                            <p>Modern ekipmanlar ve hijyenik koşullarla donatılmış tesisimizde hizmet veriyoruz.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="sss" class="faq-section">
             <div class="container">
                 <h2>Sıkça Sorulan Sorular</h2>
                 <div class="faq-list">
                     <details class="faq-item">
-                        <summary>Kurban kesim saatleri nedir?</summary>
-                        <p>Kurban Bayramı'nın 1. günü sabah 08:00'de başlayıp, akşam namazına kadar devam edecektir.</p>
+                        <summary>Satın aldığım paket kurban teslimatı ne zaman yapılacak?</summary>
+                        <p>Kurban bayramının 1. günü kurbanınızı teslim alabilirsiniz.</p>
                     </details>
                     <details class="faq-item">
-                        <summary>Videolar ne zaman yayınlanacak?</summary>
-                        <p>Kurban kesimi tamamlandıktan sonra video işleme süresi yaklaşık 15-30 dakikadır.</p>
+                        <summary>Niçin fiyat aralığı veriyorsunuz, sabit fiyat veremiyorsunuz?</summary>
+                        <p>Hiçbir kurban diğeri ile aynı kiloda olmadığı için her bir kurbanı ayrı ayrı tartıyor, size sadece tartımı yapılan sizin kurbanınızın 1/7 hisse fiyatını yansıtıyoruz.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Kurbanımın net fiyatı ne zaman belli olur?</summary>
+                        <p>Kurbanınızın fiyatı tartım neticesinde çıkan kilograma göre belli olur. Kurbanlıklarınızı ortalama bayramdan 2 hafta önce tartıp net fiyat bilgisini sizlere iletiyoruz.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Ciğer, kalp ve diğer sakatatlar da kolimde gelecek mi?</summary>
+                        <p>Hijyen ve genel riskler göz önünde bulundurularak, çabuk bozulma özelliğine sahip ciğer, kalp ve diğer sakatatlar gıda güvenliği kuralları gereği sizin adınıza makbuz karşılığında hayır kurumlarına bağışlanmaktadır.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Teslim edilen etler kendi kurban hissemin eti midir?</summary>
+                        <p>25 yıllık tecrübemizle tüm aşamalarda son sistem teknoloji kullanıyor, ayrı ayrı küpe numarası ve kimlik kartlı etiketler kullanıyoruz. Hiçbir kurbanı diğerine karıştırmadan %100 sizin hissenizin garantisini veriyoruz.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Kesim yapılırken kesim mahalline gelebilir miyim?</summary>
+                        <p>Evet, kesim sırasında kesim mahalline gelmeniz mümkündür. Dilerseniz tüm süreci kesim mahallimizden takip edebilirsiniz.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Kurban eti nasıl saklanmalıdır?</summary>
+                        <p>Teslim alındıktan sonra mümkün olan en kısa sürede buzdolabına (0-4 C) yerleştirin. Taze tüketim için kırmızı et 4 gün, sakatat 2 gün muhafaza edilebilir. Uzun süre saklamak için derin dondurucuda (-18 C) en fazla 6 ay muhafaza edebilirsiniz.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Hisseli kurban nasıl alınır?</summary>
+                        <p>Web sitemizden başvuru yapabilir, WhatsApp üzerinden ulaşabilirsiniz. Bütçenize göre dilediğiniz gruptaki kurbana dahil olabilirsiniz.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Ödeme nasıl yapılır?</summary>
+                        <p>Banka havalesi ve nakit ödeme seçenekleri mevcuttur.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Kurban kesimi nerede ve nasıl yapılıyor?</summary>
+                        <p>Kurban kesiminin tamamı bayramın 1. günü Gebze Kadıllı'daki modern ve hijyenik kesimhane tesisimizde, islami şartlara uygun olarak profesyonel kasaplar tarafından yapılmaktadır. Kesim öncesinde 7 hissedarın isimleri okunur, vekalet verilir, tekbirler eşliğinde Besmele-i Şerife ile kesim yapılır.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Kurban teslimatı nasıl gerçekleşiyor?</summary>
+                        <p>Kurbanınız kesim ve parçalama işlemlerinin ardından et paketi ve kemikli et paketi olarak 2 paket haline getirilir. Teslimat noktalarımızdan teslim alabilirsiniz. Adrese teslim için iletişime geçebilirsiniz.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Kurban bağışı yapabilir miyim?</summary>
+                        <p>Evet, güvenle kurban bağışı yapabilir, bağışınızı ihtiyaç sahiplerine ulaştırmamızı sağlayabilirsiniz. Bağış kurban bedeli: 14.000 TL</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Samandıra dışında teslimat yapıyor musunuz?</summary>
+                        <p>İstanbul genelinde teslimat yapıyoruz. Samandıra dışındaki teslimat noktaları için lütfen bizimle iletişime geçin.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Kurbanımın islami usullere uygun kesildiğinden nasıl emin olabilirim?</summary>
+                        <p>Tüm kurbanlıklarımız yaşları ve fiziksel özellikleri kontrol edilerek satın alınır. Profesyonel kasaplarımız tarafından abdestli, tekbirler eşliğinde kesilir. Dilerseniz kesim videosu sizlere gönderilir.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Vekalet nasıl alınır?</summary>
+                        <p>Kayıt aşamasında vekalet formu tarafınıza iletilir. Sesli veya yazılı olarak vekaletiniz alınır.</p>
                     </details>
                 </div>
             </div>
@@ -89,14 +298,25 @@
                 <h2>İletişim</h2>
                 <div class="contact-grid">
                     <div class="contact-item">
-                        <span class="icon">📱</span>
+                        <span class="icon">&#128242;</span>
                         <h3>WhatsApp</h3>
-                        <a href="https://wa.me/905XXXXXXXXX" target="_blank">Mesaj Gönder</a>
+                        <a href="https://wa.me/905322483420" target="_blank">0532 248 34 20</a>
                     </div>
                     <div class="contact-item">
-                        <span class="icon">📞</span>
+                        <span class="icon">&#128222;</span>
                         <h3>Telefon</h3>
-                        <a href="tel:+905XXXXXXXXX">+90 5XX XXX XXXX</a>
+                        <a href="tel:+905322483420">0532 248 34 20</a><br>
+                        <a href="tel:+905077508519">0507 750 85 19</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">&#127970;</span>
+                        <h3>Ofis Adresi</h3>
+                        <p>Adil Mah, Gökdere Sk No: 1<br>Sultanbeyli / İstanbul</p>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">&#128205;</span>
+                        <h3>Kesimhane</h3>
+                        <p>Çetinler Besi<br>Kadıllı, Gebze</p>
                     </div>
                 </div>
             </div>
@@ -105,7 +325,11 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 Özbilen Kurban Organizasyonu. Tüm hakları saklıdır.</p>
+            <div class="footer-content">
+                <p><strong>Çetinler Besi</strong> &mdash; Özbilen Kurban Organizasyonu</p>
+                <p>www.samandirakurban.com</p>
+                <p>&copy; 2026 Tüm hakları saklıdır.</p>
+            </div>
         </div>
     </footer>
 

@@ -44,6 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Mobile nav toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.nav');
+    if (navToggle && nav) {
+        navToggle.addEventListener('click', () => nav.classList.toggle('active'));
+        nav.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => nav.classList.remove('active'));
+        });
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
