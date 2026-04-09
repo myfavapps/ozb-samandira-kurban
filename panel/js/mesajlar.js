@@ -109,3 +109,12 @@ async function saveEdit() {
         showToast('Hata: ' + e.message, true);
     }
 }
+
+// ---- Toast ----
+
+function showToast(msg, isError) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(function() { t.className = 'toast'; }, 3000);
+}
