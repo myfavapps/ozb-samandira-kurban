@@ -26,6 +26,13 @@ async function loadSettings() {
         const { settings } = await panelAPI('get-settings');
         document.getElementById('kurbanCount').value = settings.kurban_count || '0';
         document.getElementById('masaCount').value = settings.masa_count || '0';
+        document.getElementById('kesimStartTime').value = settings.kesim_start_time || '07:00';
+        document.getElementById('kesimSuresi').value = settings.kesim_suresi || '3';
+        document.getElementById('parcalamaSuresi').value = settings.parcalama_suresi || '20';
+        document.getElementById('mola1Start').value = settings.mola_1_start || '';
+        document.getElementById('mola1End').value = settings.mola_1_end || '';
+        document.getElementById('mola2Start').value = settings.mola_2_start || '';
+        document.getElementById('mola2End').value = settings.mola_2_end || '';
     } catch (e) {
         showToast(e.message, 'error');
     }
@@ -33,19 +40,32 @@ async function loadSettings() {
 
 async function saveSettings() {
     const btn = document.getElementById('saveSettingsBtn');
+    const btn2 = document.getElementById('saveOpBtn');
     btn.disabled = true;
+    if (btn2) btn2.disabled = true;
     try {
         const kurban_count = parseInt(document.getElementById('kurbanCount').value);
         const masa_count = parseInt(document.getElementById('masaCount').value);
         if (isNaN(kurban_count) || isNaN(masa_count) || kurban_count < 0 || masa_count < 0) {
             throw new Error('Gecerli sayilar girin');
         }
-        await panelAPI('update-settings', { kurban_count, masa_count });
+        await panelAPI('update-settings', {
+            kurban_count,
+            masa_count,
+            kesim_start_time: document.getElementById('kesimStartTime').value,
+            kesim_suresi: document.getElementById('kesimSuresi').value,
+            parcalama_suresi: document.getElementById('parcalamaSuresi').value,
+            mola_1_start: document.getElementById('mola1Start').value,
+            mola_1_end: document.getElementById('mola1End').value,
+            mola_2_start: document.getElementById('mola2Start').value,
+            mola_2_end: document.getElementById('mola2End').value,
+        });
         showToast('Ayarlar kaydedildi', 'success');
     } catch (e) {
         showToast(e.message, 'error');
     }
     btn.disabled = false;
+    if (btn2) btn2.disabled = false;
 }
 
 async function initializeKurban() {

@@ -483,6 +483,78 @@ body {
     text-align: center;
 }
 
+/* ---- Performance ---- */
+
+.perf-card {
+    min-height: 200px;
+}
+
+.perf-content {
+    padding: 8px 0;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.perf-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.perf-row:last-child {
+    border-bottom: none;
+}
+
+.perf-label {
+    color: #636e72;
+    font-weight: 500;
+}
+
+.perf-value {
+    font-weight: 700;
+    color: #2d3436;
+}
+
+.perf-ahead {
+    color: #4caf50;
+    font-weight: 700;
+}
+
+.perf-behind {
+    color: #f44336;
+    font-weight: 700;
+}
+
+.perf-bar-container {
+    margin-top: 12px;
+    background: #e9ecef;
+    border-radius: 8px;
+    height: 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+.perf-bar {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    min-width: 30px;
+}
+
+.perf-not-started {
+    text-align: center;
+    color: #636e72;
+    padding: 24px;
+    font-style: italic;
+}
+
 /* ---- Tabs ---- */
 
 .panel-tabs {

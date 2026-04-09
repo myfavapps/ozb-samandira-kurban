@@ -43,6 +43,43 @@
                     "Kurbanlari Olustur" butonu mevcut kesim verilerini sifirlar ve belirtilen adet kadar kurban olusturur.
                 </p>
             </div>
+
+            <div class="panel-card" style="margin-top: 20px;">
+                <div class="panel-card-header">Operasyon Parametreleri</div>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <div class="form-group" style="flex:1; min-width: 130px;">
+                        <label for="kesimStartTime">Kesim Baslama Saati</label>
+                        <input type="time" id="kesimStartTime" value="07:00">
+                    </div>
+                    <div class="form-group" style="flex:1; min-width: 130px;">
+                        <label for="kesimSuresi">Kesim Suresi (dk/kurban)</label>
+                        <input type="number" id="kesimSuresi" min="1" max="60" value="3">
+                    </div>
+                    <div class="form-group" style="flex:1; min-width: 130px;">
+                        <label for="parcalamaSuresi">Parcalama Suresi (dk/kurban)</label>
+                        <input type="number" id="parcalamaSuresi" min="1" max="120" value="20">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <div class="form-group" style="flex:1; min-width: 130px;">
+                        <label for="mola1Start">Mola 1 Baslangic</label>
+                        <input type="time" id="mola1Start">
+                    </div>
+                    <div class="form-group" style="flex:1; min-width: 130px;">
+                        <label for="mola1End">Mola 1 Bitis</label>
+                        <input type="time" id="mola1End">
+                    </div>
+                    <div class="form-group" style="flex:1; min-width: 130px;">
+                        <label for="mola2Start">Mola 2 Baslangic</label>
+                        <input type="time" id="mola2Start">
+                    </div>
+                    <div class="form-group" style="flex:1; min-width: 130px;">
+                        <label for="mola2End">Mola 2 Bitis</label>
+                        <input type="time" id="mola2End">
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="saveOpBtn" onclick="saveSettings()" style="width:auto;">Kaydet</button>
+            </div>
         </div>
 
         <!-- Users Tab -->

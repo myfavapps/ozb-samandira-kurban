@@ -34,6 +34,14 @@
                 <div class="label">Islenen</div>
             </div>
             <div class="summary-card" style="border-top-color: #ff9800;">
+                <div class="number" id="isleniyor">0</div>
+                <div class="label">Isleniyor</div>
+            </div>
+            <div class="summary-card" style="border-top-color: #9c27b0;">
+                <div class="number" id="parcaBekliyor">0</div>
+                <div class="label">Bekliyor</div>
+            </div>
+            <div class="summary-card" style="border-top-color: #607d8b;">
                 <div class="number" id="masaSayisi">0</div>
                 <div class="label">Masa Sayisi</div>
             </div>
@@ -50,12 +58,24 @@
                 <canvas id="parcalamaChart"></canvas>
             </div>
         </div>
+
+        <!-- Performance -->
+        <div class="chart-grid" id="perfSection" style="display:none;">
+            <div class="panel-card perf-card">
+                <div class="panel-card-header">Kesim Performansi</div>
+                <div id="kesimPerf" class="perf-content"></div>
+            </div>
+            <div class="panel-card perf-card">
+                <div class="panel-card-header">Parcalama Performansi</div>
+                <div id="parcalamaPerf" class="perf-content"></div>
+            </div>
+        </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <script src="js/panel-api.js"></script>
     <script src="js/panel-auth.js?v=2"></script>
     <script src="js/panel-nav.js?v=2"></script>
-    <script src="js/durum.js?v=2"></script>
+    <script src="js/durum.js?v=3"></script>
 </body>
 </html>

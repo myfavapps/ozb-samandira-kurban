@@ -241,20 +241,32 @@ async function handleGetSettings() {
 }
 
 async function handleUpdateSettings(data: Record<string, unknown>) {
-  const { kurban_count, masa_count } = data
-  if (kurban_count !== undefined) {
-    await fetch(`${REST_URL}/settings?key=eq.kurban_count`, {
-      method: 'PATCH',
-      headers: dbHeadersMinimal,
-      body: JSON.stringify({ value: String(kurban_count), updated_at: new Date().toISOString() }),
-    })
-  }
-  if (masa_count !== undefined) {
-    await fetch(`${REST_URL}/settings?key=eq.masa_count`, {
-      method: 'PATCH',
-      headers: dbHeadersMinimal,
-      body: JSON.stringify({ value: String(masa_count), updated_at: new Date().toISOString() }),
-    })
+  const allowedKeys = [
+    'kurban_count', 'masa_count',
+    'kesim_start_time', 'mola_1_start', 'mola_1_end', 'mola_2_start', 'mola_2_end',
+    'kesim_suresi', 'parcalama_suresi',
+  ]
+  const now = new Date().toISOString()
+
+  for (const key of allowedKeys) {
+    if (data[key] !== undefined) {
+      // Try PATCH first
+      const patchRes = await fetch(`${REST_URL}/settings?key=eq.${key}`, {
+        method: 'PATCH',
+        headers: { ...dbHeaders, 'Prefer': 'return=representation' },
+        body: JSON.stringify({ value: String(data[key]), updated_at: now }),
+      })
+      if (patchRes.ok) {
+        const updated = await patchRes.json()
+        if (updated && updated.length > 0) continue
+      }
+      // Row doesn't exist, INSERT
+      await fetch(`${REST_URL}/settings`, {
+        method: 'POST',
+        headers: dbHeadersMinimal,
+        body: JSON.stringify({ key, value: String(data[key]), updated_at: now }),
+      })
+    }
   }
   return { success: true }
 }
