@@ -95,6 +95,20 @@ async function getStreamStatus() {
     }
 }
 
+async function getInfoMessages() {
+    try {
+        const { data, error } = await supabaseClient
+            .from('info_messages')
+            .select('id,message,created_at')
+            .order('created_at', { ascending: false });
+        if (error) throw error;
+        return data || [];
+    } catch (error) {
+        console.error('Error fetching info messages:', error);
+        return [];
+    }
+}
+
 function subscribeToStatus(callback) {
     return supabaseClient
         .channel('slaughter_status')

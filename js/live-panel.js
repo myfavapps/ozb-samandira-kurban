@@ -11,6 +11,7 @@ let pollInterval;
 let lastStatusJson = '';
 let lastAnnouncementJson = '';
 let lastStreamActive = null;
+let lastInfoMessagesJson = '';
 let streamHls = null;
 const STREAM_HLS_URL = 'https://stream.samandirakurban.com/live/stream/index.m3u8';
 
@@ -36,6 +37,11 @@ async function loadInitialData() {
     // Load stream status
     const streamStatus = await getStreamStatus();
     updateStreamDisplay(streamStatus.active);
+
+    // Load info messages
+    const infoMessages = await getInfoMessages();
+    updateInfoMessagesDisplay(infoMessages);
+    lastInfoMessagesJson = JSON.stringify(infoMessages);
 }
 
 function setupRealtimeSubscriptions() {
@@ -79,6 +85,14 @@ function startPolling() {
             if (streamStatus.active !== lastStreamActive) {
                 updateStreamDisplay(streamStatus.active);
             }
+
+            // Poll info messages
+            const infoMessages = await getInfoMessages();
+            const infoJson = JSON.stringify(infoMessages);
+            if (infoJson !== lastInfoMessagesJson) {
+                updateInfoMessagesDisplay(infoMessages);
+                lastInfoMessagesJson = infoJson;
+            }
         } catch (e) {
             console.warn('Poll error:', e);
         }
@@ -109,6 +123,31 @@ function updateAnnouncement(announcement) {
     if (announcement && announcement.message) {
         announcementEl.textContent = announcement.message;
     }
+}
+
+function updateInfoMessagesDisplay(messages) {
+    const section = document.getElementById('bilgi-mesajlari');
+    const list = document.getElementById('info-messages-list');
+    if (!section || !list) return;
+
+    if (!messages || messages.length === 0) {
+        section.style.display = 'none';
+        list.innerHTML = '';
+        return;
+    }
+
+    section.style.display = 'block';
+    list.innerHTML = messages.map(function(m) {
+        var time = new Date(m.created_at).toLocaleString('tr-TR', {
+            day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+        });
+        var text = m.message.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return '<div class="info-message-card">' +
+            '<span class="info-icon">\u2139\uFE0F</span>' +
+            '<span class="info-text">' + text + '</span>' +
+            '<span class="info-time">' + time + '</span>' +
+            '</div>';
+    }).join('');
 }
 
 window.addEventListener('beforeunload', () => {

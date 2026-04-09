@@ -403,6 +403,50 @@ section h2 {
     box-shadow: var(--shadow-sm);
 }
 
+/* Info Messages Section */
+.info-messages-section {
+    background: var(--white);
+    padding-bottom: 30px;
+}
+
+.info-messages-list {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info-message-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #eef7f5;
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+}
+
+.info-message-card .info-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.info-message-card .info-text {
+    flex: 1;
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.info-message-card .info-time {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
 /* Live Stream Section */
 .live-stream-section {
     background: var(--white);

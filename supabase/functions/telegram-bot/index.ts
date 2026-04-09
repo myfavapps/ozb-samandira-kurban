@@ -104,6 +104,37 @@ serve(async (req) => {
         }
         break
         
+      case '/bilgi':
+        if (!args.length) {
+          responseText = '❌ Kullanım: /bilgi [mesaj]'
+        } else {
+          const bilgiText = args.join(' ')
+          await addInfoMessage(bilgiText)
+          responseText = `ℹ️ Bilgi mesajı eklendi: ${bilgiText}`
+        }
+        break
+
+      case '/bilgi_list': {
+        const msgs = await listInfoMessages()
+        if (msgs.length === 0) {
+          responseText = 'ℹ️ Henüz bilgi mesajı yok.'
+        } else {
+          responseText = '📋 Bilgi Mesajları:\n\n' + msgs.map((m: Record<string, unknown>) =>
+            `#${m.id} - ${m.message}`
+          ).join('\n')
+        }
+        break
+      }
+
+      case '/bilgi_sil':
+        if (!args[0]) {
+          responseText = '❌ Kullanım: /bilgi_sil [id]'
+        } else {
+          await deleteInfoMessage(parseInt(args[0]))
+          responseText = `✅ Bilgi mesajı #${args[0]} silindi.`
+        }
+        break
+
       case '/start':
       case '/yardim':
         responseText = `🐄 Samandıra Kurban Bot Komutları:
@@ -123,6 +154,9 @@ serve(async (req) => {
 
 📢 Diğer:
 /duyuru [mesaj] - Duyuru güncelle
+/bilgi [mesaj] - Bilgi mesajı ekle
+/bilgi_list - Bilgi mesajlarını listele
+/bilgi_sil [id] - Bilgi mesajı sil
 /yardim - Bu mesajı göster`
         break
         
@@ -210,6 +244,29 @@ async function updateAnnouncement(message: string) {
     method: 'POST',
     headers,
     body: JSON.stringify({ message, type: 'info' }),
+  })
+}
+
+async function addInfoMessage(message: string) {
+  await fetch(`${REST_URL}/info_messages`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ message }),
+  })
+}
+
+async function listInfoMessages(): Promise<Record<string, unknown>[]> {
+  const res = await fetch(`${REST_URL}/info_messages?select=id,message,created_at&order=created_at.desc`, {
+    headers,
+  })
+  if (!res.ok) return []
+  return await res.json()
+}
+
+async function deleteInfoMessage(id: number) {
+  await fetch(`${REST_URL}/info_messages?id=eq.${id}`, {
+    method: 'DELETE',
+    headers,
   })
 }
 
