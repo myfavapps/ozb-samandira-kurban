@@ -165,7 +165,7 @@ async function handleLogin(data: Record<string, unknown>) {
 async function handleCreateUser(data: Record<string, unknown>, _user: Record<string, unknown>) {
   const { username, password, role, display_name } = data
   if (!username || !password || !role || !display_name) throw new Error('400:Tüm alanlar gerekli')
-  if (!['admin', 'kesim', 'parcalama', 'canli_yayin'].includes(role as string)) throw new Error('400:Geçersiz rol')
+  if (!['admin', 'kesim', 'parcalama', 'canli_yayin', 'mesaj'].includes(role as string)) throw new Error('400:Geçersiz rol')
 
   const salt = generateSalt()
   const password_hash = await hashPassword(password as string, salt)
@@ -355,6 +355,72 @@ async function handleUpdateMasaDetails(data: Record<string, unknown>, user: Reco
   return { success: true }
 }
 
+// ---- Info Messages (Bilgi) handlers ----
+
+async function handleListInfoMessages() {
+  const messages = await dbQuery('/info_messages?select=*&order=created_at.desc')
+  return { messages: messages || [] }
+}
+
+async function handleAddInfoMessage(data: Record<string, unknown>) {
+  const { message } = data
+  if (!message) throw new Error('400:message gerekli')
+
+  const res = await fetch(`${REST_URL}/info_messages`, {
+    method: 'POST',
+    headers: { ...dbHeaders, 'Prefer': 'return=representation' },
+    body: JSON.stringify({ message }),
+  })
+  if (!res.ok) throw new Error('500:Bilgi mesajı eklenemedi')
+  const created = await res.json()
+  return { success: true, info: created[0] }
+}
+
+async function handleUpdateInfoMessage(data: Record<string, unknown>) {
+  const { id, message } = data
+  if (!id || !message) throw new Error('400:id ve message gerekli')
+
+  const res = await fetch(`${REST_URL}/info_messages?id=eq.${id}`, {
+    method: 'PATCH',
+    headers: dbHeadersMinimal,
+    body: JSON.stringify({ message }),
+  })
+  if (!res.ok) throw new Error('500:Bilgi mesajı güncellenemedi')
+  return { success: true }
+}
+
+async function handleDeleteInfoMessage(data: Record<string, unknown>) {
+  const { id } = data
+  if (!id) throw new Error('400:id gerekli')
+
+  await dbMutate(`/info_messages?id=eq.${id}`, 'DELETE')
+  return { success: true }
+}
+
+// ---- Announcement (Duyuru) handlers ----
+
+async function handleGetAnnouncement() {
+  const announcements = await dbQuery('/announcements?select=*&order=created_at.desc&limit=1')
+  return { announcement: (announcements && announcements.length > 0) ? announcements[0] : null }
+}
+
+async function handleUpdateAnnouncement(data: Record<string, unknown>) {
+  const { message } = data
+  if (!message && message !== '') throw new Error('400:message gerekli')
+
+  // Delete all existing
+  await fetch(`${REST_URL}/announcements?id=gte.0`, { method: 'DELETE', headers: dbHeadersMinimal })
+
+  if (message) {
+    await fetch(`${REST_URL}/announcements`, {
+      method: 'POST',
+      headers: dbHeadersMinimal,
+      body: JSON.stringify({ message, type: 'info' }),
+    })
+  }
+  return { success: true }
+}
+
 // ---- Live Stream handlers ----
 
 async function handleToggleStream(data: Record<string, unknown>) {
@@ -504,6 +570,46 @@ serve(async (req) => {
         const user = await requireAuth(req)
         requireRole(user, 'admin', 'canli_yayin')
         result = await handleToggleStream(data)
+        break
+      }
+
+      // Info Messages (admin + mesaj)
+      case 'list-info-messages': {
+        const user = await requireAuth(req)
+        requireRole(user, 'admin', 'mesaj')
+        result = await handleListInfoMessages()
+        break
+      }
+      case 'add-info-message': {
+        const user = await requireAuth(req)
+        requireRole(user, 'admin', 'mesaj')
+        result = await handleAddInfoMessage(data)
+        break
+      }
+      case 'update-info-message': {
+        const user = await requireAuth(req)
+        requireRole(user, 'admin', 'mesaj')
+        result = await handleUpdateInfoMessage(data)
+        break
+      }
+      case 'delete-info-message': {
+        const user = await requireAuth(req)
+        requireRole(user, 'admin', 'mesaj')
+        result = await handleDeleteInfoMessage(data)
+        break
+      }
+
+      // Announcement (admin + mesaj)
+      case 'get-announcement': {
+        const user = await requireAuth(req)
+        requireRole(user, 'admin', 'mesaj')
+        result = await handleGetAnnouncement()
+        break
+      }
+      case 'update-announcement': {
+        const user = await requireAuth(req)
+        requireRole(user, 'admin', 'mesaj')
+        result = await handleUpdateAnnouncement(data)
         break
       }
 

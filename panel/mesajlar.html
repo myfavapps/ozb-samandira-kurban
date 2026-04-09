@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesajlar - Kurban Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="icon" href="../assets/images/logo.png">
+</head>
+<body>
+    <nav id="panel-nav"></nav>
+
+    <main class="panel-content">
+        <h1 class="panel-title">Mesaj Yonetimi</h1>
+
+        <!-- Duyuru Section -->
+        <div class="panel-card">
+            <div class="panel-card-header">Duyuru Bandi</div>
+            <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px;">
+                Ana sayfanin ust kisminda kayan yazi olarak gosterilir. Tek mesaj.
+            </p>
+            <div class="form-group">
+                <label for="duyuruText">Duyuru Metni</label>
+                <input type="text" id="duyuruText" placeholder="Ornek: Kurban Bayrami'na hazirliklarimiz devam ediyor...">
+            </div>
+            <button class="btn btn-primary" onclick="saveDuyuru()" style="width: auto;">Duyuruyu Kaydet</button>
+        </div>
+
+        <!-- Bilgi Mesajlari Section -->
+        <div class="panel-card">
+            <div class="panel-card-header">Bilgi Mesajlari</div>
+            <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px;">
+                Ana sayfada canli kesim panelinin altinda listelenir. Birden fazla mesaj eklenebilir.
+            </p>
+
+            <!-- Add Form -->
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="text" id="newInfoMessage" placeholder="Yeni bilgi mesaji..." style="flex: 1;">
+                <button class="btn btn-primary" onclick="addInfoMessage()" style="width: auto; white-space: nowrap;">Ekle</button>
+            </div>
+
+            <!-- Messages List -->
+            <div class="panel-table-wrapper">
+                <table class="panel-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Mesaj</th>
+                            <th>Tarih</th>
+                            <th>Islem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="infoBody">
+                        <tr><td colspan="4" class="loading">Yukleniyor</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Edit Modal -->
+    <div id="editModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:12px; padding:28px; max-width:500px; width:90%; margin:auto; position:relative; top:50%; transform:translateY(-50%);">
+            <h3 style="margin:0 0 16px 0; font-size:1.1rem;">Mesaj Duzenle</h3>
+            <input type="hidden" id="editId">
+            <div class="form-group">
+                <label for="editMessage">Mesaj</label>
+                <input type="text" id="editMessage">
+            </div>
+            <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:16px;">
+                <button class="btn" onclick="closeEditModal()" style="width:auto; background:#e0e0e0; color:#333;">Iptal</button>
+                <button class="btn btn-primary" onclick="saveEdit()" style="width:auto;">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="js/panel-api.js"></script>
+    <script src="js/panel-auth.js"></script>
+    <script src="js/panel-nav.js"></script>
+    <script src="js/mesajlar.js"></script>
+</body>
+</html>
