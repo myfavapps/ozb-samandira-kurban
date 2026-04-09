@@ -310,7 +310,7 @@ function renderPerformance(settings, kesim, parcalama, parcalamaWaiting, totalKu
             <div class="perf-row"><span class="perf-label">Gerceklesen</span><span class="perf-value">${parcCompleted} / ${parcTotal}</span></div>
             <div class="perf-row"><span class="perf-label">Fark</span><span class="${diffClass}">${diffText}</span></div>
             ${avgRow}
-            <div class="perf-row"><span class="perf-label">Kalan</span><span class="perf-value">${parcalama.processing} isleniyor, ${parcalamaWaiting} bekliyor (${masaCount} masa)</span></div>
+            <div class="perf-row"><span class="perf-label">Kalan</span><span class="perf-value">${parcalama.processing} isleniyor, ${parcalamaWaiting} bekliyor, ${kesim.waiting + kesim.in_progress} kesilecek (${masaCount} masa)</span></div>
             <div class="perf-row"><span class="perf-label">Tahmini bitis</span><span class="perf-value">${pp.remaining > 0 ? parcEta : 'Tamamlandi'}</span></div>
             <div class="perf-bar-container"><div class="perf-bar" style="width:${Math.max(pp.pct, 2)}%; background:${barColor};">${pp.pct}%</div></div>
         `;
