@@ -98,8 +98,12 @@ async function loadDashboard() {
         renderKesimChart(kesim);
         renderParcalamaChart(parcalama, parcalamaWaiting);
 
+        // Actual averages from real data
+        const kesimAvg = calcKesimAverage(slaughter);
+        const parcalamaAvg = calcParcalamaAverage(processing);
+
         // Performance
-        renderPerformance(s, kesim, parcalama, parcalamaWaiting, totalKurban);
+        renderPerformance(s, kesim, parcalama, parcalamaWaiting, totalKurban, kesimAvg, parcalamaAvg);
 
     } catch (e) {
         console.error('Dashboard error:', e);
@@ -115,9 +119,22 @@ function timeToMinutes(timeStr) {
 }
 
 function minutesToTime(mins) {
+    if (mins >= 24 * 60) {
+        const days = Math.floor(mins / (24 * 60));
+        const rem = mins % (24 * 60);
+        const h = Math.floor(rem / 60);
+        const m = Math.round(rem % 60);
+        return `+${days}gun ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+    }
     const h = Math.floor(mins / 60);
     const m = Math.round(mins % 60);
     return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+}
+
+function formatDuration(mins) {
+    if (mins < 1) return '< 1 dk';
+    const m = Math.round(mins);
+    return `${m} dk`;
 }
 
 function getBreaks(settings) {
@@ -134,8 +151,8 @@ function getBreaks(settings) {
 function getElapsedBreakMinutes(nowMin, startMin, breaks) {
     let total = 0;
     for (const b of breaks) {
-        if (b.start < startMin) continue; // break before work started
-        if (nowMin <= b.start) continue;   // haven't reached break yet
+        if (b.start < startMin) continue;
+        if (nowMin <= b.start) continue;
         const bEnd = Math.min(nowMin, b.end);
         const bStart = Math.max(b.start, startMin);
         if (bEnd > bStart) total += bEnd - bStart;
@@ -146,8 +163,8 @@ function getElapsedBreakMinutes(nowMin, startMin, breaks) {
 function getFutureBreakMinutes(nowMin, endMin, breaks) {
     let total = 0;
     for (const b of breaks) {
-        if (b.end <= nowMin) continue;   // break already passed
-        if (b.start >= endMin) continue; // break after projected end
+        if (b.end <= nowMin) continue;
+        if (b.start >= endMin) continue;
         const bStart = Math.max(b.start, nowMin);
         const bEnd = Math.min(b.end, endMin);
         if (bEnd > bStart) total += bEnd - bStart;
@@ -155,33 +172,68 @@ function getFutureBreakMinutes(nowMin, endMin, breaks) {
     return total;
 }
 
-function calcPerformance(nowMin, startMin, unitDuration, totalCount, completedCount, breaks) {
+// Calculate actual average kesim duration from completed slaughter timestamps
+function calcKesimAverage(slaughterData) {
+    const completed = slaughterData
+        .filter(r => r.status === 'completed' && r.last_updated)
+        .map(r => new Date(r.last_updated).getTime())
+        .sort((a, b) => a - b);
+
+    if (completed.length < 2) return null;
+
+    // Average gap between consecutive completions
+    let totalGap = 0;
+    for (let i = 1; i < completed.length; i++) {
+        totalGap += completed[i] - completed[i - 1];
+    }
+    const avgMs = totalGap / (completed.length - 1);
+    return avgMs / 60000; // convert to minutes
+}
+
+// Calculate actual average parcalama duration from started_at/completed_at
+function calcParcalamaAverage(processingData) {
+    const durations = processingData
+        .filter(r => r.status === 'completed' && r.started_at && r.completed_at)
+        .map(r => {
+            const start = new Date(r.started_at).getTime();
+            const end = new Date(r.completed_at).getTime();
+            return (end - start) / 60000; // minutes
+        })
+        .filter(d => d > 0);
+
+    if (durations.length === 0) return null;
+    return durations.reduce((a, b) => a + b, 0) / durations.length;
+}
+
+function calcPerformance(nowMin, startMin, unitDuration, totalCount, completedCount, breaks, parallelCount) {
     if (nowMin < startMin) return { started: false };
+    const p = parallelCount || 1;
 
     const elapsed = nowMin - startMin;
     const breakElapsed = getElapsedBreakMinutes(nowMin, startMin, breaks);
     const effectiveMinutes = Math.max(0, elapsed - breakElapsed);
 
-    const planned = Math.min(Math.floor(effectiveMinutes / unitDuration), totalCount);
+    // With parallel masas: every unitDuration minutes, p kurbans complete
+    const planned = Math.min(Math.floor(effectiveMinutes / unitDuration) * p, totalCount);
     const diff = completedCount - planned;
 
     const remaining = totalCount - completedCount;
-    let etaMinutes = remaining * unitDuration;
-    // Add future break time to estimate
-    const projectedEnd = nowMin + etaMinutes;
-    const futureBreaks = getFutureBreakMinutes(nowMin, projectedEnd + 120, breaks); // generous buffer
-    etaMinutes += futureBreaks;
-    const etaTime = minutesToTime(nowMin + etaMinutes);
+    // ETA: remaining kurbans / parallel count * duration per kurban
+    const workMinutes = Math.ceil(remaining / p) * unitDuration;
+    const futureBreaks = getFutureBreakMinutes(nowMin, nowMin + workMinutes + 120, breaks);
+    const etaTotal = workMinutes + futureBreaks;
+    const etaTime = minutesToTime(nowMin + etaTotal);
 
     const pct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
     return { started: true, planned, diff, remaining, etaTime, pct, effectiveMinutes };
 }
 
-function renderPerformance(settings, kesim, parcalama, parcalamaWaiting, totalKurban) {
+function renderPerformance(settings, kesim, parcalama, parcalamaWaiting, totalKurban, kesimAvg, parcalamaAvg) {
     const startMin = timeToMinutes(settings.kesim_start_time);
     const kesimDur = parseInt(settings.kesim_suresi) || 0;
     const parcDur = parseInt(settings.parcalama_suresi) || 0;
+    const masaCount = parseInt(settings.masa_count) || 1;
 
     if (startMin === null || kesimDur <= 0 || parcDur <= 0 || totalKurban <= 0) {
         document.getElementById('perfSection').style.display = 'none';
@@ -194,9 +246,18 @@ function renderPerformance(settings, kesim, parcalama, parcalamaWaiting, totalKu
     const nowMin = now.getHours() * 60 + now.getMinutes();
     const nowStr = minutesToTime(nowMin);
 
-    // Kesim perf
-    const kp = calcPerformance(nowMin, startMin, kesimDur, totalKurban - kesim.cancelled, kesim.completed, breaks);
+    // Kesim perf (sequential - one at a time)
+    const activeKesim = totalKurban - kesim.cancelled;
+    const kp = calcPerformance(nowMin, startMin, kesimDur, activeKesim, kesim.completed, breaks, 1);
     const kesimEl = document.getElementById('kesimPerf');
+
+    // Kesim ETA with actual average
+    let kesimEta = kp.etaTime;
+    if (kesimAvg && kp.started && kp.remaining > 0) {
+        const workMin = kp.remaining * kesimAvg;
+        const fb = getFutureBreakMinutes(nowMin, nowMin + workMin + 120, breaks);
+        kesimEta = minutesToTime(nowMin + workMin + fb);
+    }
 
     if (!kp.started) {
         kesimEl.innerHTML = `<div class="perf-not-started">Kesim henuz baslamadi (baslama: ${settings.kesim_start_time})</div>`;
@@ -204,23 +265,35 @@ function renderPerformance(settings, kesim, parcalama, parcalamaWaiting, totalKu
         const diffClass = kp.diff >= 0 ? 'perf-ahead' : 'perf-behind';
         const diffText = kp.diff >= 0 ? `+${kp.diff} ileride` : `${kp.diff} geride`;
         const barColor = kp.diff >= 0 ? '#4caf50' : '#ff9800';
+        const avgRow = kesimAvg
+            ? `<div class="perf-row"><span class="perf-label">Ort. kesim suresi</span><span class="perf-value">${formatDuration(kesimAvg)} (plan: ${kesimDur} dk)</span></div>`
+            : '';
         kesimEl.innerHTML = `
             <div class="perf-row"><span class="perf-label">Saat</span><span class="perf-value">${nowStr}</span></div>
-            <div class="perf-row"><span class="perf-label">Planlanan</span><span class="perf-value">${kp.planned} / ${totalKurban - kesim.cancelled}</span></div>
-            <div class="perf-row"><span class="perf-label">Gerceklesen</span><span class="perf-value">${kesim.completed} / ${totalKurban - kesim.cancelled}</span></div>
+            <div class="perf-row"><span class="perf-label">Planlanan</span><span class="perf-value">${kp.planned} / ${activeKesim}</span></div>
+            <div class="perf-row"><span class="perf-label">Gerceklesen</span><span class="perf-value">${kesim.completed} / ${activeKesim}</span></div>
             <div class="perf-row"><span class="perf-label">Fark</span><span class="${diffClass}">${diffText}</span></div>
+            ${avgRow}
             <div class="perf-row"><span class="perf-label">Kalan</span><span class="perf-value">${kesim.waiting} kesilecek, ${kesim.cancelled} iptal</span></div>
-            <div class="perf-row"><span class="perf-label">Tahmini bitis</span><span class="perf-value">${kp.remaining > 0 ? kp.etaTime : 'Tamamlandi'}</span></div>
+            <div class="perf-row"><span class="perf-label">Tahmini bitis</span><span class="perf-value">${kp.remaining > 0 ? kesimEta : 'Tamamlandi'}</span></div>
             <div class="perf-bar-container"><div class="perf-bar" style="width:${Math.max(kp.pct, 2)}%; background:${barColor};">${kp.pct}%</div></div>
         `;
     }
 
-    // Parcalama perf - starts after first kurban is slaughtered
+    // Parcalama perf - parallel masas, starts after first kurban is slaughtered
     const parcStartMin = startMin + kesimDur;
     const parcTotal = totalKurban - kesim.cancelled;
     const parcCompleted = parcalama.completed;
-    const pp = calcPerformance(nowMin, parcStartMin, parcDur, parcTotal, parcCompleted, breaks);
+    const pp = calcPerformance(nowMin, parcStartMin, parcDur, parcTotal, parcCompleted, breaks, masaCount);
     const parcEl = document.getElementById('parcalamaPerf');
+
+    // Parcalama ETA with actual average
+    let parcEta = pp.etaTime;
+    if (parcalamaAvg && pp.started && pp.remaining > 0) {
+        const workMin = Math.ceil(pp.remaining / masaCount) * parcalamaAvg;
+        const fb = getFutureBreakMinutes(nowMin, nowMin + workMin + 120, breaks);
+        parcEta = minutesToTime(nowMin + workMin + fb);
+    }
 
     if (!pp.started) {
         parcEl.innerHTML = `<div class="perf-not-started">Parcalama henuz baslamadi (baslama: ${minutesToTime(parcStartMin)})</div>`;
@@ -228,13 +301,17 @@ function renderPerformance(settings, kesim, parcalama, parcalamaWaiting, totalKu
         const diffClass = pp.diff >= 0 ? 'perf-ahead' : 'perf-behind';
         const diffText = pp.diff >= 0 ? `+${pp.diff} ileride` : `${pp.diff} geride`;
         const barColor = pp.diff >= 0 ? '#4caf50' : '#ff9800';
+        const avgRow = parcalamaAvg
+            ? `<div class="perf-row"><span class="perf-label">Ort. isleme suresi</span><span class="perf-value">${formatDuration(parcalamaAvg)} (plan: ${parcDur} dk)</span></div>`
+            : '';
         parcEl.innerHTML = `
             <div class="perf-row"><span class="perf-label">Saat</span><span class="perf-value">${nowStr}</span></div>
             <div class="perf-row"><span class="perf-label">Planlanan</span><span class="perf-value">${pp.planned} / ${parcTotal}</span></div>
             <div class="perf-row"><span class="perf-label">Gerceklesen</span><span class="perf-value">${parcCompleted} / ${parcTotal}</span></div>
             <div class="perf-row"><span class="perf-label">Fark</span><span class="${diffClass}">${diffText}</span></div>
-            <div class="perf-row"><span class="perf-label">Kalan</span><span class="perf-value">${parcalama.processing} isleniyor, ${parcalamaWaiting} bekliyor</span></div>
-            <div class="perf-row"><span class="perf-label">Tahmini bitis</span><span class="perf-value">${pp.remaining > 0 ? pp.etaTime : 'Tamamlandi'}</span></div>
+            ${avgRow}
+            <div class="perf-row"><span class="perf-label">Kalan</span><span class="perf-value">${parcalama.processing} isleniyor, ${parcalamaWaiting} bekliyor (${masaCount} masa)</span></div>
+            <div class="perf-row"><span class="perf-label">Tahmini bitis</span><span class="perf-value">${pp.remaining > 0 ? parcEta : 'Tamamlandi'}</span></div>
             <div class="perf-bar-container"><div class="perf-bar" style="width:${Math.max(pp.pct, 2)}%; background:${barColor};">${pp.pct}%</div></div>
         `;
     }
