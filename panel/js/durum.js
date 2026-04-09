@@ -133,8 +133,11 @@ function minutesToTime(mins) {
 
 function formatDuration(mins) {
     if (mins < 1) return '< 1 dk';
-    const m = Math.round(mins);
-    return `${m} dk`;
+    const totalMin = Math.round(mins);
+    const h = Math.floor(totalMin / 60);
+    const m = totalMin % 60;
+    if (h === 0) return `${m} dk`;
+    return `${h} sa ${String(m).padStart(2, '0')} dk`;
 }
 
 function getBreaks(settings) {
