@@ -209,7 +209,7 @@ async function loadUsers() {
                 <td><span class="panel-user-role">${u.role}</span></td>
                 <td>${u.is_active ? 'Aktif' : 'Pasif'}</td>
                 <td>
-                    ${u.is_active ? `<button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id}, '${u.username}')">Sil</button>` : '-'}
+                    ${u.is_active ? `<button class="btn btn-primary btn-sm" onclick="changePassword(${u.id}, '${u.username}')">Sifre</button> <button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id}, '${u.username}')">Sil</button>` : '-'}
                 </td>
             </tr>
         `).join('');
@@ -250,6 +250,21 @@ async function deleteUser(id, username) {
         await panelAPI('delete-user', { user_id: id });
         showToast('Kullanici silindi', 'success');
         await loadUsers();
+    } catch (e) {
+        showToast(e.message, 'error');
+    }
+}
+
+async function changePassword(id, username) {
+    const password = prompt(`"${username}" icin yeni sifre:`);
+    if (!password) return;
+    if (password.length < 4) {
+        showToast('Sifre en az 4 karakter olmali', 'error');
+        return;
+    }
+    try {
+        await panelAPI('update-user-password', { user_id: id, password });
+        showToast('Sifre guncellendi', 'success');
     } catch (e) {
         showToast(e.message, 'error');
     }

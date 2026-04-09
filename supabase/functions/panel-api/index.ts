@@ -221,6 +221,18 @@ async function handleDeleteUser(data: Record<string, unknown>, currentUser: Reco
   return { success: true }
 }
 
+async function handleUpdateUserPassword(data: Record<string, unknown>) {
+  const { user_id, password } = data
+  if (!user_id || !password) throw new Error('400:user_id ve password gerekli')
+  if ((password as string).length < 4) throw new Error('400:Şifre en az 4 karakter olmalı')
+
+  const salt = generateSalt()
+  const password_hash = await hashPassword(password as string, salt)
+
+  await dbMutate(`/users?id=eq.${user_id}`, 'PATCH', { password_hash, salt })
+  return { success: true }
+}
+
 async function handleGetSettings() {
   const settings = await dbQuery('/settings?select=key,value')
   const result: Record<string, string> = {}
@@ -607,6 +619,12 @@ serve(async (req) => {
         const user = await requireAuth(req)
         requireAdmin(user)
         result = await handleDeleteUser(data, user)
+        break
+      }
+      case 'update-user-password': {
+        const user = await requireAuth(req)
+        requireAdmin(user)
+        result = await handleUpdateUserPassword(data)
         break
       }
 
