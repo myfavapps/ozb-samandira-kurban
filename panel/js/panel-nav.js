@@ -3,18 +3,23 @@ function renderNav(currentPage) {
     const user = getUser();
     if (!user) return;
 
+    const permissions = user.permissions || [];
+
     const allLinks = [
-        { id: 'kesim', label: 'Kesim', href: 'kesim.html', roles: ['admin', 'kesim'] },
-        { id: 'parcalama', label: 'Parcalama', href: 'parcalama.html', roles: ['admin', 'parcalama'] },
-        { id: 'masalar', label: 'Masalar', href: 'masalar.html', roles: ['admin', 'parcalama'] },
-        { id: 'durum', label: 'Durum', href: 'durum.html', roles: ['admin', 'kesim'] },
-        { id: 'canli-yayin', label: 'Canli Yayin', href: 'canli-yayin.html', roles: ['admin', 'canli_yayin'] },
-        { id: 'mesajlar', label: 'Mesajlar', href: 'mesajlar.html', roles: ['admin', 'mesaj'] },
-        { id: 'videolar', label: 'Videolar', href: 'videolar.html', roles: ['admin'] },
-        { id: 'admin', label: 'Ayarlar', href: 'admin.html', roles: ['admin'] },
+        { id: 'kesim', label: 'Kesim', href: 'kesim.html', permission: 'kesim' },
+        { id: 'parcalama', label: 'Parcalama', href: 'parcalama.html', permission: 'parcalama' },
+        { id: 'masalar', label: 'Masalar', href: 'masalar.html', permission: 'parcalama' },
+        { id: 'durum', label: 'Durum', href: 'durum.html', permission: 'kesim' },
+        { id: 'canli-yayin', label: 'Canli Yayin', href: 'canli-yayin.html', permission: 'canli_yayin' },
+        { id: 'mesajlar', label: 'Mesajlar', href: 'mesajlar.html', permission: 'mesaj' },
+        { id: 'videolar', label: 'Videolar', href: 'videolar.html', permission: 'videolar' },
+        { id: 'admin', label: 'Ayarlar', href: 'admin.html', adminOnly: true },
     ];
 
-    const links = allLinks.filter(l => l.roles.includes(user.role));
+    const links = allLinks.filter(l => {
+        if (l.adminOnly) return user.role === 'admin';
+        return permissions.includes(l.permission);
+    });
 
     const nav = document.getElementById('panel-nav');
     if (!nav) return;

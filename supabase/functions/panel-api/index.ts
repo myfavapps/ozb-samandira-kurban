@@ -106,8 +106,13 @@ async function requireAuth(req: Request): Promise<Record<string, unknown>> {
   return payload
 }
 
-function requireRole(user: Record<string, unknown>, ...roles: string[]) {
-  if (!roles.includes(user.role as string)) throw new Error('403:Bu işlem için yetkiniz yok')
+function requirePermission(user: Record<string, unknown>, permission: string) {
+  const permissions = user.permissions as string[] || []
+  if (!permissions.includes(permission)) throw new Error('403:Bu işlem için yetkiniz yok')
+}
+
+function requireAdmin(user: Record<string, unknown>) {
+  if (user.role !== 'admin') throw new Error('403:Bu işlem için admin yetkisi gerekli')
 }
 
 // ---- DB helpers ----
@@ -150,22 +155,40 @@ async function handleLogin(data: Record<string, unknown>) {
   const hash = await hashPassword(password as string, user.salt)
   if (hash !== user.password_hash) throw new Error('401:Yanlış şifre')
 
+  // Fetch role permissions from roles table
+  const roles = await dbQuery(`/roles?name=eq.${encodeURIComponent(user.role)}&select=permissions,default_page`)
+  const roleData = roles && roles.length > 0 ? roles[0] : { permissions: [], default_page: 'durum.html' }
+
   const now = Math.floor(Date.now() / 1000)
   const token = await signJWT({
     sub: user.id,
     role: user.role,
+    permissions: roleData.permissions,
     name: user.display_name,
     iat: now,
     exp: now + 86400, // 24 hours
   })
 
-  return { token, user: { id: user.id, username: user.username, role: user.role, display_name: user.display_name } }
+  return {
+    token,
+    user: {
+      id: user.id,
+      username: user.username,
+      role: user.role,
+      display_name: user.display_name,
+      permissions: roleData.permissions,
+      default_page: roleData.default_page,
+    },
+  }
 }
 
 async function handleCreateUser(data: Record<string, unknown>, _user: Record<string, unknown>) {
   const { username, password, role, display_name } = data
   if (!username || !password || !role || !display_name) throw new Error('400:Tüm alanlar gerekli')
-  if (!['admin', 'kesim', 'parcalama', 'canli_yayin', 'mesaj'].includes(role as string)) throw new Error('400:Geçersiz rol')
+
+  // Validate role exists in DB
+  const roleCheck = await dbQuery(`/roles?name=eq.${encodeURIComponent(role as string)}&select=name`)
+  if (!roleCheck || roleCheck.length === 0) throw new Error('400:Geçersiz rol')
 
   const salt = generateSalt()
   const password_hash = await hashPassword(password as string, salt)
@@ -480,6 +503,75 @@ async function handleAddVideo(data: Record<string, unknown>) {
   return { success: true }
 }
 
+// ---- Role CRUD handlers ----
+
+async function handleListRoles() {
+  const roles = await dbQuery('/roles?select=*&order=name.asc')
+  return { roles: roles || [] }
+}
+
+async function handleCreateRole(data: Record<string, unknown>) {
+  const { name, display_name, permissions, default_page } = data
+  if (!name || !display_name) throw new Error('400:name ve display_name gerekli')
+  if (!/^[a-z][a-z0-9_]*$/.test(name as string)) throw new Error('400:Rol adı küçük harf, rakam ve alt çizgi içerebilir')
+
+  const res = await fetch(`${REST_URL}/roles`, {
+    method: 'POST',
+    headers: { ...dbHeaders, 'Prefer': 'return=representation' },
+    body: JSON.stringify({
+      name,
+      display_name,
+      permissions: permissions || [],
+      default_page: default_page || 'durum.html',
+      is_system: false,
+    }),
+  })
+  if (!res.ok) {
+    const text = await res.text()
+    if (text.includes('duplicate')) throw new Error('400:Bu rol adı zaten mevcut')
+    throw new Error('500:Rol oluşturulamadı')
+  }
+  const created = await res.json()
+  return { role: created[0] }
+}
+
+async function handleUpdateRole(data: Record<string, unknown>) {
+  const { name, display_name, permissions, default_page } = data
+  if (!name) throw new Error('400:name gerekli')
+
+  const updates: Record<string, unknown> = {}
+  if (display_name !== undefined) updates.display_name = display_name
+  if (permissions !== undefined) updates.permissions = permissions
+  if (default_page !== undefined) updates.default_page = default_page
+
+  if (Object.keys(updates).length === 0) throw new Error('400:Güncellenecek alan yok')
+
+  const res = await fetch(`${REST_URL}/roles?name=eq.${encodeURIComponent(name as string)}`, {
+    method: 'PATCH',
+    headers: dbHeadersMinimal,
+    body: JSON.stringify(updates),
+  })
+  if (!res.ok) throw new Error('500:Rol güncellenemedi')
+  return { success: true }
+}
+
+async function handleDeleteRole(data: Record<string, unknown>) {
+  const { name } = data
+  if (!name) throw new Error('400:name gerekli')
+  if (name === 'admin') throw new Error('400:Admin rolü silinemez')
+
+  // Check system role
+  const roleCheck = await dbQuery(`/roles?name=eq.${encodeURIComponent(name as string)}&select=is_system`)
+  if (roleCheck && roleCheck.length > 0 && roleCheck[0].is_system) throw new Error('400:Sistem rolü silinemez')
+
+  // Check if any active users have this role
+  const users = await dbQuery(`/users?role=eq.${encodeURIComponent(name as string)}&is_active=eq.true&select=id`)
+  if (users && users.length > 0) throw new Error('400:Bu role atanmış aktif kullanıcılar var')
+
+  await dbMutate(`/roles?name=eq.${encodeURIComponent(name as string)}`, 'DELETE')
+  return { success: true }
+}
+
 // ---- Main handler ----
 
 serve(async (req) => {
@@ -498,23 +590,49 @@ serve(async (req) => {
         result = await handleLogin(data)
         break
 
-      // Auth (admin only)
+      // Admin-only: user management
       case 'create-user': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin')
+        requireAdmin(user)
         result = await handleCreateUser(data, user)
         break
       }
       case 'list-users': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin')
+        requireAdmin(user)
         result = await handleListUsers()
         break
       }
       case 'delete-user': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin')
+        requireAdmin(user)
         result = await handleDeleteUser(data, user)
+        break
+      }
+
+      // Admin-only: role management
+      case 'list-roles': {
+        const user = await requireAuth(req)
+        requireAdmin(user)
+        result = await handleListRoles()
+        break
+      }
+      case 'create-role': {
+        const user = await requireAuth(req)
+        requireAdmin(user)
+        result = await handleCreateRole(data)
+        break
+      }
+      case 'update-role': {
+        const user = await requireAuth(req)
+        requireAdmin(user)
+        result = await handleUpdateRole(data)
+        break
+      }
+      case 'delete-role': {
+        const user = await requireAuth(req)
+        requireAdmin(user)
+        result = await handleDeleteRole(data)
         break
       }
 
@@ -526,109 +644,109 @@ serve(async (req) => {
       }
       case 'update-settings': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin')
+        requireAdmin(user)
         result = await handleUpdateSettings(data)
         break
       }
       case 'initialize-kurban': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin')
+        requireAdmin(user)
         result = await handleInitializeKurban(data)
         break
       }
 
-      // Kesim (kesim + admin)
+      // Kesim (permission: kesim)
       case 'update-kesim-status': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin', 'kesim')
+        requirePermission(user, 'kesim')
         result = await handleUpdateKesimStatus(data)
         break
       }
 
-      // Parcalama (parcalama + admin)
+      // Parcalama (permission: parcalama)
       case 'assign-to-masa': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin', 'parcalama')
+        requirePermission(user, 'parcalama')
         result = await handleAssignToMasa(data, user)
         break
       }
       case 'complete-processing': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin', 'parcalama')
+        requirePermission(user, 'parcalama')
         result = await handleCompleteProcessing(data, user)
         break
       }
       case 'update-masa-details': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin', 'parcalama')
+        requirePermission(user, 'parcalama')
         result = await handleUpdateMasaDetails(data, user)
         break
       }
 
-      // Live Stream (admin + canli_yayin)
+      // Live Stream (permission: canli_yayin)
       case 'toggle-stream': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin', 'canli_yayin')
+        requirePermission(user, 'canli_yayin')
         result = await handleToggleStream(data)
         break
       }
 
-      // Info Messages (admin + mesaj)
+      // Info Messages (permission: mesaj)
       case 'list-info-messages': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin', 'mesaj')
+        requirePermission(user, 'mesaj')
         result = await handleListInfoMessages()
         break
       }
       case 'add-info-message': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin', 'mesaj')
+        requirePermission(user, 'mesaj')
         result = await handleAddInfoMessage(data)
         break
       }
       case 'update-info-message': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin', 'mesaj')
+        requirePermission(user, 'mesaj')
         result = await handleUpdateInfoMessage(data)
         break
       }
       case 'delete-info-message': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin', 'mesaj')
+        requirePermission(user, 'mesaj')
         result = await handleDeleteInfoMessage(data)
         break
       }
 
-      // Announcement (admin + mesaj)
+      // Announcement (permission: mesaj)
       case 'get-announcement': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin', 'mesaj')
+        requirePermission(user, 'mesaj')
         result = await handleGetAnnouncement()
         break
       }
       case 'update-announcement': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin', 'mesaj')
+        requirePermission(user, 'mesaj')
         result = await handleUpdateAnnouncement(data)
         break
       }
 
-      // Videos (admin only)
+      // Videos (permission: videolar)
       case 'list-videos': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin')
+        requirePermission(user, 'videolar')
         result = await handleListVideos()
         break
       }
       case 'delete-video': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin')
+        requirePermission(user, 'videolar')
         result = await handleDeleteVideo(data)
         break
       }
       case 'add-video': {
         const user = await requireAuth(req)
-        requireRole(user, 'admin')
+        requirePermission(user, 'videolar')
         result = await handleAddVideo(data)
         break
       }

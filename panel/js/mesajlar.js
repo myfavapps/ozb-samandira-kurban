@@ -1,5 +1,5 @@
 // Mesajlar Panel Page
-requireRole('admin', 'mesaj');
+requirePermission('mesaj');
 renderNav('mesajlar');
 
 loadDuyuru();

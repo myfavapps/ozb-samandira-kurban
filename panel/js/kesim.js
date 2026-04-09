@@ -3,7 +3,7 @@ let kesimData = [];
 let pollTimer = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const user = requireRole('admin', 'kesim');
+    const user = requirePermission('kesim');
     if (!user) return;
     renderNav('kesim');
     await loadKesimData();

@@ -1,11 +1,16 @@
-// Admin page logic: settings + user management
+// Admin page logic: settings + user management + role management
+
+const ALL_PERMISSIONS = ['kesim', 'parcalama', 'canli_yayin', 'mesaj', 'videolar'];
+let rolesCache = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const user = requireRole('admin');
+    const user = requireAdmin();
     if (!user) return;
     renderNav('admin');
+    await loadRoles();
     await loadSettings();
     await loadUsers();
+    renderPermissionCheckboxes('newRolePermissions', []);
     showTab('settings');
 });
 
@@ -60,6 +65,134 @@ async function initializeKurban() {
         showToast(e.message, 'error');
     }
     btn.disabled = false;
+}
+
+// ---- Roles ----
+
+async function loadRoles() {
+    try {
+        const { roles } = await panelAPI('list-roles');
+        rolesCache = roles;
+        renderRolesTable(roles);
+        populateRoleDropdown(roles);
+    } catch (e) {
+        showToast(e.message, 'error');
+    }
+}
+
+function renderRolesTable(roles) {
+    const tbody = document.getElementById('rolesBody');
+    if (!tbody) return;
+    tbody.innerHTML = roles.map(r => `
+        <tr>
+            <td><strong>${r.name}</strong></td>
+            <td>${r.display_name}</td>
+            <td>${(r.permissions || []).map(p => `<span class="permission-badge">${p}</span>`).join(' ')}</td>
+            <td>${r.default_page}</td>
+            <td>${r.is_system ? 'Evet' : 'Hayir'}</td>
+            <td>
+                <button class="btn btn-primary btn-sm" onclick="openRoleEdit('${r.name}')">Duzenle</button>
+                ${!r.is_system ? `<button class="btn btn-danger btn-sm" onclick="deleteRole('${r.name}')">Sil</button>` : ''}
+            </td>
+        </tr>
+    `).join('');
+}
+
+function populateRoleDropdown(roles) {
+    const select = document.getElementById('newRole');
+    if (!select) return;
+    select.innerHTML = roles.map(r => `<option value="${r.name}">${r.display_name}</option>`).join('');
+}
+
+function renderPermissionCheckboxes(containerId, selected) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = ALL_PERMISSIONS.map(p => `
+        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;">
+            <input type="checkbox" value="${p}" ${selected.includes(p) ? 'checked' : ''}>
+            ${p}
+        </label>
+    `).join('');
+}
+
+function getCheckedPermissions(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return [];
+    return Array.from(container.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+}
+
+async function createRole() {
+    const name = document.getElementById('newRoleName').value.trim();
+    const display_name = document.getElementById('newRoleDisplayName').value.trim();
+    const default_page = document.getElementById('newRoleDefaultPage').value.trim() || 'durum.html';
+    const permissions = getCheckedPermissions('newRolePermissions');
+
+    if (!name || !display_name) {
+        showToast('Rol kodu ve gorunen ad gerekli', 'error');
+        return;
+    }
+
+    const btn = document.getElementById('createRoleBtn');
+    btn.disabled = true;
+    try {
+        await panelAPI('create-role', { name, display_name, permissions, default_page });
+        showToast('Rol olusturuldu', 'success');
+        document.getElementById('newRoleName').value = '';
+        document.getElementById('newRoleDisplayName').value = '';
+        document.getElementById('newRoleDefaultPage').value = 'durum.html';
+        renderPermissionCheckboxes('newRolePermissions', []);
+        await loadRoles();
+    } catch (e) {
+        showToast(e.message, 'error');
+    }
+    btn.disabled = false;
+}
+
+function openRoleEdit(name) {
+    const role = rolesCache.find(r => r.name === name);
+    if (!role) return;
+
+    document.getElementById('editRoleName').value = role.name;
+    document.getElementById('editRoleDisplayName').value = role.display_name;
+    document.getElementById('editRoleDefaultPage').value = role.default_page;
+    renderPermissionCheckboxes('editRolePermissions', role.permissions || []);
+    document.getElementById('roleEditModal').style.display = 'block';
+}
+
+function closeRoleModal() {
+    document.getElementById('roleEditModal').style.display = 'none';
+}
+
+async function saveRole() {
+    const name = document.getElementById('editRoleName').value;
+    const display_name = document.getElementById('editRoleDisplayName').value.trim();
+    const default_page = document.getElementById('editRoleDefaultPage').value.trim();
+    const permissions = getCheckedPermissions('editRolePermissions');
+
+    if (!display_name) {
+        showToast('Gorunen ad gerekli', 'error');
+        return;
+    }
+
+    try {
+        await panelAPI('update-role', { name, display_name, permissions, default_page });
+        showToast('Rol guncellendi', 'success');
+        closeRoleModal();
+        await loadRoles();
+    } catch (e) {
+        showToast(e.message, 'error');
+    }
+}
+
+async function deleteRole(name) {
+    if (!confirm(`"${name}" rolu silinecek. Devam?`)) return;
+    try {
+        await panelAPI('delete-role', { name });
+        showToast('Rol silindi', 'success');
+        await loadRoles();
+    } catch (e) {
+        showToast(e.message, 'error');
+    }
 }
 
 // ---- Users ----

@@ -5,7 +5,7 @@ let settingsData = {};
 let pollTimer = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const user = requireRole('admin', 'parcalama');
+    const user = requirePermission('parcalama');
     if (!user) return;
     renderNav('parcalama');
     await loadData();

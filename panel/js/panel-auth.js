@@ -27,13 +27,22 @@ function checkAuth() {
     return user;
 }
 
-function requireRole(...roles) {
+function requirePermission(permission) {
     const user = checkAuth();
     if (!user) return null;
-    if (!roles.includes(user.role)) {
-        // Redirect to appropriate default page
-        const defaults = { admin: 'durum.html', kesim: 'kesim.html', parcalama: 'parcalama.html', canli_yayin: 'canli-yayin.html', mesaj: 'mesajlar.html' };
-        window.location.href = defaults[user.role] || 'login.html';
+    const permissions = user.permissions || [];
+    if (!permissions.includes(permission)) {
+        window.location.href = user.default_page || 'durum.html';
+        return null;
+    }
+    return user;
+}
+
+function requireAdmin() {
+    const user = checkAuth();
+    if (!user) return null;
+    if (user.role !== 'admin') {
+        window.location.href = user.default_page || 'durum.html';
         return null;
     }
     return user;
@@ -43,9 +52,7 @@ async function login(username, password) {
     const result = await panelAPI('login', { username, password });
     localStorage.setItem('panel_token', result.token);
     localStorage.setItem('panel_user', JSON.stringify(result.user));
-    // Redirect based on role
-    const defaults = { admin: 'durum.html', kesim: 'kesim.html', parcalama: 'parcalama.html', canli_yayin: 'canli-yayin.html', mesaj: 'mesajlar.html' };
-    window.location.href = defaults[result.user.role] || 'kesim.html';
+    window.location.href = result.user.default_page || 'durum.html';
 }
 
 function logout() {

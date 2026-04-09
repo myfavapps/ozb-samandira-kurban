@@ -18,6 +18,7 @@
         <div class="panel-tabs">
             <button class="panel-tab active" data-tab="settings" onclick="showTab('settings')">Ayarlar</button>
             <button class="panel-tab" data-tab="users" onclick="showTab('users')">Kullanicilar</button>
+            <button class="panel-tab" data-tab="roles" onclick="showTab('roles')">Roller</button>
         </div>
 
         <!-- Settings Tab -->
@@ -85,18 +86,85 @@
                     <div class="form-group" style="flex:1; min-width: 140px;">
                         <label for="newRole">Rol</label>
                         <select id="newRole">
-                            <option value="kesim">Kesim</option>
-                            <option value="parcalama">Parcalama</option>
-                            <option value="canli_yayin">Canli Yayin</option>
-                            <option value="mesaj">Mesaj</option>
-                            <option value="admin">Admin</option>
+                            <option value="">Yukleniyor...</option>
                         </select>
                     </div>
                 </div>
                 <button class="btn btn-primary" id="createUserBtn" onclick="createUser()" style="width: auto; margin-top: 12px;">Kullanici Ekle</button>
             </div>
         </div>
+
+        <!-- Roles Tab -->
+        <div class="tab-content" id="tab-roles">
+            <div class="panel-card">
+                <div class="panel-card-header">Rol Listesi</div>
+                <div class="panel-table-wrapper">
+                    <table class="panel-table">
+                        <thead>
+                            <tr>
+                                <th>Rol Kodu</th>
+                                <th>Gorunen Ad</th>
+                                <th>Izinler</th>
+                                <th>Varsayilan Sayfa</th>
+                                <th>Sistem</th>
+                                <th>Islem</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rolesBody">
+                            <tr><td colspan="6" class="loading">Yukleniyor</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel-card" style="margin-top: 20px;">
+                <div class="panel-card-header">Yeni Rol Ekle</div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <div class="form-group" style="flex:1; min-width: 140px;">
+                        <label for="newRoleName">Rol Kodu</label>
+                        <input type="text" id="newRoleName" placeholder="ornek: muhasebe">
+                    </div>
+                    <div class="form-group" style="flex:1; min-width: 140px;">
+                        <label for="newRoleDisplayName">Gorunen Ad</label>
+                        <input type="text" id="newRoleDisplayName" placeholder="Muhasebe Ekibi">
+                    </div>
+                    <div class="form-group" style="flex:1; min-width: 140px;">
+                        <label for="newRoleDefaultPage">Varsayilan Sayfa</label>
+                        <input type="text" id="newRoleDefaultPage" placeholder="durum.html" value="durum.html">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 8px;">
+                    <label>Izinler</label>
+                    <div id="newRolePermissions" style="display: flex; gap: 12px; flex-wrap: wrap;"></div>
+                </div>
+                <button class="btn btn-primary" id="createRoleBtn" onclick="createRole()" style="width: auto; margin-top: 12px;">Rol Ekle</button>
+            </div>
+        </div>
     </main>
+
+    <!-- Role Edit Modal -->
+    <div id="roleEditModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:var(--bg-card,#fff); border-radius:12px; padding:24px; max-width:500px; width:90%; margin:auto; position:relative; top:50%; transform:translateY(-50%);">
+            <h3 style="margin:0 0 16px;">Rol Duzenle</h3>
+            <input type="hidden" id="editRoleName">
+            <div class="form-group">
+                <label for="editRoleDisplayName">Gorunen Ad</label>
+                <input type="text" id="editRoleDisplayName">
+            </div>
+            <div class="form-group">
+                <label for="editRoleDefaultPage">Varsayilan Sayfa</label>
+                <input type="text" id="editRoleDefaultPage">
+            </div>
+            <div class="form-group">
+                <label>Izinler</label>
+                <div id="editRolePermissions" style="display: flex; gap: 12px; flex-wrap: wrap;"></div>
+            </div>
+            <div style="display:flex; gap:12px; margin-top:16px;">
+                <button class="btn btn-primary" onclick="saveRole()" style="width:auto;">Kaydet</button>
+                <button class="btn" onclick="closeRoleModal()" style="width:auto;">Iptal</button>
+            </div>
+        </div>
+    </div>
 
     <script src="js/panel-api.js"></script>
     <script src="js/panel-auth.js"></script>

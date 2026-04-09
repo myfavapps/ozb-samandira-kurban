@@ -3,7 +3,7 @@
 let videos = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
-    if (!requireRole('admin')) return;
+    if (!requirePermission('videolar')) return;
     renderNav('videolar');
     await loadVideos();
 });

@@ -5,7 +5,7 @@ let streamActive = false;
 let hlsPlayer = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
-    if (!requireRole('admin', 'canli_yayin')) return;
+    if (!requirePermission('canli_yayin')) return;
     renderNav('canli-yayin');
     await loadStreamStatus();
 });
