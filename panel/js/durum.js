@@ -289,7 +289,7 @@ function renderPerformance(settings, kesim, parcalama, parcalamaWaiting, totalKu
         const barColor = kp.diff >= 0 ? '#4caf50' : '#ff9800';
         const avgRow = kesimAvg
             ? `<div class="perf-row"><span class="perf-label">Ort. kesim suresi</span><span class="perf-value">${formatDuration(kesimAvg)} (plan: ${kesimDur} dk)</span></div>`
-            : '';
+            : `<div class="perf-row"><span class="perf-label">Ort. kesim suresi</span><span class="perf-value">- (plan: ${kesimDur} dk)</span></div>`;
         const finishRows = kp.remaining > 0
             ? `<div class="perf-row"><span class="perf-label">Tahmini bitis</span><span class="perf-value">${kesimEta}</span></div>
             <div class="perf-row"><span class="perf-label">Planlanan bitis</span><span class="perf-value">${minutesToTime(kesimPlannedFinish)}</span></div>
@@ -336,7 +336,7 @@ function renderPerformance(settings, kesim, parcalama, parcalamaWaiting, totalKu
         const barColor = pp.diff >= 0 ? '#4caf50' : '#ff9800';
         const avgRow = parcalamaAvg
             ? `<div class="perf-row"><span class="perf-label">Ort. isleme suresi</span><span class="perf-value">${formatDuration(parcalamaAvg)} (plan: ${parcDur} dk)</span></div>`
-            : '';
+            : `<div class="perf-row"><span class="perf-label">Ort. isleme suresi</span><span class="perf-value">- (plan: ${parcDur} dk)</span></div>`;
         const finishRows = pp.remaining > 0
             ? `<div class="perf-row"><span class="perf-label">Tahmini bitis</span><span class="perf-value">${parcEta}</span></div>
             <div class="perf-row"><span class="perf-label">Planlanan bitis</span><span class="perf-value">${minutesToTime(parcPlannedFinish)}</span></div>
