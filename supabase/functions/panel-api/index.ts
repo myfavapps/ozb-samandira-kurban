@@ -365,6 +365,19 @@ async function handleCompleteProcessing(data: Record<string, unknown>, user: Rec
   return { success: true }
 }
 
+async function handleCancelProcessing(data: Record<string, unknown>) {
+  const { kurban_number } = data
+  if (!kurban_number) throw new Error('400:kurban_number gerekli')
+
+  // Only delete if status is 'processing' (not completed)
+  const res = await fetch(
+    `${REST_URL}/processing_status?kurban_number=eq.${kurban_number}&status=eq.processing`,
+    { method: 'DELETE', headers: dbHeadersMinimal }
+  )
+  if (!res.ok) throw new Error('500:Atama iptal edilemedi')
+  return { success: true }
+}
+
 async function handleUpdateMasaDetails(data: Record<string, unknown>, user: Record<string, unknown>) {
   const { kurban_number, masa_number, hisse_count, et_kg, kemik_kg } = data
   if (!kurban_number || !masa_number) throw new Error('400:kurban_number ve masa_number gerekli')
@@ -705,6 +718,12 @@ serve(async (req) => {
         const user = await requireAuth(req)
         requirePermission(user, 'parcalama')
         result = await handleCompleteProcessing(data, user)
+        break
+      }
+      case 'cancel-processing': {
+        const user = await requireAuth(req)
+        requirePermission(user, 'parcalama')
+        result = await handleCancelProcessing(data)
         break
       }
       case 'update-masa-details': {

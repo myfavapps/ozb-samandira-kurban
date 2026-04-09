@@ -74,7 +74,7 @@ function renderTable() {
                 <td>${time}</td>
                 <td>
                     ${row.status === 'processing'
-                        ? `<button class="btn btn-success btn-sm" onclick="completeProcessing(${row.kurban_number})">Islendi Yap</button>`
+                        ? `<button class="btn btn-success btn-sm" onclick="completeProcessing(${row.kurban_number})">Islendi Yap</button> <button class="btn btn-danger btn-sm" onclick="cancelProcessing(${row.kurban_number})">Iptal</button>`
                         : '-'}
                 </td>
             </tr>`;
@@ -118,6 +118,17 @@ async function completeProcessing(kurbanNumber) {
         }
         renderTable();
         showToast(`Kurban #${kurbanNumber} parcalama tamamlandi`, 'success');
+    } catch (e) {
+        showToast(e.message, 'error');
+    }
+}
+
+async function cancelProcessing(kurbanNumber) {
+    if (!confirm(`Kurban #${kurbanNumber} masa atamasini iptal etmek istediginize emin misiniz?`)) return;
+    try {
+        await panelAPI('cancel-processing', { kurban_number: kurbanNumber });
+        showToast(`Kurban #${kurbanNumber} masa atamasi iptal edildi`, 'success');
+        await loadData();
     } catch (e) {
         showToast(e.message, 'error');
     }
