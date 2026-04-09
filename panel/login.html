@@ -31,7 +31,7 @@
     </div>
 
     <script src="js/panel-api.js"></script>
-    <script src="js/panel-auth.js"></script>
+    <script src="js/panel-auth.js?v=2"></script>
     <script>
         // If already logged in, redirect
         (function() {
@@ -42,8 +42,7 @@
                     const payload = JSON.parse(atob(token.split('.')[1]));
                     if (payload.exp > Math.floor(Date.now() / 1000)) {
                         const u = JSON.parse(user);
-                        const defaults = { admin: 'durum.html', kesim: 'kesim.html', parcalama: 'parcalama.html' };
-                        window.location.href = defaults[u.role] || 'kesim.html';
+                        window.location.href = u.default_page || 'durum.html';
                     }
                 } catch(e) {}
             }
