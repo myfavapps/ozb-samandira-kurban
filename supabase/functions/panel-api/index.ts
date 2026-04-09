@@ -275,9 +275,10 @@ async function handleInitializeKurban(data: Record<string, unknown>) {
   const { kurban_count } = data
   if (!kurban_count || typeof kurban_count !== 'number' || kurban_count < 1) throw new Error('400:Geçerli kurban sayısı gerekli')
 
-  // Delete all existing slaughter_status and processing_status rows
+  // Delete all existing slaughter_status, processing_status and masa_details rows
   await fetch(`${REST_URL}/slaughter_status?id=gte.0`, { method: 'DELETE', headers: dbHeadersMinimal })
   await fetch(`${REST_URL}/processing_status?id=gte.0`, { method: 'DELETE', headers: dbHeadersMinimal })
+  await fetch(`${REST_URL}/masa_details?id=gte.0`, { method: 'DELETE', headers: dbHeadersMinimal })
 
   // Insert N rows (batch insert)
   const rows = []
