@@ -6,7 +6,7 @@ let pollTimer = null;
 let saveTimers = {};
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const user = requirePermission('parcalama');
+    const user = requirePermission('masalar');
     if (!user) return;
     renderNav('masalar');
     await loadData();

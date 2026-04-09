@@ -8,8 +8,8 @@ function renderNav(currentPage) {
     const allLinks = [
         { id: 'kesim', label: 'Kesim', href: 'kesim.html', permission: 'kesim' },
         { id: 'parcalama', label: 'Parcalama', href: 'parcalama.html', permission: 'parcalama' },
-        { id: 'masalar', label: 'Masalar', href: 'masalar.html', permission: 'parcalama' },
-        { id: 'durum', label: 'Durum', href: 'durum.html', permission: 'kesim' },
+        { id: 'masalar', label: 'Masalar', href: 'masalar.html', permission: 'masalar' },
+        { id: 'durum', label: 'Durum', href: 'durum.html', permission: 'durum' },
         { id: 'canli-yayin', label: 'Canli Yayin', href: 'canli-yayin.html', permission: 'canli_yayin' },
         { id: 'mesajlar', label: 'Mesajlar', href: 'mesajlar.html', permission: 'mesaj' },
         { id: 'videolar', label: 'Videolar', href: 'videolar.html', permission: 'videolar' },

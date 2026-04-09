@@ -58,7 +58,7 @@ const chartTooltip = {
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const user = requirePermission('kesim');
+    const user = requirePermission('durum');
     if (!user) return;
     renderNav('durum');
     await loadDashboard();

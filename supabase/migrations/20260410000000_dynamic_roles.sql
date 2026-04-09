@@ -16,7 +16,7 @@ CREATE POLICY "Service write roles" ON roles FOR ALL USING (true);
 
 -- 2. Seed mevcut roller
 INSERT INTO roles (name, display_name, permissions, default_page, is_system) VALUES
-  ('admin', 'Admin', ARRAY['kesim','parcalama','canli_yayin','mesaj','videolar'], 'durum.html', true),
+  ('admin', 'Admin', ARRAY['kesim','parcalama','durum','masalar','canli_yayin','mesaj','videolar'], 'durum.html', true),
   ('kesim', 'Kesim Ekibi', ARRAY['kesim'], 'kesim.html', false),
   ('parcalama', 'Parcalama Ekibi', ARRAY['parcalama'], 'parcalama.html', false),
   ('canli_yayin', 'Canli Yayin', ARRAY['canli_yayin'], 'canli-yayin.html', false),

@@ -1,6 +1,6 @@
 // Admin page logic: settings + user management + role management
 
-const ALL_PERMISSIONS = ['kesim', 'parcalama', 'canli_yayin', 'mesaj', 'videolar'];
+const ALL_PERMISSIONS = ['kesim', 'parcalama', 'durum', 'masalar', 'canli_yayin', 'mesaj', 'videolar'];
 let rolesCache = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
